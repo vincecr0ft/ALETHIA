@@ -1,22 +1,46 @@
 [project]
-name = "gemini-hackathon"
+name = "alethia"
 version = "0.1.0"
-description = "ADK shopping demo + Phoenix tracing for the Arize / Google Cloud hackathon track"
+description = "Google ADK agent with Arize Phoenix tracing — Arize / Google Cloud hackathon track"
 readme = "README.md"
 license = { text = "Apache-2.0" }
 requires-python = ">=3.10,<3.13"
 dependencies = [
-    "openinference-instrumentation-google-adk>=0.1.11",
     "google-adk>=1.32.0",
     "google-genai>=1.9.0",
-    "python-dotenv>=1.0.1",
+    "openinference-instrumentation-google-adk>=0.1.11",
+    # arize-phoenix-otel is the lean tracing client; the Phoenix server runs in Docker.
+    "arize-phoenix-otel>=0.9.0",
     "opentelemetry-sdk>=1.27.0",
     "opentelemetry-exporter-otlp-proto-http>=1.27.0",
-    "arize-phoenix>=7.0",
+    "python-dotenv>=1.0.1",
+    # Physics modules (analytic SMEFT, surrogate, drift, EPIG).
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "torch>=2.12.0",
 ]
 
+[project.optional-dependencies]
+# Plotting back-end for the surrogate demo scripts (scripts/surrogate_demos/).
+plot = ["matplotlib>=3.5"]
+
+[dependency-groups]
+# patchelf is a build tool for the vendored LHAPDF (scripts/install_lhapdf.sh).
+dev = ["pytest>=8.0", "patchelf>=0.17"]
+
 [tool.hatch.build.targets.wheel]
-packages = ["agent/shopping_demo"]
+packages = ["agent/shopping_demo", "modules"]
+
+[[tool.uv.index]]
+url = "https://download.pytorch.org/whl/cpu"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+markers = [
+    "slow: slow tests that hit external tools (MG runs, ~minutes). Opt-in with -m slow.",
+]
+addopts = "-m 'not slow'"
 
 [build-system]
 requires = ["hatchling"]

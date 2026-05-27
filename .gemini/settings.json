@@ -6,9 +6,7 @@
         "-y",
         "@arizeai/phoenix-mcp@latest",
         "--baseUrl",
-        "https://app.phoenix.arize.com/s/your-space",
-        "--apiKey",
-        ""
+        "http://localhost:6006"
       ]
     },
     "phoenix-docs": {

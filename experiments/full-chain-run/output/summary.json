@@ -1,0 +1,35 @@
+{
+  "cycles_done": 400,
+  "oracle_calls": 500,
+  "loop_wall_seconds": 19.110905170440674,
+  "pretrain_wall_seconds": 1026.9788813591003,
+  "total_wall_seconds": 1047.2428183555603,
+  "final_cov_68_avg_over_regions": 0.697944099378882,
+  "final_kappa": 315950.24248101626,
+  "final_H_T": -50.50976067109267,
+  "final_context_size": 508,
+  "before_band_rmse": 293.0370221227189,
+  "after_band_rmse": 2.651381278660714,
+  "n_drift_events": 100,
+  "n_local_retrain": 100,
+  "n_recal": 0,
+  "engineered_band": [
+    0.6,
+    1.0
+  ],
+  "engineered_dim_name": "c_lq^(3)",
+  "engineered_target_c": [
+    0.0,
+    0.0,
+    0.8,
+    0.0
+  ],
+  "d_psi": 16,
+  "pretrain_steps": 1500,
+  "oracle_budget": 500,
+  "K_epig": 5,
+  "cusum_h": 6.0,
+  "bh_alpha": 0.05,
+  "kappa_threshold": 1000.0,
+  "proj_ratio_threshold": 2.5
+}

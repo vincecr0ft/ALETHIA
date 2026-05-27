@@ -10,5 +10,14 @@ dist/
 *.egg-info/
 .arize-tmp-traces/
 
+# Vendored LHAPDF build (rebuild with `make lhapdf`)
+vendor/
+
 .adk/
 agent/**/.adk/
+
+# Local outputs from surrogate demos.
+scripts/surrogate_demos/output/
+
+# Claude Code local harness config (personal; not for sharing).
+.claude/

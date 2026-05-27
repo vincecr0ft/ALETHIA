@@ -1,0 +1,35 @@
+# Local self-hosted Arize Phoenix for ALETHIA development.
+#
+# Phoenix collects OpenInference / OTLP traces from the ADK agent.
+#   UI + OTLP HTTP : http://localhost:6006
+#   OTLP gRPC      : localhost:4317
+#
+# A self-hosted instance needs no API key. Traces persist in the named
+# volume `phoenix_data` (SQLite), so `make phoenix-down` keeps your data.
+#
+#   make phoenix-up      # start
+#   make phoenix-logs    # tail logs
+#   make phoenix-down    # stop
+
+services:
+  phoenix:
+    image: arizephoenix/phoenix:16.0.0
+    container_name: alethia-phoenix
+    ports:
+      - "6006:6006"   # UI and OTLP HTTP collector
+      - "4317:4317"   # OTLP gRPC collector
+    environment:
+      # SQLite persistence under the mounted volume.
+      PHOENIX_WORKING_DIR: /mnt/data
+    volumes:
+      - phoenix_data:/mnt/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:6006')"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    restart: unless-stopped
+
+volumes:
+  phoenix_data:

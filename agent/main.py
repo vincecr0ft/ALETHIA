@@ -39,19 +39,23 @@ async def run_turn(user_text: str) -> None:
     await runner.session_service.create_session(
         app_name=app_name, user_id=user_id, session_id=session_id
     )
-    async for _ in runner.run_async(
+    async for event in runner.run_async(
         user_id=user_id,
         session_id=session_id,
         new_message=types.Content(role="user", parts=[types.Part(text=user_text)]),
     ):
-        pass
+        parts = event.content.parts if event.content and event.content.parts else []
+        for part in parts:
+            if getattr(part, "text", None):
+                print(part.text, end="", flush=True)
+    print()
 
 
 def main() -> None:
     msg = (
         sys.argv[1]
         if len(sys.argv) > 1
-        else "Help me find a floral summer dress under $50 and buy size M."
+        else "Help me find a floral summer dress and buy size M."
     )
     asyncio.run(run_turn(msg))
 
