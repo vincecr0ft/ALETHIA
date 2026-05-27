@@ -1,4 +1,4 @@
-.PHONY: help setup lhapdf phoenix-up phoenix-down phoenix-logs run run-adk smoke test
+.PHONY: help setup lhapdf phoenix-up phoenix-down phoenix-logs run run-adk smoke test mg-prune mg-cache-clear
 
 help:
 	@echo "ALETHIA — targets:"
@@ -11,6 +11,8 @@ help:
 	@echo "  make smoke        - offline setup check (tools + trace pipeline, no Gemini key)"
 	@echo "  make test         - run the module unit tests (pytest)"
 	@echo "  make lhapdf       - build LHAPDF + CT18NNLO into vendor/ (optional, ~3 min)"
+	@echo "  make mg-prune     - delete stale MG Events/run_NNN + HTML/run_NNN dirs"
+	@echo "  make mg-cache-clear - wipe the MadGraph oracle's .alethia_cache/oracle.jsonl"
 
 setup:
 	uv sync
@@ -40,3 +42,9 @@ test:
 
 lhapdf:
 	bash scripts/install_lhapdf.sh
+
+mg-prune:
+	uv run python -c "from modules.surrogate.oracle_madgraph import MadGraphSMEFTOracle; print(MadGraphSMEFTOracle().prune_artifacts())"
+
+mg-cache-clear:
+	uv run python -c "from modules.surrogate.oracle_madgraph import MadGraphSMEFTOracle; o=MadGraphSMEFTOracle(); print({'cleared': o.clear_cache()})"

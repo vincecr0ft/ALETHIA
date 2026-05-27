@@ -330,6 +330,37 @@ Other entry points:
   Docker volume.
 - `make phoenix-logs` — tail the Phoenix container logs.
 - `make run-adk` — ADK CLI loop (loads `.env`, initialises tracing).
+- `make mg-prune` — delete every accumulated `Events/run_NNN` and
+  `HTML/run_NNN` under `vendor/MG5_aMC/processes/`. The MG adapter
+  already prunes after each call (`keep_artifacts=False` is the
+  default); this target is for one-shot cleanup of pre-fix runs.
+- `make mg-cache-clear` — wipe the persistent MG oracle cache
+  (`<process_dir>/.alethia_cache/oracle.jsonl`).
+
+### MadGraph oracle: caching and cleanup
+
+The `MadGraphSMEFTOracle` (`modules/surrogate/oracle_madgraph.py`)
+keeps an append-only JSONL cache at
+`<process_dir>/.alethia_cache/oracle.jsonl` keyed on
+`(c, m, lambda_gev, m_window_tev, nevents)`. Repeat calls with
+identical parameters return the cached `mu` without launching MG
+(verified: cache hit 0.000 s vs 26 s cold call). The cache loads on
+oracle instantiation, so it survives across Python processes.
+`o.cache_stats()`, `o.clear_cache()`, and `o.prune_artifacts()` are
+available. The cache directory is gitignored.
+
+`MadGraphSMEFTOracle` also defensively patches the process's
+`me5_configuration.txt` on every init to force
+`automatic_html_opening = False` and `web_browser = None`, which stops
+MG from spawning a browser tab per call. The corresponding lines in
+`vendor/MG5_aMC/input/mg5_configuration.txt` are also patched so any
+future process generation inherits the same defaults.
+
+With `keep_artifacts=False` (the default), the entire
+`Events/run_NNN` and `HTML/run_NNN` directories are deleted after each
+call — the parsed cross section lives only in the persistent cache.
+With `keep_artifacts=True` the banner of the latest run is retained
+for debugging.
 
 ### Phoenix MCP (Gemini CLI)
 

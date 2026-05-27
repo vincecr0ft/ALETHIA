@@ -29,11 +29,14 @@ protocol.
 """
 from __future__ import annotations
 
+import hashlib
+import json
 import os
 import re
 import shutil
 import subprocess
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Union
 
@@ -135,6 +138,63 @@ def _set_run_card_mmll(run_card_text: str, m_lo_gev: float, m_hi_gev: float) -> 
 _XSEC_RE = re.compile(r"#\s*Integrated weight \(pb\)\s*:\s*([+\-]?[\d\.eE+\-]+)")
 
 
+def _patch_me5_config(process_dir: Path) -> None:
+    """Force the process's me5_configuration.txt to disable browser-opening.
+
+    MG5_aMC defaults `automatic_html_opening = True`, which spawns a browser
+    tab per `generate_events` call. The fix sets both
+    `automatic_html_opening = False` and `web_browser = None`. Called once
+    per oracle init; idempotent. No-op if the keys are already set.
+    """
+    cfg = process_dir / "Cards" / "me5_configuration.txt"
+    if not cfg.exists():
+        return
+    text = cfg.read_text()
+    desired = {
+        "automatic_html_opening": "False",
+        "web_browser":            "None",
+    }
+    out = []
+    seen = {k: False for k in desired}
+    for line in text.splitlines(keepends=True):
+        stripped = line.strip()
+        # Match either "# key = ..." or "key = ..." and force to the desired value.
+        for key, val in desired.items():
+            if (stripped.startswith(f"{key} ") or stripped.startswith(f"# {key} ")
+                    or stripped.startswith(f"{key}=")):
+                # Skip any comment-prefix, normalise to "key = val\n".
+                out.append(f"{key} = {val}\n")
+                seen[key] = True
+                break
+        else:
+            out.append(line)
+    # If a key was missing entirely from the file, append it.
+    for key, val in desired.items():
+        if not seen[key]:
+            out.append(f"{key} = {val}\n")
+    new_text = "".join(out)
+    if new_text != text:
+        cfg.write_text(new_text)
+
+
+_CACHE_VERSION = 1
+
+
+def _cache_key(c: np.ndarray, m_tev: float, lambda_gev: float,
+               m_window_tev: float, nevents: int) -> str:
+    """Stable cache key from the oracle-call parameters."""
+    payload = {
+        "v":      _CACHE_VERSION,
+        "c":      [round(float(x), 9) for x in np.asarray(c).ravel()],
+        "m_tev":  round(float(m_tev), 9),
+        "wnd":    round(float(m_window_tev), 9),
+        "lam":    round(float(lambda_gev), 9),
+        "nev":    int(nevents),
+    }
+    return hashlib.sha256(
+        json.dumps(payload, sort_keys=True).encode()).hexdigest()[:16]
+
+
 def _parse_xs_from_banner(banner_path: Path) -> float:
     """Parse the integrated cross section in pb from a run banner."""
     text = banner_path.read_text()
@@ -173,7 +233,24 @@ class MadGraphSMEFTOracle:
         m_window_tev: float = 0.100,
         nevents: int = 1000,
         verbose: bool = False,
+        reuse_cache: bool = True,
+        keep_artifacts: bool = False,
+        cache_path: Union[str, Path, None] = None,
     ) -> None:
+        """
+        Extra knobs (all opt-in defaults match prior behaviour where possible):
+
+        - ``reuse_cache``: read/write a persistent disk cache keyed on the
+          full oracle-call parameters. Subsequent calls with identical
+          (c, m, lambda, m_window, nevents) return the cached mu without
+          touching MadGraph. Default True.
+        - ``keep_artifacts``: if False (the default), delete the entire
+          ``Events/run_NNN`` and ``HTML/run_NNN`` directories after each
+          parse — only the cache entry persists. If True, retain the
+          banner.txt of the latest run for debugging.
+        - ``cache_path``: where to persist the cache as JSONL. Defaults
+          to ``<process_dir>/.alethia_cache/oracle.jsonl``.
+        """
         self.process_dir = Path(process_dir).resolve()
         self.clean_env = Path(clean_env).resolve()
         if not (self.process_dir / "bin" / "generate_events").exists():
@@ -186,7 +263,96 @@ class MadGraphSMEFTOracle:
         self.m_window_tev = float(m_window_tev)
         self.nevents = int(nevents)
         self.verbose = bool(verbose)
+        self.reuse_cache = bool(reuse_cache)
+        self.keep_artifacts = bool(keep_artifacts)
         self._sigma_sm_cache: dict[float, float] = {}
+
+        # Defensively disable browser-opening on every init. MG resets the
+        # config in some workflows; this keeps it pinned.
+        _patch_me5_config(self.process_dir)
+
+        # Persistent cache (key -> mu).
+        if cache_path is None:
+            cache_path = self.process_dir / ".alethia_cache" / "oracle.jsonl"
+        self.cache_path = Path(cache_path).resolve()
+        self.cache_path.parent.mkdir(parents=True, exist_ok=True)
+        self._cache: dict[str, float] = {}
+        if self.reuse_cache and self.cache_path.exists():
+            self._load_cache()
+
+    # ---- cache I/O ----
+    def _load_cache(self) -> None:
+        with self.cache_path.open() as f:
+            for raw in f:
+                raw = raw.strip()
+                if not raw:
+                    continue
+                try:
+                    row = json.loads(raw)
+                except json.JSONDecodeError:
+                    continue
+                if row.get("v") != _CACHE_VERSION:
+                    continue
+                k = row.get("key")
+                mu = row.get("mu")
+                if k is not None and mu is not None:
+                    self._cache[k] = float(mu)
+
+    def _append_cache(self, key: str, c: np.ndarray, m_tev: float,
+                      mu: float, sigma_full_pb: float,
+                      sigma_sm_pb: float) -> None:
+        row = {
+            "v":             _CACHE_VERSION,
+            "key":           key,
+            "c":             [float(x) for x in np.asarray(c).ravel()],
+            "m_tev":         float(m_tev),
+            "m_window_tev":  float(self.m_window_tev),
+            "lambda_gev":    float(self.lambda_gev),
+            "nevents":       int(self.nevents),
+            "mu":            float(mu),
+            "sigma_full_pb": float(sigma_full_pb),
+            "sigma_sm_pb":   float(sigma_sm_pb),
+            "ts":            datetime.now(timezone.utc).isoformat(),
+        }
+        with self.cache_path.open("a") as f:
+            f.write(json.dumps(row) + "\n")
+
+    def cache_stats(self) -> dict:
+        return {
+            "entries": int(len(self._cache)),
+            "path": str(self.cache_path),
+            "size_bytes": (self.cache_path.stat().st_size
+                           if self.cache_path.exists() else 0),
+        }
+
+    def clear_cache(self) -> int:
+        """Wipe both the in-memory and on-disk cache. Returns # entries cleared."""
+        n = len(self._cache)
+        self._cache.clear()
+        if self.cache_path.exists():
+            self.cache_path.unlink()
+        return n
+
+    def prune_artifacts(self) -> dict:
+        """Delete every ``Events/run_NNN`` and ``HTML/run_NNN`` directory.
+
+        MG accumulates these per call; the parsed cross section is the
+        only thing the surrogate cares about, and it lives in the cache.
+        Returns counts so the caller can audit.
+        """
+        ev_root = self.process_dir / "Events"
+        html_root = self.process_dir / "HTML"
+        ev_count = 0
+        for p in (ev_root.iterdir() if ev_root.exists() else []):
+            if p.is_dir() and p.name.startswith("run_"):
+                shutil.rmtree(p, ignore_errors=True)
+                ev_count += 1
+        html_count = 0
+        for p in (html_root.iterdir() if html_root.exists() else []):
+            if p.is_dir() and p.name.startswith("run_"):
+                shutil.rmtree(p, ignore_errors=True)
+                html_count += 1
+        return {"events_pruned": ev_count, "html_pruned": html_count}
 
     # ---- card editors ----
     def _write_cards(self, c: np.ndarray, m_tev: float) -> None:
@@ -222,9 +388,14 @@ class MadGraphSMEFTOracle:
 
     # ---- MG invocation ----
     def _launch_and_parse(self) -> float:
-        """Run ``generate_events -f`` in the scrubbed env, parse xs, clean
-        up the run directory so the process dir stays small."""
+        """Run ``generate_events -f`` in the scrubbed env, parse xs, then
+        prune the run artefacts. With ``keep_artifacts=False`` (default),
+        the entire Events/run_NNN and HTML/run_NNN directories are deleted
+        once the cross section has been read; only the persistent cache
+        retains the result.
+        """
         events_dir = self.process_dir / "Events"
+        html_dir = self.process_dir / "HTML"
         before = set(p.name for p in events_dir.iterdir()) if events_dir.exists() else set()
 
         t0 = time.perf_counter()
@@ -243,17 +414,34 @@ class MadGraphSMEFTOracle:
         new = sorted(after - before)
         if not new:
             raise RuntimeError("generate_events produced no new Events/run_* directory")
-        run_dir = events_dir / new[-1]
+        latest = new[-1]
+        run_dir = events_dir / latest
         banner = next(run_dir.glob("*_banner.txt"))
         xs = _parse_xs_from_banner(banner)
 
-        # Tidy up: keep the banner of the last run for debugging but drop
-        # all event files. Then drop older runs entirely.
-        for f in run_dir.iterdir():
-            if "banner" not in f.name:
-                f.unlink()
-        for older in sorted(after - {run_dir.name})[:-1]:
-            shutil.rmtree(events_dir / older, ignore_errors=True)
+        # Aggressive cleanup so the process dir stays bounded under heavy use.
+        if self.keep_artifacts:
+            # Keep the banner of the latest run; drop event files and HTML.
+            for f in run_dir.iterdir():
+                if "banner" not in f.name:
+                    f.unlink()
+            (html_dir / latest).exists() and shutil.rmtree(
+                html_dir / latest, ignore_errors=True)
+            # Drop older Events runs entirely.
+            for older in sorted(after - {latest})[:-1]:
+                shutil.rmtree(events_dir / older, ignore_errors=True)
+            for p in (html_dir.iterdir() if html_dir.exists() else []):
+                if p.is_dir() and p.name.startswith("run_") and p.name != latest:
+                    shutil.rmtree(p, ignore_errors=True)
+        else:
+            # Nuke EVERY run_NNN: in Events and in HTML. The result lives
+            # in the persistent cache.
+            for p in events_dir.iterdir():
+                if p.is_dir() and p.name.startswith("run_"):
+                    shutil.rmtree(p, ignore_errors=True)
+            for p in (html_dir.iterdir() if html_dir.exists() else []):
+                if p.is_dir() and p.name.startswith("run_"):
+                    shutil.rmtree(p, ignore_errors=True)
 
         if self.verbose:
             print(f"  MG query: xs = {xs:.6e} pb in {time.perf_counter()-t0:.1f}s",
@@ -301,9 +489,12 @@ class MadGraphSMEFTOracle:
 
     # ---- Oracle protocol ----
     def truth(self, c: np.ndarray, m: np.ndarray) -> np.ndarray:
-        """Pointwise mu(c, m). Slow: one MG run per row of c (plus one
+        """Pointwise mu(c, m). One MG run per cache-miss row of c (plus one
         cached SM run per unique m). c shape ``(n, N_WC)``, m shape
-        ``(n,)`` in TeV. Returns shape ``(n,)``."""
+        ``(n,)`` in TeV. Returns shape ``(n,)``. When ``reuse_cache=True``
+        (default), repeat calls with identical parameters return cached mu
+        without launching MadGraph.
+        """
         c = np.atleast_2d(np.asarray(c, dtype=float))
         m_tev = np.atleast_1d(np.asarray(m, dtype=float))
         if c.shape[1] != N_WC:
@@ -314,9 +505,20 @@ class MadGraphSMEFTOracle:
             )
         mu = np.empty(c.shape[0], dtype=float)
         for i in range(c.shape[0]):
+            key = _cache_key(c[i], m_tev[i], self.lambda_gev,
+                             self.m_window_tev, self.nevents)
+            if self.reuse_cache and key in self._cache:
+                mu[i] = self._cache[key]
+                if self.verbose:
+                    print(f"  MG cache HIT  key={key}  mu={mu[i]:.6e}",
+                          flush=True)
+                continue
             sm = self._sigma_sm_at(m_tev[i])
             full = self._xs_for(c[i], m_tev[i])
             mu[i] = full / sm
+            if self.reuse_cache:
+                self._cache[key] = float(mu[i])
+                self._append_cache(key, c[i], m_tev[i], mu[i], full, sm)
         return mu
 
     def __call__(

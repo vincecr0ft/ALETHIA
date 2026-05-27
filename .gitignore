@@ -21,3 +21,6 @@ scripts/surrogate_demos/output/
 
 # Claude Code local harness config (personal; not for sharing).
 .claude/
+
+# MadGraph oracle's per-process disk cache.
+**/processes/*/.alethia_cache/
