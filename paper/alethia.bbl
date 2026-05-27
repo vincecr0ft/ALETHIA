@@ -1,0 +1,146 @@
+\begin{thebibliography}{25}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Garnelo and Czarnecki(2023)]{Garnelo:2023intention}
+M.~Garnelo and W.~M. Czarnecki.
+\newblock Exploring the {S}pace of {K}ey-{V}alue-{Q}uery {M}odels with
+  {I}ntention, 2023.
+
+\bibitem[Heinrich et~al.(2024)Heinrich, Golling, Kasieczka, and {et
+  al.}]{Heinrich:2024mpm}
+L.~Heinrich, T.~Golling, G.~Kasieczka, and {et al.}
+\newblock Masked particle modelling, 2024.
+
+\bibitem[Birk et~al.(2024)Birk, Hallin, and Kasieczka]{Birk:2024omnijet}
+J.~Birk, A.~Hallin, and G.~Kasieczka.
+\newblock {O}mni{J}et-$\alpha$: {T}he first cross-task foundation model for
+  particle physics, 2024.
+
+\bibitem[Mikuni and Nachman(2024)]{Mikuni:2024omnilearn}
+V.~Mikuni and B.~Nachman.
+\newblock {O}mni{L}earn: {A} method to simultaneously facilitate all jet
+  physics tasks, 2024.
+
+\bibitem[Mikuni and Nachman(2025)]{Mikuni:2025omnilearned}
+V.~Mikuni and B.~Nachman.
+\newblock {O}mni{L}earned: {A} foundation model for jet physics at the
+  billion-jet scale, 2025.
+
+\bibitem[Katel and {et al.}(2025)]{Katel:2025hepjepa}
+A.~Katel and {et al.}
+\newblock {HEP-JEPA}: {A} foundation model for collider physics using joint
+  embedding predictive architectures, 2025.
+
+\bibitem[{Sophon Collaboration}(2024)]{Sophon:2024}
+{Sophon Collaboration}.
+\newblock {S}ophon: {Foundation model for collider physics}, 2024.
+
+\bibitem[Brehmer et~al.(2020{\natexlab{a}})Brehmer, Cranmer, Louppe, and
+  Pavez]{Brehmer:2018kdj}
+J.~Brehmer, K.~Cranmer, G.~Louppe, and J.~Pavez.
+\newblock Mining gold from implicit models to improve likelihood-free
+  inference.
+\newblock \emph{Proc. Nat. Acad. Sci.}, 117:\penalty0 5242, 2020{\natexlab{a}}.
+
+\bibitem[Brehmer et~al.(2020{\natexlab{b}})Brehmer, Kling, Espejo, and
+  Cranmer]{Brehmer:2019xox}
+J.~Brehmer, F.~Kling, I.~Espejo, and K.~Cranmer.
+\newblock {M}ad{M}iner: {M}achine learning-based inference for particle
+  physics.
+\newblock \emph{Comput. Softw. Big Sci.}, 4:\penalty0 3, 2020{\natexlab{b}}.
+
+\bibitem[Chen et~al.(2023)Chen, Glioti, Marzocca, Nardini, and
+  Wulzer]{Chen:2022lcp}
+S.~Chen, A.~Glioti, D.~Marzocca, G.~Nardini, and A.~Wulzer.
+\newblock Unbinned multivariate observables for global {SMEFT} analyses from
+  machine learning.
+\newblock \emph{JHEP}, 03:\penalty0 033, 2023.
+
+\bibitem[Grzadkowski et~al.(2010)Grzadkowski, Iskrzynski, Misiak, and
+  Rosiek]{Grzadkowski:2010es}
+B.~Grzadkowski, M.~Iskrzynski, M.~Misiak, and J.~Rosiek.
+\newblock Dimension-six terms in the {S}tandard {M}odel {L}agrangian.
+\newblock \emph{JHEP}, 10:\penalty0 085, 2010.
+
+\bibitem[Greljo and Marzocca(2017)]{Greljo:2017vvb}
+A.~Greljo and D.~Marzocca.
+\newblock High-{$p_T$} dilepton tails and flavour physics.
+\newblock \emph{Eur. Phys. J. C}, 77:\penalty0 548, 2017.
+
+\bibitem[Hou and {et al.}(2021)]{Hou:2019ct18}
+T.-J. Hou and {et al.}
+\newblock New {CTEQ} global analysis of quantum chromodynamics with
+  high-precision data from the {LHC}.
+\newblock \emph{Phys. Rev. D}, 103:\penalty0 014013, 2021.
+
+\bibitem[Buckley et~al.(2015)Buckley, Ferrando, Lloyd, Nordstr\"om, Page,
+  R\"ufenacht, Sch\"onherr, and Watt]{Buckley:2014lhapdf}
+A.~Buckley, J.~Ferrando, S.~Lloyd, K.~Nordstr\"om, B.~Page, M.~R\"ufenacht,
+  M.~Sch\"onherr, and G.~Watt.
+\newblock {LHAPDF6}: parton density access in the {LHC} precision era.
+\newblock \emph{Eur. Phys. J. C}, 75:\penalty0 132, 2015.
+
+\bibitem[Alwall and {et al.}(2014)]{Alwall:2014mg5}
+J.~Alwall and {et al.}
+\newblock The automated computation of tree-level and next-to-leading order
+  differential cross sections, and their matching to parton shower simulations.
+\newblock \emph{JHEP}, 07:\penalty0 079, 2014.
+
+\bibitem[Sherman and Morrison(1950)]{Sherman:1950}
+J.~Sherman and W.~J. Morrison.
+\newblock Adjustment of an inverse matrix corresponding to a change in one
+  element of a given matrix.
+\newblock \emph{Ann. Math. Statist.}, 21:\penalty0 124, 1950.
+
+\bibitem[Rasmussen and Williams(2006)]{Rasmussen:2006gp}
+C.~E. Rasmussen and C.~K.~I. Williams.
+\newblock \emph{{G}aussian processes for machine learning}.
+\newblock MIT Press, 2006.
+
+\bibitem[Smith et~al.(2023)Smith, Bickford~Smith, and
+  Rainforth]{Smith:2023epig}
+F.~Smith, B.~Bickford~Smith, and T.~Rainforth.
+\newblock Prediction-oriented {B}ayesian active learning, 2023.
+
+\bibitem[Lei et~al.(2018)Lei, G'{S}ell, Rinaldo, Tibshirani, and
+  Wasserman]{Lei:2018conformal}
+J.~Lei, M.~G'{S}ell, A.~Rinaldo, R.~J. Tibshirani, and L.~Wasserman.
+\newblock Distribution-free predictive inference for regression.
+\newblock \emph{J. Amer. Statist. Assoc.}, 113:\penalty0 1094, 2018.
+
+\bibitem[Vovk et~al.(2005)Vovk, Gammerman, and Shafer]{Vovk:2005alg}
+V.~Vovk, A.~Gammerman, and G.~Shafer.
+\newblock \emph{{A}lgorithmic learning in a random world}.
+\newblock Springer, 2005.
+
+\bibitem[Ahad et~al.(2022)Ahad, Davenport, and Xie]{Ahad:2022dascusum}
+N.~Ahad, M.~A. Davenport, and Y.~Xie.
+\newblock Data-adaptive symmetric {CUSUM} for sequential change detection,
+  2022.
+
+\bibitem[Benjamini and Hochberg(1995)]{Benjamini:1995fdr}
+Y.~Benjamini and Y.~Hochberg.
+\newblock Controlling the false discovery rate: a practical and powerful
+  approach to multiple testing.
+\newblock \emph{J. Roy. Statist. Soc. B}, 57:\penalty0 289, 1995.
+
+\bibitem[Araz and Spannowsky(2025)]{Araz:2025conformal}
+J.~Y. Araz and M.~Spannowsky.
+\newblock Another fit bites the dust: conformal prediction for calibrated
+  uncertainty in high-energy physics, 2025.
+
+\bibitem[Qu et~al.(2022)Qu, Li, and Qian]{Qu:2022part}
+H.~Qu, C.~Li, and S.~Qian.
+\newblock Particle {T}ransformer for jet tagging.
+\newblock \emph{Proc. 39th ICML}, 2022.
+
+\bibitem[M\"uller et~al.(2022)M\"uller, Hollmann, Arango, Grabocka, and
+  Hutter]{Mueller:2022pfn}
+S.~M\"uller, N.~Hollmann, S.~P. Arango, J.~Grabocka, and F.~Hutter.
+\newblock Transformers can do {B}ayesian inference, 2022.
+
+\end{thebibliography}

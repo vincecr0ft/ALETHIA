@@ -157,15 +157,90 @@ cycles) and emits ~2000 spans into Phoenix project `alethia`.
 ```bash
 make phoenix-up
 export PATH="$HOME/snap/code/240/.local/bin:$PATH"
-uv run python experiments/full-chain-run/run.py
+uv run python experiments/full-chain-run/run.py        # main loop
 uv run python experiments/full-chain-run/plots.py
+uv run python experiments/full-chain-run/identifiability_probe.py   # linear probe (w -> c)
+uv run python experiments/full-chain-run/mg_crosscheck.py           # T1 vs T2 (~22 min)
 ```
+
+### Gemini-orchestrated ADK runtime
+
+The same loop is also reachable through a code-owned ADK agent
+(`agent/alethia/`). Gemini orchestrates six deterministic physics tools
+that operate on a singleton FM/calibrator/context state:
+
+| Tool | Purpose |
+|---|---|
+| `fm_predict(m_values, coverage)` | Intention closed-form prediction + conformal interval |
+| `check_drift()` | runs DAS-CUSUM + BH binomial + κ(A) detectors, returns aggregator action |
+| `recover_from_drift(k, m_lo, m_hi, fidelity)` | combined EPIG → oracle → fm_update → recal in one shot |
+| `epig_select(k, m_lo, m_hi)` | closed-form acquisition primitive |
+| `oracle_query(m_values, fidelity)` | call analytic (T1) or MadGraph (T2) oracle |
+| `fm_update(m_values, mu_values)` | fold new observations into the FM context |
+
+```bash
+make phoenix-up
+make run MESSAGE="Predict mu at m=1.5 TeV. Check drift. If drift fires, recover. Re-predict."
+```
+
+A representative Gemini run (verbatim trace):
+
+```
+[tool call] fm_predict({'m_values': [1.5]})
+[tool call] check_drift({})
+[tool result] fm_predict -> mu=58.08, sigma=116.45, context=8
+[tool result] check_drift -> cov_fired=True, action=local_retrain, kappa=3614
+[tool call] recover_from_drift({'k': 5, 'm_lo_tev': 1.0, 'm_hi_tev': 2.2})
+[tool call] fm_predict({'m_values': [1.5]})
+[tool result] recover_from_drift -> H_T 126.08 -> 37.88 (Δ=-88.2), ctx 8 -> 13
+[tool result] fm_predict -> mu=182.07, sigma=2.92, context=13
+
+The model has been updated using recover_from_drift. The target-set
+entropy H_T decreased from 126.08 to 37.88. The new prediction at
+m_ll=1.5 TeV is mu=182.07 with a 1-sigma interval of [179.10, 184.94].
+```
+
+Truth value at `c_lq^(3) = 0.8`, `m = 1.5 TeV`: μ ≈ 182. The agent
+recovered from a 58 ± 116 prediction to 182 ± 2.9 in five oracle calls.
 
 This is the *scaled* equivalent of Test 3 from the synthesis plan
 (analytic oracle, no MadGraph T2/T5); it exercises every contract the
 synthesis specifies — Commission → OracleResult → FMHandle →
 DriftedRegion → refit-after-update → broader-probe-region calibration
 → H_T span — on physics that is not the polynomial toy.
+
+### Did the FM actually disclose the SMEFT structure?
+
+Prediction R² is necessary but not sufficient for "the representation
+has learned the EFT manifold" — it does not separate
+*memorised-this-corpus* from *generalises-the-physics*. The cleanest
+falsifier is a linear probe from the FM's implicit per-scenario
+representation `w_implicit(c) = (ψ_θ(M_ctx)^T ψ_θ(M_ctx) + αI)^{-1}
+ψ_θ(M_ctx)^T Y_ctx(c)` back to the Wilson coefficients.
+
+![Linear-probe identifiability per operator](docs/research/plots/identifiability_probe.png)
+
+Result: per-operator held-out R²
+
+| Operator | inside training box | withheld band |
+|---|---:|---:|
+| `c_Hq^(3)` (vertex) | −0.01 | −0.23 |
+| `c_Hq^(1)` (vertex) | −0.01 | −0.09 |
+| **`c_lq^(3)`** (four-fermion, energy-growing) | **+0.70** | **+0.78** |
+| `c_lq^(1)` (four-fermion, energy-growing) | +0.15 | −0.47 |
+
+This is a **partial disclosure** result. The probe recovers `c_lq^(3)`
+at high R² on the *extrapolation* band the FM never saw in training —
+strong evidence that the FM has learned an `m_ll`-shape feature that
+linearises onto the underlying Wilson coefficient. The other three
+operators are not disclosed at this configuration; for cHq3/cHq1 this
+is the predicted consequence of a mean-pool architecture without an
+explicit rate signal (cf. [`docs/research/02-foundation-model/empirical-results.md`](docs/research/02-foundation-model/empirical-results.md) §4),
+since the vertex pieces carry `(v/Λ)²` rate shifts only, no `m_ll`
+shape. The rate-aware encoder fix and a second observable
+(`p_T^ℓ`, `y_ℓℓ`) are the natural next steps to lift the remaining
+three. Writeup details:
+[`docs/research/synthesis/full-chain-run.md`](docs/research/synthesis/full-chain-run.md) §Identifiability.
 
 ## Architecture
 
@@ -296,13 +371,16 @@ PNGs land in `docs/research/plots/`.
 
 | Path | Purpose |
 |---|---|
-| [`agent/`](agent/) | ADK agent, OpenInference instrumentation, smoke check |
-| [`agent/shopping_demo/`](agent/shopping_demo/) | Placeholder ADK demo (to be replaced by the physics agent) |
+| [`agent/`](agent/) | ADK agent runtime, OpenInference instrumentation |
+| [`agent/alethia/`](agent/alethia/) | **Default** Gemini-orchestrated physics agent + six tools |
+| [`agent/shopping_demo/`](agent/shopping_demo/) | Legacy starter demo, reachable via `ALETHIA_AGENT=shopping make run` |
 | [`modules/analytic_smeft/`](modules/analytic_smeft/) | Closed-form LO Drell-Yan with the 14 Warsaw-basis dim-6 operators |
-| [`modules/surrogate/`](modules/surrogate/) | The current (regressor) surrogate; closed-form ridge + EPIG + conformal |
-| [`scripts/surrogate_demos/`](scripts/surrogate_demos/) | Demo scripts for the existing surrogate machinery |
+| [`modules/surrogate/intention/`](modules/surrogate/intention/) | Production Intention FM (model, calibration, acquisition, drift) |
+| [`modules/surrogate/`](modules/surrogate/) | Legacy regressor surrogate (kept as a reference / starting point) |
+| [`scripts/surrogate_demos/`](scripts/surrogate_demos/) | Demo scripts for the legacy surrogate machinery |
 | [`experiments/intention-vs-deepsets/`](experiments/intention-vs-deepsets/) | Architecture comparison driving the rebuild |
-| [`tests/`](tests/) | Unit tests for the analytic SMEFT, oracles, model, calibration, features, acquisition |
+| [`experiments/full-chain-run/`](experiments/full-chain-run/) | End-to-end demo orchestrator + plots + writeup data |
+| [`tests/`](tests/) | Unit tests (analytic SMEFT, oracles, model, calibration, features, acquisition, intention) |
 | [`docs/research/`](docs/research/README.md) | Design research, four areas plus synthesis |
 | [`docs/surrogate/`](docs/surrogate/) | Reference docs for the current surrogate (regressor) |
 | [`docs/historical/`](docs/historical/) | Snapshots of prior implementations |
@@ -315,44 +393,56 @@ PNGs land in `docs/research/plots/`.
 
 ## Status and roadmap
 
-**Working today.** The Phoenix-instrumented ADK agent, the analytic SMEFT
-oracle over 14 Warsaw-basis operators (with vendored LHAPDF CT18NNLO),
-the current (regressor) surrogate with EPIG acquisition and conformal
-calibration, and the Intention-vs-DeepSets architecture comparison. The
-test suite at `tests/test_*.py` passes against the existing
-`modules/surrogate/` regressor.
+**Working today.** Analytic SMEFT oracle over 14 Warsaw-basis operators
+with vendored LHAPDF CT18NNLO and a MadGraph LO adapter; production
+Intention FM at `modules/surrogate/intention/` with conformal
+calibration + EPIG acquisition + three drift detectors (12 tests
+passing); a Gemini-orchestrated ADK agent at `agent/alethia/` driving
+the trace stream through six physics tools; an executed end-to-end
+demo with 400 cycles + 500 EPIG-driven oracle calls + 100 local
+retrains and 110× before/after RMSE recovery on the engineered drift;
+a 50-point MadGraph fidelity cross-check confirming T1 trustworthy to
+~5 % across the band; and a linear-probe identifiability test
+quantifying which operators the FM has disclosed (`c_lq^(3)` strongly
+at R² = 0.78 even on extrapolation; vertex operators not at this
+configuration).
 
-**In flight.** The rebuild plan is at
-[`docs/research/synthesis/three-test-cases.md`](docs/research/synthesis/three-test-cases.md);
-it specifies three executable test cases (machinery smoke, theory check,
-full 10–20 h demo run) and the six load-bearing contracts that hold the
-four-layer system together. The Intention-FM finding above feeds back
-into that plan as a revision of the recommended encoder architecture.
-
-**Next.** Productionise the Intention head with a learned `ψ_θ` into
-`modules/surrogate/intention.py`, swap it in behind the existing
-`acquisition.py` / `calibration.py` (the closed-form ridge / leverage /
-EPIG machinery survives unchanged), and run the 10–20 h end-to-end
-test from synthesis.
+**Next.** Lift the vertex-operator probe R² with a rate-aware encoder
+(per [`docs/research/02-foundation-model/empirical-results.md`](docs/research/02-foundation-model/empirical-results.md) §4),
+move to a multi-observable encoder (`m_ll`, `p_T^ℓ`, `y_ℓℓ`), and run
+the literal Test 3 scale (~5000 MadGraph T2 calls plus ~100 NLO T5 — needs
+a multi-core compute window, ~6 h MG-bound).
 
 ## Hackathon submission notes
 
 Arize track requirements addressed by the project:
 
-- **Code-owned agent runtime:** Google ADK (`agent/main.py`).
+- **Code-owned agent runtime:** Google ADK with a Gemini-orchestrated
+  physics agent at [`agent/alethia/`](agent/alethia/) — six
+  deterministic tools (`fm_predict`, `check_drift`,
+  `recover_from_drift`, `epig_select`, `oracle_query`, `fm_update`)
+  acting on a singleton FM/calibrator/context state.
 - **OpenInference instrumentation:**
   `phoenix.otel.register(auto_instrument=True)` in
-  [`agent/instrumentation.py`](agent/instrumentation.py).
-- **Traces persisted to Phoenix:** local self-hosted, sqlite-backed.
+  [`agent/instrumentation.py`](agent/instrumentation.py); every tool
+  emits a child span with `aletheia.*`-namespaced attributes.
+- **Traces persisted to Phoenix:** local self-hosted, sqlite-backed,
+  project `alethia`. End-to-end runs emit ~2000 spans/run.
 - **Phoenix MCP server configured:** [`.gemini/settings.json`](.gemini/settings.json).
 - **Evaluations on traces:** three physics-aware drift evaluators
   (DAS-CUSUM on standardised residuals, BH-corrected per-region
-  binomial coverage, condition-number on the FM design matrix).
-- **Drift detection gating retrain:** aggregated decision table
-  documented in
-  [`docs/research/03-drift/`](docs/research/03-drift/summary.md).
+  binomial coverage, condition-number on the FM design matrix),
+  implemented at [`modules/surrogate/intention/drift.py`](modules/surrogate/intention/drift.py)
+  and validated against theoretical bounds in
+  [`docs/research/03-drift/empirical-results.md`](docs/research/03-drift/empirical-results.md).
+- **Drift detection gating retrain:** aggregated decision table at
+  [`docs/research/03-drift/eval.md`](docs/research/03-drift/eval.md) §5,
+  exercised end-to-end in the demonstration above (100 `local_retrain`
+  events, recovered to nominal coverage).
 - **A/B experiment promotion rule:** improvement on drifted region AND
-  no regression elsewhere, BH-corrected at FDR 0.05.
+  no regression elsewhere, BH-corrected at FDR 0.05 (specified in
+  [`docs/research/03-drift/summary.md`](docs/research/03-drift/summary.md) §7;
+  not exercised in this single-version run).
 
 ## License
 

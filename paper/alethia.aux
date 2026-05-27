@@ -1,0 +1,140 @@
+\relax 
+\providecommand\babel@aux[2]{}
+\@nameuse{bbl@beforestart}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{Garnelo:2023intention}
+\citation{Heinrich:2024mpm}
+\citation{Birk:2024omnijet}
+\citation{Mikuni:2024omnilearn}
+\citation{Mikuni:2025omnilearned}
+\citation{Katel:2025hepjepa}
+\citation{Sophon:2024}
+\citation{Brehmer:2018kdj}
+\citation{Brehmer:2019xox}
+\citation{Chen:2022lcp}
+\babel@aux{british}{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\citation{Garnelo:2023intention}
+\citation{Grzadkowski:2010es}
+\citation{Greljo:2017vvb}
+\@writefile{toc}{\contentsline {section}{\numberline {2}SMEFT in Drell-Yan and the oracle}{2}{section.2}\protected@file@percent }
+\newlabel{sec:theory}{{2}{2}{SMEFT in Drell-Yan and the oracle}{section.2}{}}
+\newlabel{eq:smeft-lag}{{1}{2}{SMEFT in Drell-Yan and the oracle}{equation.2.1}{}}
+\citation{Chen:2022lcp}
+\citation{Hou:2019ct18}
+\citation{Buckley:2014lhapdf}
+\citation{Alwall:2014mg5}
+\citation{Garnelo:2023intention}
+\newlabel{eq:morphing}{{2}{3}{SMEFT in Drell-Yan and the oracle}{equation.2.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}A closed-form attention foundation model}{3}{section.3}\protected@file@percent }
+\newlabel{sec:architecture}{{3}{3}{A closed-form attention foundation model}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}The architectural constraint}{3}{subsection.3.1}\protected@file@percent }
+\newlabel{sec:constraint}{{3.1}{3}{The architectural constraint}{subsection.3.1}{}}
+\citation{Garnelo:2023intention}
+\citation{Sherman:1950}
+\citation{Rasmussen:2006gp}
+\citation{Heinrich:2024mpm}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Intention as a closed-form ridge head}{4}{subsection.3.2}\protected@file@percent }
+\newlabel{eq:intention}{{3}{4}{Intention as a closed-form ridge head}{equation.3.3}{}}
+\newlabel{eq:ridge}{{4}{4}{Intention as a closed-form ridge head}{equation.3.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}The learned feature map}{4}{subsection.3.3}\protected@file@percent }
+\newlabel{eq:meta-mse}{{5}{4}{The learned feature map}{equation.3.5}{}}
+\newlabel{eq:leverage}{{6}{4}{The learned feature map}{equation.3.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Baselines}{5}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Training and benchmark}{5}{section.4}\protected@file@percent }
+\newlabel{sec:training}{{4}{5}{Training and benchmark}{section.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{5}{section.5}\protected@file@percent }
+\newlabel{sec:results}{{5}{5}{Results}{section.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces  Held-out comparison of the four architectures on $50$ in-distribution and $50$ out-of-distribution SMEFT scenarios from the polynomial-toy oracle of Section~\ref {sec:training}. Median and fifth-percentile coefficient of determination ($R^2$) are reported, along with the mean squared error (MSE) on the query block. Parameter counts are matched to within $1.23\times $ across the trained architectures. The cheat regressor violates the architectural constraint of Section~\ref {sec:constraint} and receives the Wilson vector $\bm  {c}$ on its forward pass; we include it as an upper bound a constraint-respecting model would be expected to reach.}}{6}{table.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:headline}{{1}{6}{Held-out comparison of the four architectures on $50$ in-distribution and $50$ out-of-distribution SMEFT scenarios from the polynomial-toy oracle of Section~\ref {sec:training}. Median and fifth-percentile coefficient of determination ($R^2$) are reported, along with the mean squared error (MSE) on the query block. Parameter counts are matched to within $1.23\times $ across the trained architectures. The cheat regressor violates the architectural constraint of Section~\ref {sec:constraint} and receives the Wilson vector $\bm {c}$ on its forward pass; we include it as an upper bound a constraint-respecting model would be expected to reach}{table.caption.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Sample efficiency}{6}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}The learned representation}{6}{subsection.5.2}\protected@file@percent }
+\citation{Sherman:1950}
+\citation{Smith:2023epig}
+\citation{Lei:2018conformal,Vovk:2005alg}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces  Median (solid) and fifth-percentile (hatched) coefficient of determination $R^2$ for the four architectures on the in-distribution ($|\bm  {c}| \leq 0.5$, left) and out-of-distribution ($|\bm  {c}| \in [0.5, 1.0]$, right) held-out scenarios. The Intention head with learned basis ($\bm  {\psi }_\theta $) reaches the highest fifth-percentile $R^2$ in both regions and beats the cheat regressor that violates the architectural constraint.}}{7}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:inside-outside}{{1}{7}{Median (solid) and fifth-percentile (hatched) coefficient of determination $R^2$ for the four architectures on the in-distribution ($|\bm {c}| \leq 0.5$, left) and out-of-distribution ($|\bm {c}| \in [0.5, 1.0]$, right) held-out scenarios. The Intention head with learned basis ($\psib _\theta $) reaches the highest fifth-percentile $R^2$ in both regions and beats the cheat regressor that violates the architectural constraint}{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}The full inference loop}{7}{section.6}\protected@file@percent }
+\newlabel{sec:loop}{{6}{7}{The full inference loop}{section.6}{}}
+\citation{Ahad:2022dascusum}
+\citation{Benjamini:1995fdr}
+\citation{Araz:2025conformal}
+\citation{Smith:2023epig}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces  Predicted cross-section ratio $Y(m_{\ell \ell }) = \sigma (\bm  {c}, m_{\ell \ell }) / \sigma _{\rm  SM}(m_{\ell \ell })$ for three representative held-out scenarios: a Standard-Model-like configuration (left), an energy-growing configuration dominated by the four-fermion operators (centre) and an interference-dominated configuration (right). The two Intention variants trace the ground truth at every query point; the DeepSets baseline follows the slope but is biased; the cheat regressor produces small wobbles around the truth.}}{8}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:curves}{{2}{8}{Predicted cross-section ratio $Y(\mll ) = \sigma (\bm {c}, \mll ) / \sigsm (\mll )$ for three representative held-out scenarios: a Standard-Model-like configuration (left), an energy-growing configuration dominated by the four-fermion operators (centre) and an interference-dominated configuration (right). The two Intention variants trace the ground truth at every query point; the DeepSets baseline follows the slope but is biased; the cheat regressor produces small wobbles around the truth}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Architecture}{8}{subsection.6.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces  Held-out median $R^2$ on the in-distribution scenarios as a function of the number of meta-training steps, logarithmic in the abscissa. The learned-basis Intention head reaches $R^2 > 0.96$ after one optimiser step and saturates near $R^2 = 0.9997$ by step $1\,500$. The DeepSets baseline crosses $R^2 = 0$ near step $600$ and plateaus at $R^2 = 0.62$.}}{9}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:scaling}{{3}{9}{Held-out median $R^2$ on the in-distribution scenarios as a function of the number of meta-training steps, logarithmic in the abscissa. The learned-basis Intention head reaches $R^2 > 0.96$ after one optimiser step and saturates near $R^2 = 0.9997$ by step $1\,500$. The DeepSets baseline crosses $R^2 = 0$ near step $600$ and plateaus at $R^2 = 0.62$}{figure.caption.4}{}}
+\newlabel{eq:epig}{{7}{9}{Architecture}{equation.6.7}{}}
+\newlabel{eq:ht}{{8}{9}{Architecture}{equation.6.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}The engineered drift event}{9}{subsection.6.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces  The learned feature map $\bm  {\psi }_\theta : \mathbb  {R} \to \mathbb  {R}^{16}$ evaluated on a dense grid in $m_{\ell \ell }$ (left, $16$ columns) and the fixed polynomial feature map $\bm  {\psi }(m) = \{1, \log (m/M_{\rm  ref}), \ldots  , \log ^4(m/M_{\rm  ref})\}$ (right, $5$ columns). The learned columns include localised bumps near $m_{\ell \ell }\approx 0.4$~TeV and $m_{\ell \ell }\approx 1.5$~TeV and tail-emphasising shapes that the fixed basis cannot represent.}}{10}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:psi-basis}{{4}{10}{The learned feature map $\psib _\theta : \mathbb {R} \to \mathbb {R}^{16}$ evaluated on a dense grid in $\mll $ (left, $16$ columns) and the fixed polynomial feature map $\psib (m) = \{1, \log (m/\Mref ), \ldots , \log ^4(m/\Mref )\}$ (right, $5$ columns). The learned columns include localised bumps near $\mll \approx 0.4$~TeV and $\mll \approx 1.5$~TeV and tail-emphasising shapes that the fixed basis cannot represent}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Recovery from the engineered drift}{10}{subsection.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces  Foundation model prediction in the withheld $|c_{\ell q}^{(3)}| \in [0.6, 1.0]$ band, target $\bm  {c} = (0, 0, 0.8, 0)$. Both panels use identical $\bm  {\psi }_\theta $ weights. Left: thin seed context of $K = 8$ observations in $m_{\ell \ell }\in [0.5, 1.0]$~TeV; the extrapolation flatlines at $\mu \approx 60$, root-mean-square error $293$. Right: after $500$ EPIG-driven oracle invocations across $100$ acquisition events, the context has grown to $508$ observations and the closed-form ridge solve traces the ground-truth curve at root-mean-square error $2.65$.}}{11}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:before-after}{{5}{11}{Foundation model prediction in the withheld $|c_{\ell q}^{(3)}| \in [0.6, 1.0]$ band, target $\bm {c} = (0, 0, 0.8, 0)$. Both panels use identical $\psib _\theta $ weights. Left: thin seed context of $K = 8$ observations in $\mll \in [0.5, 1.0]$~TeV; the extrapolation flatlines at $\mu \approx 60$, root-mean-square error $293$. Right: after $500$ EPIG-driven oracle invocations across $100$ acquisition events, the context has grown to $508$ observations and the closed-form ridge solve traces the ground-truth curve at root-mean-square error $2.65$}{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{11}{section.7}\protected@file@percent }
+\newlabel{sec:discussion}{{7}{11}{Discussion}{section.7}{}}
+\citation{Qu:2022part}
+\citation{Chen:2022lcp}
+\citation{Brehmer:2018kdj}
+\citation{Mueller:2022pfn}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces  Trajectories of the four monitoring quantities through the $400$-cycle closed-loop run. Top left: target-set predictive entropy $H_T$ from equation~(\ref {eq:ht}). Top right: design-matrix condition number $\kappa (\bm  {A})$. Bottom left: per-region empirical $68\%$ coverage relative to the nominal target (dashed line). Bottom right: cumulative oracle calls (green) and context size (orange).}}{12}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:trajectory}{{6}{12}{Trajectories of the four monitoring quantities through the $400$-cycle closed-loop run. Top left: target-set predictive entropy $H_T$ from equation~(\ref {eq:ht}). Top right: design-matrix condition number $\kappa (\bm {A})$. Bottom left: per-region empirical $68\%$ coverage relative to the nominal target (dashed line). Bottom right: cumulative oracle calls (green) and context size (orange)}{figure.caption.7}{}}
+\citation{Mikuni:2024omnilearn,Mikuni:2025omnilearned,Heinrich:2024mpm,Birk:2024omnijet,Katel:2025hepjepa,Sophon:2024}
+\citation{Mikuni:2024omnilearn,Mikuni:2025omnilearned}
+\citation{Araz:2025conformal}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces  Drift detectors and aggregator actions through the closed-loop run. Top: Data-Adaptive Symmetric CUSUM on the standardised residual median. Middle: per-region minimum $p$-value of the binomial coverage test with the Benjamini-Hochberg correction across the five regions, on a logarithmic vertical axis. Bottom: aggregator action per cycle (orange stripes for local retraining, grey for budget-exhausted) with context size overlaid.}}{13}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:drift-events}{{7}{13}{Drift detectors and aggregator actions through the closed-loop run. Top: Data-Adaptive Symmetric CUSUM on the standardised residual median. Middle: per-region minimum $p$-value of the binomial coverage test with the Benjamini-Hochberg correction across the five regions, on a logarithmic vertical axis. Bottom: aggregator action per cycle (orange stripes for local retraining, grey for budget-exhausted) with context size overlaid}{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Summary and outlook}{13}{section.8}\protected@file@percent }
+\newlabel{sec:conclusions}{{8}{13}{Summary and outlook}{section.8}{}}
+\citation{Garnelo:2023intention}
+\citation{Araz:2025conformal}
+\citation{Greljo:2017vvb}
+\citation{Grzadkowski:2010es}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces  Root-mean-square error of the foundation model on the $50$-point target band over the $400$ cycles, on a logarithmic vertical axis. Vertical orange marks indicate EPIG-driven acquisition events (one hundred in total). The standalone seed-context root-mean-square error of $293$ is not visible at this scale.}}{14}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:rmse-recovery}{{8}{14}{Root-mean-square error of the foundation model on the $50$-point target band over the $400$ cycles, on a logarithmic vertical axis. Vertical orange marks indicate EPIG-driven acquisition events (one hundred in total). The standalone seed-context root-mean-square error of $293$ is not visible at this scale}{figure.caption.9}{}}
+\citation{Sherman:1950}
+\citation{Smith:2023epig}
+\citation{Buckley:2014lhapdf}
+\citation{Hou:2019ct18}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Closed-form derivations}{15}{appendix.A}\protected@file@percent }
+\newlabel{app:derivations}{{A}{15}{Closed-form derivations}{appendix.A}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Sherman-Morrison sequential update}{15}{subsection.A.1}\protected@file@percent }
+\newlabel{eq:sm}{{9}{15}{Sherman-Morrison sequential update}{equation.A.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Closed-form Information Gain}{15}{subsection.A.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Aggregator decision rules}{15}{subsection.A.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Reproduction}{15}{appendix.B}\protected@file@percent }
+\newlabel{app:reproduction}{{B}{15}{Reproduction}{appendix.B}{}}
+\bibstyle{unsrtnat}
+\bibdata{alethia}
+\bibcite{Garnelo:2023intention}{{1}{2023}{{Garnelo and Czarnecki}}{{}}}
+\bibcite{Heinrich:2024mpm}{{2}{2024}{{Heinrich et~al.}}{{Heinrich, Golling, Kasieczka, and {et al.}}}}
+\bibcite{Birk:2024omnijet}{{3}{2024}{{Birk et~al.}}{{Birk, Hallin, and Kasieczka}}}
+\bibcite{Mikuni:2024omnilearn}{{4}{2024}{{Mikuni and Nachman}}{{}}}
+\bibcite{Mikuni:2025omnilearned}{{5}{2025}{{Mikuni and Nachman}}{{}}}
+\bibcite{Katel:2025hepjepa}{{6}{2025}{{Katel and {et al.}}}{{}}}
+\bibcite{Sophon:2024}{{7}{2024}{{Sophon Collaboration}}{{}}}
+\bibcite{Brehmer:2018kdj}{{8}{2020{}}{{Brehmer et~al.}}{{Brehmer, Cranmer, Louppe, and Pavez}}}
+\bibcite{Brehmer:2019xox}{{9}{2020{}}{{Brehmer et~al.}}{{Brehmer, Kling, Espejo, and Cranmer}}}
+\bibcite{Chen:2022lcp}{{10}{2023}{{Chen et~al.}}{{Chen, Glioti, Marzocca, Nardini, and Wulzer}}}
+\bibcite{Grzadkowski:2010es}{{11}{2010}{{Grzadkowski et~al.}}{{Grzadkowski, Iskrzynski, Misiak, and Rosiek}}}
+\bibcite{Greljo:2017vvb}{{12}{2017}{{Greljo and Marzocca}}{{}}}
+\bibcite{Hou:2019ct18}{{13}{2021}{{Hou and {et al.}}}{{}}}
+\bibcite{Buckley:2014lhapdf}{{14}{2015}{{Buckley et~al.}}{{Buckley, Ferrando, Lloyd, Nordstr\"om, Page, R\"ufenacht, Sch\"onherr, and Watt}}}
+\bibcite{Alwall:2014mg5}{{15}{2014}{{Alwall and {et al.}}}{{}}}
+\bibcite{Sherman:1950}{{16}{1950}{{Sherman and Morrison}}{{}}}
+\bibcite{Rasmussen:2006gp}{{17}{2006}{{Rasmussen and Williams}}{{}}}
+\bibcite{Smith:2023epig}{{18}{2023}{{Smith et~al.}}{{Smith, Bickford~Smith, and Rainforth}}}
+\bibcite{Lei:2018conformal}{{19}{2018}{{Lei et~al.}}{{Lei, G'{S}ell, Rinaldo, Tibshirani, and Wasserman}}}
+\bibcite{Vovk:2005alg}{{20}{2005}{{Vovk et~al.}}{{Vovk, Gammerman, and Shafer}}}
+\bibcite{Ahad:2022dascusum}{{21}{2022}{{Ahad et~al.}}{{Ahad, Davenport, and Xie}}}
+\bibcite{Benjamini:1995fdr}{{22}{1995}{{Benjamini and Hochberg}}{{}}}
+\bibcite{Araz:2025conformal}{{23}{2025}{{Araz and Spannowsky}}{{}}}
+\bibcite{Qu:2022part}{{24}{2022}{{Qu et~al.}}{{Qu, Li, and Qian}}}
+\bibcite{Mueller:2022pfn}{{25}{2022}{{M\"uller et~al.}}{{M\"uller, Hollmann, Arango, Grabocka, and Hutter}}}
+\gdef \@abspage@last{17}

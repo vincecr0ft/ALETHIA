@@ -30,11 +30,13 @@ from torch.optim import Adam
 from phoenix.otel import register
 
 from modules.surrogate.oracle_smeft import AnalyticSMEFTOracle
-from intention_fm import IntentionFM, M_REF
-from drift_detectors import (DASCUSUMState, das_cusum_update,
-                             coverage_bh_test, kappa_drift, aggregate_action)
-from conformal_intention import IntentionConformal
-from epig_intention import epig_acquire_m, target_set_entropy
+from modules.surrogate.intention import (
+    IntentionFM, M_REF,
+    IntentionConformal,
+    epig_acquire_m, target_set_entropy,
+    DASCUSUMState, das_cusum_update,
+    coverage_bh_test, kappa_drift, aggregate_action,
+)
 
 TRACER_PROVIDER = register(project_name="alethia", auto_instrument=False,
                            protocol="http/protobuf")

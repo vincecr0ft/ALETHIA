@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2023/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: alethia.aux
+The style file: unsrtnat.bst
+Database file #1: alethia.bib
+You've used 25 entries,
+            2481 wiz_defined-function locations,
+            694 strings with 8289 characters,
+and the built_in function-call counts, 8413 in all, are:
+= -- 619
+> -- 535
+< -- 12
++ -- 205
+- -- 154
+* -- 610
+:= -- 1377
+add.period$ -- 64
+call.type$ -- 25
+change.case$ -- 48
+chr.to.int$ -- 24
+cite$ -- 25
+duplicate$ -- 419
+empty$ -- 785
+format.name$ -- 201
+if$ -- 1774
+int.to.chr$ -- 2
+int.to.str$ -- 26
+missing$ -- 16
+newline$ -- 122
+num.names$ -- 75
+pop$ -- 253
+preamble$ -- 1
+purify$ -- 25
+quote$ -- 0
+skip$ -- 280
+stack$ -- 0
+substring$ -- 158
+swap$ -- 52
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 169
+warning$ -- 0
+while$ -- 61
+width$ -- 0
+write$ -- 296

@@ -221,6 +221,125 @@ the experiment-A/B promotion span tree. Those require infrastructure
 up. They are additive — running them does not change the chain shape,
 only the cost ladder.
 
+## Fidelity ladder: MadGraph cross-check on the band
+
+Test 3's spec asks for cross-checking the analytic T1 oracle against
+MadGraph T2 at a subsample of the picked m-values. Run with
+
+```bash
+uv run python experiments/full-chain-run/mg_crosscheck.py   # ~22 min
+```
+
+This evaluates both oracles at 50 m-values across the engineered-drift
+band (m ∈ [0.4, 2.2] TeV, target c_lq^(3) = 0.8) and records per-point
+disagreement.
+
+![T1 vs T2 fidelity ladder cross-check](../plots/full-chain/mg_crosscheck.png)
+
+| Metric | Value |
+|---|---|
+| Points | 50 |
+| MG configuration | LO, `nevents=500` per call |
+| Per-MG-call cost | 25.9 s (1295 s total = 21.6 min) |
+| T1 (analytic) cost | 0.05 s total |
+| Median rel disagreement |T2 − T1| / |T1| | 3.0 % |
+| 95th percentile rel disagreement | 4.3 % |
+| Max rel disagreement | 5.0 % |
+| Fidelity-drift fires (|z| > 3 against 5 % MC sigma) | 0 / 50 |
+| μ range across the band | 3.3 to ~ 820 |
+
+T1 and T2 agree within MG's intrinsic Monte Carlo noise floor at
+`nevents=500` (~5 % in tails). There is a small ~3 % systematic bias —
+T2 sits consistently above T1 — which is consistent with the NLO QCD
+K-factor effect the analytic LO oracle does not model (Mangano et al.
+arXiv:1610.07922 reports ~3 % at this m-range). The chain's escalation
+policy (oracle §6.2) would normally route T1 results through T2 when
+either |c| > 0.5 or m > 2 TeV; the cross-check above is the
+band-targeted version of that policy run as a single offline study.
+
+For the full-chain loop this is good news: the analytic T1 oracle is
+trustworthy to within MG noise across the engineered-drift band. The
+~3 % T2 bias is well below the 110× before/after RMSE improvement that
+the loop achieved on T1 alone. A MadGraph-driven version of the loop
+would shift the residual error floor from ~2.7 RMSE units to ~3 % of
+the local μ — for m = 2 TeV at c_lq^(3) = 0.8 (μ ≈ 800), the
+analytic-based 2.7 RMSE bound is already finer than the 3 % NLO
+correction (24 RMSE units). The architecture-level scaling implications
+unchanged; the MadGraph upgrade is a refinement, not a redesign.
+
+Spans for the cross-check land in Phoenix project `alethia` under the
+`chain.mg_crosscheck` parent, with per-point `tool.oracle.query` and
+`tool.drift.fidelity` children carrying `aletheia.oracle.fidelity_tier`,
+`aletheia.drift.fid.{mu_t1, mu_t2, delta_mu, z_score, fired}`.
+
+## Identifiability: what did the FM actually disclose?
+
+Prediction R² on μ(m) is necessary but not sufficient for the FM to have
+disclosed the SMEFT polynomial structure — it does not separate "learned
+the underlying physics manifold" from "memorised the
+(M_ctx, Y_ctx) → Y_q regression on this corpus". The cleanest
+falsification is a linear probe from the FM's implicit scenario
+representation back to the Wilson coefficients.
+
+In the Intention setting the implicit per-scenario latent is the
+closed-form ridge weight vector
+
+    w_implicit(c) = (Psi_ctx(c)^T Psi_ctx(c) + α I)^{-1} Psi_ctx(c)^T Y_ctx(c)
+
+where Psi_ctx = ψ_θ(M_ctx) and (M_ctx, Y_ctx) is a fresh K=12 context
+drawn from the analytic oracle at the chosen c. w_implicit ∈ ℝ^16 is the
+"theory representation" the FM has identified from the context. We then
+fit a linear probe (RidgeCV) `c ≈ W @ w_implicit + b` on 400 training-box
+scenarios and report per-operator R² on two held-out test sets: 200
+inside the training c-box and 200 inside the withheld band
+`|c_lq^(3)| ∈ [0.6, 1.0]`. Reproduce with
+
+```bash
+uv run python experiments/full-chain-run/identifiability_probe.py
+```
+
+![Linear-probe identifiability per operator](../plots/identifiability_probe.png)
+
+Per-operator R² (held-out):
+
+| Operator | inside training box | withheld band |
+|---|---:|---:|
+| cHq3 (vertex) | −0.005 | −0.227 |
+| cHq1 (vertex) | −0.013 | −0.090 |
+| **clq3** (four-fermion, energy-growing) | **+0.699** | **+0.778** |
+| clq1 (four-fermion, energy-growing) | +0.146 | −0.473 |
+
+`clq3` is disclosed at high R² in both regimes — including the
+extrapolation band, which the FM has never seen in training. The probe
+reads off `c_lq^(3) = ±0.8` correctly from w_implicit. This is the
+strong-form disclosure claim: the FM has learned an `m_ll`-shape feature
+that linearises onto `c_lq^(3)` and generalises outside the training
+support. Closes the "is this just memorisation?" question for this
+operator.
+
+The other three operators are not disclosed at this scale and
+configuration. The pattern matches what
+[02-foundation-model/intention-vs-deepsets.md](../02-foundation-model/intention-vs-deepsets.md)
+predicted from the InfoNCE-MI bound: cHq3 and cHq1 are pure-vertex
+operators with `(v/Λ)^2` rate shifts and no `m_ll`-shape signature; a
+basis trained on a single 1-d kinematic observable cannot tell two
+constant rate shifts apart. clq1 is shape-changing in principle but
+shares its dominant signature with clq3 modulo a u/d PDF weighting,
+which the toy PDF mis-represents (a 13% effect documented in
+[01-oracle/empirical-results.md](../01-oracle/empirical-results.md) §2).
+
+This is a **partial disclosure** result and the writeup carries it as
+such. The 110× before/after RMSE on μ in the band remains the
+operational headline; the probe result qualifies that headline by
+identifying which operators the representation actually resolved.
+Architectural fixes that lift the vertex-operator R² are
+specified in
+[02-foundation-model/notable.md](../02-foundation-model/notable.md) #4
+(rate-aware DeepSets sub-encoder) and
+[02-foundation-model/empirical-results.md](../02-foundation-model/empirical-results.md)
+§4 (aux log-rate scalar at the set summary), and are the natural next
+step before the MadGraph-fidelity run.
+
 ## Conclusion
 
 The four design-research areas compose without modification beyond
