@@ -12,6 +12,11 @@ Public API:
   over user-supplied bin edges. Convenience wrapper.
 """
 
-from .smeft import differential_xs, simulate_analytic_smeft
+from .smeft import differential_afb, differential_xs, differential_xs_pt, simulate_analytic_smeft
 
-__all__ = ["differential_xs", "simulate_analytic_smeft"]
+__all__ = [
+    "differential_afb",
+    "differential_xs",
+    "differential_xs_pt",
+    "simulate_analytic_smeft",
+]

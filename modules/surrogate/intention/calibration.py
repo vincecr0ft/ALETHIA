@@ -21,14 +21,27 @@ def _model_fingerprint(M_ctx: np.ndarray, Y_ctx: np.ndarray) -> str:
 
 
 class IntentionConformal:
-    """Leverage-stratified split conformal for the Intention head."""
+    """Leverage-stratified split conformal for the Intention head.
+
+    Predictive standard deviation follows the homoscedastic Bayesian-linear
+    form of paper Eq. (5):
+
+        sd_raw(q) = sigma_y * sqrt(1 + lev(q))
+
+    with ``sigma_y`` estimated from the residuals on the calibration set.
+    Per-stratum conformal multipliers absorb any residual heteroscedasticity.
+    """
 
     def __init__(self, n_strata: int = 5, noise_frac: float = 0.05):
         self.n_strata = n_strata
-        self.noise_frac = noise_frac
+        self.noise_frac = noise_frac  # retained for backwards-compatible callers
         self.edges = None
         self.factors = {}
         self.fingerprint = None
+        self.sigma_y = None
+
+    def _sd_raw(self, mu: np.ndarray, lev: np.ndarray) -> np.ndarray:
+        return self.sigma_y * np.sqrt(1.0 + lev)
 
     def fit(self, model, M_ctx: np.ndarray, Y_ctx: np.ndarray,
             M_cal: np.ndarray, Y_cal: np.ndarray,
@@ -37,7 +50,14 @@ class IntentionConformal:
         broader probe region (invariant: NOT only training distribution)."""
         mu_cal = model.predict_np(M_ctx, Y_ctx, M_cal)
         lev_cal = model.leverage(M_ctx, M_cal)
-        sd_raw = self.noise_frac * np.abs(mu_cal) * np.sqrt(1.0 + lev_cal)
+        # Whitened-residual estimator of sigma_y: removes the (1+lev) scaling
+        # before taking the standard deviation, so leverage-induced variance
+        # does not inflate the homoscedastic constant.
+        whitened = (Y_cal - mu_cal) / np.sqrt(1.0 + lev_cal)
+        self.sigma_y = float(np.std(whitened, ddof=1))
+        if self.sigma_y <= 0.0:
+            self.sigma_y = 1e-6
+        sd_raw = self._sd_raw(mu_cal, lev_cal)
         scores = np.abs(Y_cal - mu_cal) / np.maximum(sd_raw, 1e-12)
         self.edges = np.quantile(lev_cal, np.linspace(0, 1, self.n_strata + 1))
         self.edges[0] = -np.inf
@@ -69,6 +89,6 @@ class IntentionConformal:
                 "on the current context.")
         mu_q = model.predict_np(M_ctx, Y_ctx, M_q)
         lev_q = model.leverage(M_ctx, M_q)
-        sd_raw = self.noise_frac * np.abs(mu_q) * np.sqrt(1.0 + lev_q)
+        sd_raw = self._sd_raw(mu_q, lev_q)
         strat = self.stratum(lev_q)
         return self.factors[coverage][strat] * sd_raw

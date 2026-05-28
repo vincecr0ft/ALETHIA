@@ -1,0 +1,11 @@
+# Reference: train with all four operators active
+  in-box held-out R^2 = +0.9978
+
+# Operator-holdout test
+  held        R2_full                 per-op R2 vs test active
+  cHq3         +0.998                                   +0.998
+  cHq1         +0.998                                   +0.998
+  clq3         +0.332                                   +0.287
+  clq1         +0.425                                   +0.385
+
+Wrote /home/vince/ALETHIA/experiments/constraint-motivation/output/operator_holdout.json

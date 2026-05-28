@@ -1,317 +1,333 @@
-2026-05-27 09:49:42,427 INFO === ALETHIA full-chain run starting ===
-2026-05-27 09:49:42,427 INFO Pretraining: steps=1500 batch=24 K=12 Q=32
-2026-05-27 09:49:43,900 INFO   step    0/1500 loss=1139.478760
-2026-05-27 09:50:52,424 INFO   step  100/1500 loss=151.611130
-2026-05-27 09:52:01,032 INFO   step  200/1500 loss=117.340370
-2026-05-27 09:53:09,552 INFO   step  300/1500 loss=55.016205
-2026-05-27 09:54:18,027 INFO   step  400/1500 loss=70.179985
-2026-05-27 09:55:26,295 INFO   step  500/1500 loss=49.221252
-2026-05-27 09:56:34,586 INFO   step  600/1500 loss=22.873886
-2026-05-27 09:57:43,446 INFO   step  700/1500 loss=26.020796
-2026-05-27 09:58:52,240 INFO   step  800/1500 loss=67.334053
-2026-05-27 10:00:00,732 INFO   step  900/1500 loss=10.200903
-2026-05-27 10:01:09,108 INFO   step 1000/1500 loss=8.984460
-2026-05-27 10:02:17,562 INFO   step 1100/1500 loss=5.703313
-2026-05-27 10:03:25,849 INFO   step 1200/1500 loss=4.069409
-2026-05-27 10:04:34,210 INFO   step 1300/1500 loss=1.427587
-2026-05-27 10:05:42,566 INFO   step 1400/1500 loss=2.353354
-2026-05-27 10:06:50,185 INFO   step 1499/1500 loss=3.330777
-2026-05-27 10:06:50,185 INFO Pretrain done in 1027.0s, final loss=3.330777
-2026-05-27 10:06:50,260 INFO === Loop starting ===
-2026-05-27 10:06:50,260 INFO Target scenario c=[0.0, 0.0, 0.8, 0.0]
-2026-05-27 10:06:50,265 INFO Seed context: K=8, m in (0.5, 1.0)
-2026-05-27 10:06:50,611 INFO [c   0] H_T=36.77 kappa=7161.3 oracle=5 ctx=13 flag=001 act=local_retrain   S=0.00 p=0.714 proj=89496.68 rmse=2.431
-2026-05-27 10:06:51,815 INFO [c  25] H_T=1.57 kappa=32559.9 oracle=45 ctx=53 flag=011 act=cooled          S=0.00 p=0.000 proj=0.79 rmse=2.556
-2026-05-27 10:06:53,176 INFO [c  50] H_T=-11.11 kappa=56872.1 oracle=85 ctx=93 flag=011 act=cooled          S=0.00 p=0.000 proj=0.90 rmse=2.590
-2026-05-27 10:06:53,625 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:53,684 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:53,725 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:53,769 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:53,821 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:53,901 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:53,962 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,004 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,055 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,117 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,153 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,190 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,260 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,305 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,348 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,384 INFO [c  75] H_T=-20.14 kappa=84558.7 oracle=130 ctx=138 flag=011 act=local_retrain   S=0.99 p=0.000 proj=3.96 rmse=2.658
-2026-05-27 10:06:54,409 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,451 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,496 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,551 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,588 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,640 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,714 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,758 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,799 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,877 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,919 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:54,957 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,010 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,052 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,362 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,399 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,465 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,521 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,577 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,654 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,674 INFO [c 100] H_T=-26.00 kappa=108755.7 oracle=170 ctx=178 flag=011 act=cooled          S=2.30 p=0.000 proj=4.17 rmse=2.660
-2026-05-27 10:06:55,705 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,746 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,807 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,843 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,880 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,937 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:55,981 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,022 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,083 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,126 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,167 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,225 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,262 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,297 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,396 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,440 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,499 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,542 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,586 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,643 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,679 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,718 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,797 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,848 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,866 INFO [c 125] H_T=-30.70 kappa=133868.2 oracle=210 ctx=218 flag=011 act=cooled          S=0.67 p=0.000 proj=2.49 rmse=2.663
-2026-05-27 10:06:56,893 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:56,958 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,000 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,042 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,094 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,131 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,178 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,247 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,291 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,332 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,391 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,433 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,476 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,531 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,568 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,611 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,675 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,723 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,769 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,831 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,874 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,919 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:57,972 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,009 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,052 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,087 INFO [c 150] H_T=-35.06 kappa=162915.7 oracle=255 ctx=263 flag=001 act=local_retrain   S=0.02 p=0.013 proj=2.38 rmse=2.668
-2026-05-27 10:06:58,113 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,155 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,198 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,262 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,303 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,347 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,399 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,438 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,479 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,547 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,591 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,832 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,875 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,920 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:58,983 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,025 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,069 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,132 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,169 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,209 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,288 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,306 INFO [c 175] H_T=-38.37 kappa=188772.9 oracle=295 ctx=303 flag=011 act=cooled          S=0.41 p=0.000 proj=4.01 rmse=2.670
-2026-05-27 10:06:59,332 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,437 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,480 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,521 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,572 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,607 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,649 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,710 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,900 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,938 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:06:59,993 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:00,078 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:00,141 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:00,185 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:00,286 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:00,444 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:00,505 INFO [c 200] H_T=-41.28 kappa=209471.9 oracle=335 ctx=343 flag=011 act=cooled          S=0.00 p=0.000 proj=3.43 rmse=2.658
-2026-05-27 10:07:00,595 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:00,639 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:00,679 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:00,734 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:00,814 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:00,879 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,023 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,058 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,094 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,151 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,207 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,249 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,312 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,355 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,403 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,457 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,494 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,596 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,640 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,682 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,720 INFO [c 225] H_T=-44.17 kappa=238466.1 oracle=380 ctx=388 flag=011 act=local_retrain   S=0.36 p=0.000 proj=9.37 rmse=2.656
-2026-05-27 10:07:01,790 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,827 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,881 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,927 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:01,971 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:02,077 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:02,216 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:02,335 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:02,379 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:02,486 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:02,530 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:02,570 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:02,623 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:02,707 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:02,854 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:02,935 INFO [c 250] H_T=-46.47 kappa=261454.8 oracle=420 ctx=428 flag=011 act=cooled          S=0.00 p=0.000 proj=3.59 rmse=2.651
-2026-05-27 10:07:02,959 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:02,996 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,051 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,095 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,139 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,203 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,249 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,295 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,360 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,397 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,436 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,499 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,543 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,586 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,651 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,698 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,738 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,792 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,882 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,944 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:03,987 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,030 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,089 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,127 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,141 INFO [c 275] H_T=-48.58 kappa=287039.2 oracle=460 ctx=468 flag=011 act=cooled          S=1.30 p=0.000 proj=2.74 rmse=2.648
-2026-05-27 10:07:04,166 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,228 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,273 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,456 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,508 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,551 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,594 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,698 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,742 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,838 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:04,981 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,023 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,163 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,217 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,258 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,300 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,314 INFO [c 300] H_T=-50.51 kappa=315950.2 oracle=500 ctx=508 flag=001 act=budget_exhausted S=0.50 p=0.037 proj=1.04 rmse=2.643
-2026-05-27 10:07:05,340 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,380 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,421 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,463 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,505 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,666 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,792 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,834 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,876 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,913 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,951 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:05,992 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,035 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,078 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,251 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,290 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,327 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,341 INFO [c 325] H_T=-50.51 kappa=315950.2 oracle=500 ctx=508 flag=011 act=budget_exhausted S=1.59 p=0.000 proj=0.99 rmse=2.643
-2026-05-27 10:07:06,366 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,410 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,455 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,500 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,546 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,588 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,631 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,668 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,704 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,749 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,806 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,863 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,907 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,950 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:06,992 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,107 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,146 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,188 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,282 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,324 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,365 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,419 INFO [c 350] H_T=-50.51 kappa=315950.2 oracle=500 ctx=508 flag=011 act=budget_exhausted S=0.00 p=0.000 proj=0.34 rmse=2.643
-2026-05-27 10:07:07,442 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,479 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,518 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,653 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,780 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,819 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:07,854 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,018 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,064 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,110 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,151 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,189 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,227 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,274 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,320 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,364 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,410 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,457 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,478 INFO [c 375] H_T=-50.51 kappa=315950.2 oracle=500 ctx=508 flag=011 act=budget_exhausted S=1.87 p=0.000 proj=0.64 rmse=2.643
-2026-05-27 10:07:08,503 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,542 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,583 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,802 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,846 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,885 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:08,983 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:09,186 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:09,225 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:09,437 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:09,473 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:09,520 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:09,563 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:09,605 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:09,646 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
-2026-05-27 10:07:09,665 INFO Loop done: 400 cycles in 19.1s, oracle=500, ctx=508
-2026-05-27 10:07:09,670 INFO === Run complete ===
-2026-05-27 10:07:09,670 INFO {
+2026-05-27 15:20:02,730 INFO === ALETHIA full-chain run starting ===
+2026-05-27 15:20:02,731 INFO Pretraining: steps=1500 batch=24 K=12 Q=32
+2026-05-27 15:20:04,186 INFO   step    0/1500 loss=1139.478760
+2026-05-27 15:21:12,146 INFO   step  100/1500 loss=151.611130
+2026-05-27 15:22:19,870 INFO   step  200/1500 loss=117.340370
+2026-05-27 15:23:27,812 INFO   step  300/1500 loss=55.016205
+2026-05-27 15:24:37,086 INFO   step  400/1500 loss=70.179985
+2026-05-27 15:25:51,258 INFO   step  500/1500 loss=49.221252
+2026-05-27 15:27:02,761 INFO   step  600/1500 loss=22.873886
+2026-05-27 15:28:11,753 INFO   step  700/1500 loss=26.020796
+2026-05-27 15:29:20,293 INFO   step  800/1500 loss=67.334053
+2026-05-27 15:30:28,301 INFO   step  900/1500 loss=10.200903
+2026-05-27 15:31:35,920 INFO   step 1000/1500 loss=8.984460
+2026-05-27 15:32:44,152 INFO   step 1100/1500 loss=5.703313
+2026-05-27 15:33:55,930 INFO   step 1200/1500 loss=4.069409
+2026-05-27 15:35:07,922 INFO   step 1300/1500 loss=1.427587
+2026-05-27 15:36:15,755 INFO   step 1400/1500 loss=2.353354
+2026-05-27 15:37:26,953 INFO   step 1499/1500 loss=3.330777
+2026-05-27 15:37:26,953 INFO Pretrain done in 1043.5s, final loss=3.330777
+2026-05-27 15:37:27,037 INFO === Loop starting ===
+2026-05-27 15:37:27,037 INFO Target scenario c=[0.0, 0.0, 0.8, 0.0]
+2026-05-27 15:37:27,042 INFO Seed context: K=8, m in (0.5, 1.0)
+2026-05-27 15:37:27,435 INFO [c   0] H_T=36.77 kappa=7161.3 oracle=5 ctx=13 flag=001 act=local_retrain   S=0.00 p=0.714 proj=89496.68 rmse=2.431
+2026-05-27 15:37:31,675 INFO [c  25] H_T=1.57 kappa=32559.9 oracle=45 ctx=53 flag=011 act=cooled          S=0.00 p=0.000 proj=0.79 rmse=2.556
+2026-05-27 15:37:35,658 INFO [c  50] H_T=-11.11 kappa=56872.1 oracle=85 ctx=93 flag=011 act=cooled          S=0.00 p=0.000 proj=0.90 rmse=2.590
+2026-05-27 15:37:38,757 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:39,639 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:39,830 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:40,094 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:40,275 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:40,512 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:40,726 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:40,764 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:40,860 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:41,014 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:41,159 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:41,212 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:41,294 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:41,405 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:41,469 INFO [c  75] H_T=-20.14 kappa=84558.7 oracle=130 ctx=138 flag=011 act=local_retrain   S=0.22 p=0.000 proj=3.96 rmse=2.658
+2026-05-27 15:37:41,500 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:41,655 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:41,692 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:41,839 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:42,097 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:42,145 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:42,220 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:42,348 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:42,539 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:42,708 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:42,840 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:42,979 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:43,034 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:43,343 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:43,394 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:43,432 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:43,823 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:43,869 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:43,956 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:43,993 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,030 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,084 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,101 INFO [c 100] H_T=-26.00 kappa=108755.7 oracle=170 ctx=178 flag=011 act=cooled          S=2.28 p=0.000 proj=4.17 rmse=2.660
+2026-05-27 15:37:44,126 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,169 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,228 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,266 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,304 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,368 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,413 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,460 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,518 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,557 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,603 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,672 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,714 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:44,854 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:45,262 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:45,685 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:46,204 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:46,782 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:47,667 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:47,887 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:48,449 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:48,716 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:48,914 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:49,051 INFO [c 125] H_T=-30.70 kappa=133868.2 oracle=210 ctx=218 flag=011 act=cooled          S=1.39 p=0.000 proj=2.49 rmse=2.663
+2026-05-27 15:37:49,144 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:49,355 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:49,519 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:49,968 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:50,533 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:50,627 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:51,102 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:51,455 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:51,516 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:51,741 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:52,503 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:52,548 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:52,782 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:53,458 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:53,964 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:54,125 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:54,202 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:54,310 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:54,573 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:54,725 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:54,974 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:55,030 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:55,383 INFO [c 150] H_T=-35.06 kappa=162915.7 oracle=255 ctx=263 flag=001 act=local_retrain   S=0.00 p=0.119 proj=2.38 rmse=2.668
+2026-05-27 15:37:55,410 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:55,926 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:56,095 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:56,466 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:56,909 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:57,793 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:58,294 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:58,432 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:37:59,101 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:00,218 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:00,353 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:00,395 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:00,431 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:00,489 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:00,542 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:00,832 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:01,020 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:01,086 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:01,125 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:01,178 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:01,202 INFO [c 175] H_T=-38.37 kappa=188772.9 oracle=295 ctx=303 flag=011 act=cooled          S=0.89 p=0.000 proj=4.01 rmse=2.670
+2026-05-27 15:38:01,233 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:01,379 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:01,426 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:01,714 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:01,756 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:01,802 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:02,052 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:02,091 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:02,128 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:02,256 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:02,404 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:02,457 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:02,595 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:02,881 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:03,127 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:03,229 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:03,272 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:03,371 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:03,445 INFO [c 200] H_T=-41.28 kappa=209471.9 oracle=335 ctx=343 flag=011 act=cooled          S=0.00 p=0.000 proj=3.43 rmse=2.658
+2026-05-27 15:38:03,528 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:03,570 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:04,024 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:04,117 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:04,159 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:04,206 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:04,266 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:04,421 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:04,716 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:04,953 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:05,010 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:05,049 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:05,090 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:05,155 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:05,201 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:05,243 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:05,317 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:05,860 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:05,898 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:05,942 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:05,975 INFO [c 225] H_T=-44.17 kappa=238466.1 oracle=380 ctx=388 flag=011 act=local_retrain   S=1.01 p=0.000 proj=9.37 rmse=2.656
+2026-05-27 15:38:06,000 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:06,037 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:06,076 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:06,135 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:06,180 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:06,295 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:06,667 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:06,706 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:06,743 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:06,798 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:06,940 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:06,984 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,141 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,177 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,228 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,309 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,455 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,507 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,521 INFO [c 250] H_T=-46.47 kappa=261454.8 oracle=420 ctx=428 flag=011 act=cooled          S=0.11 p=0.000 proj=3.59 rmse=2.651
+2026-05-27 15:38:07,546 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,588 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,655 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,698 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,740 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,793 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,830 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,872 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,933 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:07,979 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,025 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,085 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,125 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,165 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,231 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,279 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,328 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,407 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,449 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,491 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,556 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,606 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,656 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,724 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,764 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,781 INFO [c 275] H_T=-48.58 kappa=287039.2 oracle=460 ctx=468 flag=011 act=cooled          S=1.42 p=0.000 proj=2.74 rmse=2.648
+2026-05-27 15:38:08,807 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,886 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:08,935 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,050 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,138 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,195 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,240 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,284 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,389 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,431 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,486 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,524 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,571 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,682 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,725 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,786 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,824 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,864 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,923 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:09,967 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,010 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,027 INFO [c 300] H_T=-50.51 kappa=315950.2 oracle=500 ctx=508 flag=011 act=budget_exhausted S=2.19 p=0.000 proj=1.04 rmse=2.643
+2026-05-27 15:38:10,052 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,094 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,136 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,177 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,214 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,381 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,511 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,549 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,588 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,626 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,672 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,718 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,765 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,810 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,855 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,896 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,934 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:10,971 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,015 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,059 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,081 INFO [c 325] H_T=-50.51 kappa=315950.2 oracle=500 ctx=508 flag=011 act=budget_exhausted S=1.39 p=0.000 proj=0.99 rmse=2.643
+2026-05-27 15:38:11,107 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,152 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,194 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,235 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,272 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,310 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,366 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,419 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,475 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,563 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,602 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,639 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,678 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,720 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,892 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,935 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:11,973 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,067 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,111 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,171 INFO [c 350] H_T=-50.51 kappa=315950.2 oracle=500 ctx=508 flag=011 act=budget_exhausted S=0.00 p=0.000 proj=0.34 rmse=2.643
+2026-05-27 15:38:12,198 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,243 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,289 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,332 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,371 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,409 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,453 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,496 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,539 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,582 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,783 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,825 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,871 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,916 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:12,964 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,011 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,057 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,101 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,140 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,180 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,231 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,252 INFO [c 375] H_T=-50.51 kappa=315950.2 oracle=500 ctx=508 flag=011 act=budget_exhausted S=0.26 p=0.000 proj=0.64 rmse=2.643
+2026-05-27 15:38:13,279 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,325 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,513 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,559 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,616 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,663 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,717 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,767 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,814 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,898 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,936 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:13,980 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:14,023 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:14,070 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:14,116 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:14,165 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:14,214 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:14,254 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:14,291 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:14,332 WARNING Invalid type bool for attribute 'aletheia.drift.acc.fired' value. Expected one of ['bool', 'str', 'bytes', 'int', 'float'] or a sequence of those types
+2026-05-27 15:38:14,361 INFO Loop done: 400 cycles in 47.0s, oracle=500, ctx=508
+2026-05-27 15:38:14,367 INFO === Run complete ===
+2026-05-27 15:38:14,367 INFO {
   "cycles_done": 400,
   "oracle_calls": 500,
-  "loop_wall_seconds": 19.110905170440674,
-  "pretrain_wall_seconds": 1026.9788813591003,
-  "total_wall_seconds": 1047.2428183555603,
-  "final_cov_68_avg_over_regions": 0.697944099378882,
+  "loop_wall_seconds": 46.994622468948364,
+  "pretrain_wall_seconds": 1043.4557609558105,
+  "total_wall_seconds": 1091.6356472969055,
+  "final_cov_68_avg_over_regions": 0.717196209587514,
   "final_kappa": 315950.24248101626,
   "final_H_T": -50.50976067109267,
   "final_context_size": 508,

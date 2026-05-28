@@ -26,8 +26,8 @@ from typing import Union
 
 import numpy as np
 
-from modules.analytic_smeft import differential_xs
-from modules.analytic_smeft.pdfs import PDFSet
+from modules.analytic_smeft import differential_afb, differential_xs, differential_xs_pt
+from modules.analytic_smeft.pdfs import PDFSet, get_pdf
 
 from .features import N_WC, WC_NAMES
 
@@ -77,7 +77,9 @@ class AnalyticSMEFTOracle:
         self.sqrt_s = float(sqrt_s_gev)
         self.lam = float(lambda_scale_gev)
         self.order = order
-        self.pdf = pdf
+        # Resolve the PDF spec once at construction so every truth() call
+        # reuses the same PDFSet instance instead of re-running mkPDF.
+        self.pdf: Union[str, PDFSet] = get_pdf(pdf) if isinstance(pdf, str) else pdf
         self.noise_frac = float(noise_frac)
         self._noise_rng = np.random.default_rng(seed)
 
@@ -121,3 +123,116 @@ class AnalyticSMEFTOracle:
         if noise and self.noise_frac > 0.0:
             mu = mu + self._noise_rng.normal(0.0, self.noise_frac * np.abs(mu))
         return mu
+
+    def truth_pt(self, c: np.ndarray, pt: np.ndarray) -> np.ndarray:
+        r"""Noiseless ``mu_pT(c, pT) = (d sigma_BSM / d pT) / (d sigma_SM / d pT)``.
+
+        Companion to :meth:`truth` exposing the lepton transverse-momentum
+        spectrum. The angular integral that defines ``d sigma / d pT`` carries
+        different operator weights from ``d sigma / d m_ll`` because the SMEFT
+        chirality structure shows up in the cos(theta*) distribution; this is
+        the multi-observable identifiability channel that breaks the
+        ``c_Hq^(3)``--``c_Hq^(1)`` and ``c_lq^(3)``--``c_lq^(1)`` degeneracies
+        m_ll alone cannot resolve.
+
+        ``c`` is ``(n, N_WC)`` in canonical surrogate order; ``pt`` is
+        ``(n,)`` in TeV. Returns shape ``(n,)``.
+        """
+        c = np.atleast_2d(np.asarray(c, dtype=float))
+        pt_tev = np.atleast_1d(np.asarray(pt, dtype=float))
+        if c.shape[1] != N_WC:
+            raise ValueError(f"c must have {N_WC} columns, got {c.shape[1]}")
+        if c.shape[0] != pt_tev.shape[0]:
+            raise ValueError(
+                f"c has {c.shape[0]} rows but pt has {pt_tev.shape[0]} entries"
+            )
+        mu = np.empty(c.shape[0], dtype=float)
+        for i in range(c.shape[0]):
+            wc = {WC_NAME_MAP[name]: float(c[i, j]) for j, name in enumerate(WC_NAMES)}
+            res = differential_xs_pt(
+                wc,
+                np.array([pt_tev[i] * 1000.0]),     # TeV -> GeV
+                sqrt_s=self.sqrt_s,
+                lambda_scale=self.lam,
+                order=self.order,
+                pdf=self.pdf,
+            )
+            mu[i] = float(res["differential_xs"][0] / res["sm_only"][0])
+        return mu
+
+    def truth_mu_fb(self, c: np.ndarray, m: np.ndarray) -> np.ndarray:
+        r"""Noiseless ``mu_FB(c, m_ll)`` = BSM-relative FB asymmetry numerator.
+
+        Defined analogously to ``truth(c, m)``:
+        ``mu_FB(c, m_ll) = (sigma_F(c, m_ll) - sigma_B(c, m_ll)) /
+                          (sigma_F_SM(m_ll) - sigma_B_SM(m_ll))``.
+
+        This is the multiplicative analogue of ``mu = sigma_BSM / sigma_SM``
+        but for the chirality-asymmetric piece of the cross section. Unlike
+        the dimensionless ``A_FB(c, m)`` ratio (which has a complicated
+        SM baseline curve the encoder must learn), ``mu_FB`` divides out
+        the SM kinematic dependence by construction, so the encoder only
+        needs to learn the operator-induced multiplicative shift.
+
+        Returns shape ``(n,)``.
+        """
+        c = np.atleast_2d(np.asarray(c, dtype=float))
+        m_tev = np.atleast_1d(np.asarray(m, dtype=float))
+        if c.shape[1] != N_WC:
+            raise ValueError(f"c must have {N_WC} columns, got {c.shape[1]}")
+        if c.shape[0] != m_tev.shape[0]:
+            raise ValueError(
+                f"c has {c.shape[0]} rows but m has {m_tev.shape[0]} entries"
+            )
+        mu_fb = np.empty(c.shape[0], dtype=float)
+        for i in range(c.shape[0]):
+            wc = {WC_NAME_MAP[name]: float(c[i, j]) for j, name in enumerate(WC_NAMES)}
+            res = differential_afb(
+                wc,
+                np.array([m_tev[i] * 1000.0]),     # TeV -> GeV
+                sqrt_s=self.sqrt_s,
+                lambda_scale=self.lam,
+                order=self.order,
+                pdf=self.pdf,
+            )
+            num_total = float(res["afb_numerator"][0])
+            # SM-only FB numerator: A_FB_SM * sigma_SM.
+            num_sm = float(res["A_FB_SM"][0]) * float(res["sm_xs"][0])
+            mu_fb[i] = num_total / max(abs(num_sm), 1e-30) * (1.0 if num_sm > 0 else -1.0)
+        return mu_fb
+
+    def truth_afb(self, c: np.ndarray, m: np.ndarray) -> np.ndarray:
+        r"""Noiseless ``A_FB(c, m_ll)`` (forward-backward asymmetry).
+
+        The chirality-asymmetric piece of the cross section, ``A_FB(m_ll)``,
+        is the observable that distinguishes left-handed from right-handed
+        quark couplings. The vertex operators ``c_phi_q^(3)`` and
+        ``c_phi_q^(1)`` modify these couplings differently and the four-
+        fermion operators ``c_lq^(3)`` and ``c_lq^(1)`` likewise produce
+        distinct chirality structures; ``A_FB(m_ll)`` is therefore the
+        physical observable that breaks the residual identifiability
+        degeneracy reported by the kinematic-only Intention head.
+
+        Returns ``A_FB(c, m_ll)`` in ``[-1, 1]`` at every requested ``m_ll``.
+        """
+        c = np.atleast_2d(np.asarray(c, dtype=float))
+        m_tev = np.atleast_1d(np.asarray(m, dtype=float))
+        if c.shape[1] != N_WC:
+            raise ValueError(f"c must have {N_WC} columns, got {c.shape[1]}")
+        if c.shape[0] != m_tev.shape[0]:
+            raise ValueError(
+                f"c has {c.shape[0]} rows but m has {m_tev.shape[0]} entries"
+            )
+        afb = np.empty(c.shape[0], dtype=float)
+        for i in range(c.shape[0]):
+            wc = {WC_NAME_MAP[name]: float(c[i, j]) for j, name in enumerate(WC_NAMES)}
+            res = differential_afb(
+                wc,
+                np.array([m_tev[i] * 1000.0]),     # TeV -> GeV
+                sqrt_s=self.sqrt_s,
+                lambda_scale=self.lam,
+                order=self.order,
+                pdf=self.pdf,
+            )
+            afb[i] = float(res["A_FB"][0])
+        return afb

@@ -1,13 +1,24 @@
-"""ALETHIA full-chain demonstration run.
+"""ALETHIA operator-progression demonstration run.
 
-ONE active scenario: a target Wilson configuration in the withheld band
-|c_lq^(3)| in [0.6, 1.0]. The Intention FM has been pretrained on the
-analytic SMEFT oracle with that band excluded. The loop watches the FM
-predict in this scenario from a thin seed context; drift detectors fire
-because the FM's pretrained psi_theta basis is weak in the band and the
-seed context's m-support is narrow; EPIG selects more oracle queries in
-the high-leverage m-regions; the context grows; predictions and coverage
-recover.
+Phase 1: the oracle is configured to activate only the four-fermion
+operators (c_lq^(3), c_lq^(1)) in the training distribution; the vertex
+operators (c_phi_q^(3), c_phi_q^(1)) are held at zero throughout
+pretraining. The Intention FM never sees a non-zero vertex operator in
+its training scenarios. The deployment target also has vertex operators
+zero; the FM predicts well.
+
+Phase transition: at cycle PHASE_BOUNDARY the oracle activates the two
+vertex operators in the deployment target (i.e. the underlying physics
+the agent is being asked about changes). The drift detectors fire because
+the new oracle observations are inconsistent with the FM's pretrained
+predictions; EPIG drives oracle queries into the affected band; the FM's
+context grows; the conformal calibrator refits; predictions recover.
+
+The identifiability probe runs twice: at cycle PHASE_BOUNDARY-1 (Phase 1
+end-state) and at cycle N_LOOP_CYCLES-1 (Phase 2 end-state). The
+two-phase disclosure profile is the headline deliverable: the agent
+reports, via Phoenix, what its representation has learned to recover at
+each phase.
 
 Run with:
     export PATH="$HOME/snap/code/240/.local/bin:$PATH"
@@ -38,14 +49,15 @@ from modules.surrogate.intention import (
     coverage_bh_test, kappa_drift, aggregate_action,
 )
 
-TRACER_PROVIDER = register(project_name="alethia", auto_instrument=False,
+TRACER_PROVIDER = register(project_name="alethia-progression", auto_instrument=False,
                            protocol="http/protobuf")
-tracer = TRACER_PROVIDER.get_tracer("alethia.full_chain")
+tracer = TRACER_PROVIDER.get_tracer("alethia.progression")
 
 # ----- Configuration -----
 SEED = 2026
 N_WC = 4
-WITHHOLD_DIM = 2               # clq3
+IDX_CHQ3, IDX_CHQ1, IDX_CLQ3, IDX_CLQ1 = 0, 1, 2, 3
+WITHHOLD_DIM = IDX_CLQ3        # carried over; unused in progression schedule
 WITHHOLD_BAND = (0.6, 1.0)
 C_TRAIN_BOX = 0.7
 M_RANGE = (0.3, 2.3)
@@ -57,6 +69,15 @@ N_PRETRAIN_SCEN = 1500
 PRETRAIN_BATCH = 24
 PRETRAIN_STEPS = 1500
 LR = 1e-3
+
+# ----- Operator-progression schedule -----
+# Training only activates the four-fermion operators; vertex ops zero.
+TRAINING_ACTIVE_OPS = (IDX_CLQ3, IDX_CLQ1)
+# Phase 1 deployment target: vertex ops zero, four-fermion ops active.
+TARGET_C_PHASE1 = np.array([0.0, 0.0, 0.8, 0.3])
+# Phase 2 deployment target: vertex ops activate.
+TARGET_C_PHASE2 = np.array([0.4, -0.3, 0.8, 0.3])
+PHASE_BOUNDARY_CYCLE = 100
 
 # ----- Loop configuration -----
 N_LOOP_CYCLES = 400
@@ -82,7 +103,7 @@ CAL_PERSISTENCE_ESCALATE = 4   # consecutive cal fires that escalate to local_re
 COOLDOWN_CYCLES = 3
 
 # ----- Logging -----
-OUT_BASENAME = "output" if ACQUISITION == "epig" else f"output_{ACQUISITION}"
+OUT_BASENAME = "output_progression"
 OUT = HERE / OUT_BASENAME
 OUT.mkdir(parents=True, exist_ok=True)
 logging.basicConfig(
@@ -96,14 +117,15 @@ log.info("=== ALETHIA full-chain run starting ===")
 
 
 def sample_c_training(n: int, rng: np.random.Generator) -> np.ndarray:
-    """c ~ U([-0.7, 0.7]^4) minus |c_lq^(3)| in [0.6, 1.0]."""
-    out = np.empty((n, N_WC))
-    i = 0
-    while i < n:
-        c = rng.uniform(-C_TRAIN_BOX, C_TRAIN_BOX, size=N_WC)
-        if abs(c[WITHHOLD_DIM]) < WITHHOLD_BAND[0]:
-            out[i] = c
-            i += 1
+    """Operator-progression training distribution.
+
+    Only the operators in TRAINING_ACTIVE_OPS vary in U([-0.7, 0.7]); the
+    remaining operators are held at zero. The FM sees a sparse Wilson
+    distribution and never trains on the deactivated directions.
+    """
+    out = np.zeros((n, N_WC))
+    for k in TRAINING_ACTIVE_OPS:
+        out[:, k] = rng.uniform(-C_TRAIN_BOX, C_TRAIN_BOX, size=n)
     return out
 
 
@@ -189,22 +211,21 @@ class RegionTagger:
 
 
 def run_loop(oracle, model: IntentionFM, rng) -> dict:
-    log.info("=== Loop starting ===")
+    log.info("=== Loop starting (operator-progression schedule) ===")
 
-    # ONE target scenario in the withheld band.
-    target_c = np.zeros(N_WC)
-    target_c[WITHHOLD_DIM] = 0.8   # clq3 = +0.8 in the withheld band
-    log.info("Target scenario c=%s", target_c.tolist())
+    # Phase 1 target: four-fermion operators active, vertex operators zero.
+    # The deployment matches the training distribution; the FM is in-domain.
+    target_c = TARGET_C_PHASE1.copy()
+    log.info("Phase 1 target c=%s (vertex ops at zero, four-fermion active)",
+             target_c.tolist())
 
     # Thin seed context: K=8 points clustered in [0.5, 1.0] only.
     M_ctx = rng.uniform(*SEED_M_RANGE, size=N_SEED_CTX)
     Y_ctx = mu_at(oracle, target_c, M_ctx)
     log.info("Seed context: K=%d, m in %s", N_SEED_CTX, SEED_M_RANGE)
 
-    # Calibration set: broader probe region (m in full M_RANGE for target c).
-    # Per the invariant: cal set covers the distribution the model will be
-    # queried on. For a single-scenario loop, the cal set is m-values across
-    # the full M_RANGE for the same target c.
+    # Calibration set fit against the Phase 1 target. The conformal layer
+    # will need to refit after the phase transition (see PHASE_BOUNDARY_CYCLE).
     M_cal = rng.uniform(*M_RANGE, size=N_CAL_POINTS)
     Y_cal = mu_at(oracle, target_c, M_cal)
 
@@ -214,6 +235,10 @@ def run_loop(oracle, model: IntentionFM, rng) -> dict:
     # Target set for H_T (the headline monitor): fine m-grid.
     M_target = np.linspace(M_RANGE[0] + 0.05, M_RANGE[1] - 0.05, 50)
     Y_target_truth = mu_at(oracle, target_c, M_target)
+
+    # Phase-transition bookkeeping.
+    phase = 1
+    phase_transition_done = False
 
     # Region tagger and baseline projection variance.
     tagger = RegionTagger()
@@ -248,7 +273,26 @@ def run_loop(oracle, model: IntentionFM, rng) -> dict:
     t0 = time.time()
     for cycle in range(N_LOOP_CYCLES):
         with tracer.start_as_current_span("chain.cycle") as cyc_span:
+            # Phase transition: activate the vertex operators in the
+            # deployment target at PHASE_BOUNDARY_CYCLE. The seed context
+            # and accumulated history persist, so the agent observes a
+            # distribution shift in subsequent oracle queries.
+            if not phase_transition_done and cycle >= PHASE_BOUNDARY_CYCLE:
+                with tracer.start_as_current_span("chain.phase_transition") as ps:
+                    target_c = TARGET_C_PHASE2.copy()
+                    Y_target_truth = mu_at(oracle, target_c, M_target)
+                    ps.set_attribute("aletheia.phase.from", 1)
+                    ps.set_attribute("aletheia.phase.to", 2)
+                    ps.set_attribute("aletheia.phase.cycle", cycle)
+                    ps.set_attribute("aletheia.phase.target_c",
+                                     target_c.tolist())
+                    log.info("Phase transition at cycle %d: target c -> %s",
+                             cycle, target_c.tolist())
+                phase = 2
+                phase_transition_done = True
+
             cyc_span.set_attribute("aletheia.cycle.index", cycle)
+            cyc_span.set_attribute("aletheia.cycle.phase", phase)
             cyc_span.set_attribute("aletheia.cycle.context_size", len(M_ctx))
 
             # Sample probe m-values across full M_RANGE. Bias 50% to the
@@ -504,14 +548,15 @@ def main():
 
     model, pretrain_wall, pretrain_losses = pretrain_intention(oracle, rng)
 
-    # BEFORE snapshot: FM's prediction with only the thin seed context.
+    # BEFORE snapshot uses the Phase 2 target on the seed-only context:
+    # this is the FM's "fresh deployment" prediction on the post-transition
+    # physics, the baseline against which Phase 2 recovery is measured.
     rng_b = np.random.default_rng(SEED + 1)
-    target_c = np.zeros(N_WC)
-    target_c[WITHHOLD_DIM] = 0.8
+    target_c_phase2 = TARGET_C_PHASE2.copy()
     M_band_eval = np.linspace(M_RANGE[0] + 0.05, M_RANGE[1] - 0.05, 100)
-    Y_band_truth = mu_at(oracle, target_c, M_band_eval)
+    Y_band_truth = mu_at(oracle, target_c_phase2, M_band_eval)
     M_seed_b = rng_b.uniform(*SEED_M_RANGE, size=N_SEED_CTX)
-    Y_seed_b = mu_at(oracle, target_c, M_seed_b)
+    Y_seed_b = mu_at(oracle, target_c_phase2, M_seed_b)
     mu_before = model.predict_np(M_seed_b, Y_seed_b, M_band_eval)
 
     out = run_loop(oracle, model, rng)
@@ -529,7 +574,9 @@ def main():
         M_target=out["M_target"], Y_target_truth=out["Y_target_truth"],
         final_mu_band=out["final_mu_band"],
         final_lev_band=out["final_lev_band"],
-        target_c=target_c,
+        target_c_phase1=TARGET_C_PHASE1,
+        target_c_phase2=TARGET_C_PHASE2,
+        phase_boundary_cycle=PHASE_BOUNDARY_CYCLE,
         pretrain_losses=pretrain_losses,
     )
 
@@ -562,9 +609,10 @@ def main():
         n_local_retrain=int(sum(1 for a in out["traj"]["action"]
                                 if a == "local_retrain")),
         n_recal=int(sum(1 for a in out["traj"]["action"] if a == "recal")),
-        engineered_band=list(WITHHOLD_BAND),
-        engineered_dim_name="c_lq^(3)",
-        engineered_target_c=target_c.tolist(),
+        phase_boundary_cycle=PHASE_BOUNDARY_CYCLE,
+        target_c_phase1=TARGET_C_PHASE1.tolist(),
+        target_c_phase2=TARGET_C_PHASE2.tolist(),
+        training_active_ops=list(TRAINING_ACTIVE_OPS),
         d_psi=16, pretrain_steps=PRETRAIN_STEPS,
         oracle_budget=ORACLE_BUDGET, K_epig=K_EPIG,
         cusum_h=CUSUM_H, bh_alpha=BH_ALPHA,

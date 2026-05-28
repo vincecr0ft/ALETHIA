@@ -111,6 +111,31 @@ class IntentionFMLearned(nn.Module):
         w = torch.linalg.solve(A, Psi_ctx.T @ Y_ctx)
         return Psi_query @ w
 
+    # -- numpy-side helpers for identifiability probe / drift detectors --
+    @torch.no_grad()
+    def psi_np(self, M: np.ndarray, Y_ctx=None) -> np.ndarray:
+        """Y_ctx accepted for API parity with the rate-aware variant; ignored."""
+        Mt = torch.from_numpy(M).float()
+        return self.psi(Mt).numpy()
+
+    @torch.no_grad()
+    def A_inv_and_w(self, M_ctx: np.ndarray, Y_ctx: np.ndarray) -> tuple:
+        """Return A^{-1}, w, Psi_ctx for the current context (numpy)."""
+        Psi = self.psi_np(M_ctx)
+        d = Psi.shape[1]
+        A = Psi.T @ Psi + self.alpha * np.eye(d)
+        A_inv = np.linalg.inv(A)
+        w = A_inv @ Psi.T @ Y_ctx
+        return A_inv, w, Psi
+
+    @torch.no_grad()
+    def predict_np(self, M_ctx: np.ndarray, Y_ctx: np.ndarray,
+                   M_q: np.ndarray) -> np.ndarray:
+        Mc = torch.from_numpy(M_ctx).float()
+        Yc = torch.from_numpy(Y_ctx).float()
+        Mq = torch.from_numpy(M_q).float()
+        return self._predict_one(Mc, Yc, Mq).numpy()
+
 
 class IntentionFMFixed:
     """Baseline: the tarball's hand-engineered polynomial basis.

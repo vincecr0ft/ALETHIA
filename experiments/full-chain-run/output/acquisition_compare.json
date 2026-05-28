@@ -1,0 +1,20 @@
+{
+  "epig": {
+    "rmse_final_median": 2.6428168002054684,
+    "rmse_initial": 2.430515943364972,
+    "recovery_factor": 0.9196687198204617,
+    "cycles_to_rmse_lt_10": 0
+  },
+  "random": {
+    "rmse_final_median": 1.5753870982435487,
+    "rmse_initial": 11.426034661360143,
+    "recovery_factor": 7.2528426023670045,
+    "cycles_to_rmse_lt_10": 6
+  },
+  "leverage": {
+    "rmse_final_median": 2.652545380707116,
+    "rmse_initial": 5.794022224812546,
+    "recovery_factor": 2.184325390605749,
+    "cycles_to_rmse_lt_10": 0
+  }
+}

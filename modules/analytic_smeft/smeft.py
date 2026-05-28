@@ -202,6 +202,34 @@ def _partonic_xs(pid: int, s_hat: np.ndarray, wc: dict, lam: float):
     return sm, interference, bsm_squared
 
 
+# Forward-backward channel signs: aligned chiralities (LL, RR) contribute
+# (1+cos theta*)^2 and integrate to +3/4 * |a|^2 above cos theta* = 0;
+# anti-aligned (LR, RL) contribute (1-cos theta*)^2 and integrate to -3/4 * |a|^2.
+# The factor 3/4 is the angular average of cos theta* over the (1+cos theta*)^2
+# distribution; see e.g. Halzen & Martin section 12.6.
+_AFB_SIGNS = np.array([
+    +1.0 if channel in (("L", "L"), ("R", "R")) else -1.0 for channel in CHANNELS
+])
+
+
+def _partonic_xs_afb(pid: int, s_hat: np.ndarray, wc: dict, lam: float):
+    """Partonic forward-minus-backward numerator (GeV^-2).
+
+    Returns ``(sm_only_afb, interference_afb, bsm_squared_afb)``. The numerator
+    of the partonic ``A_FB = (sigma_F - sigma_B) / (sigma_F + sigma_B)`` is the
+    LL + RR minus LR + RL combination of channel-resolved squared amplitudes,
+    weighted by the 3/4 angular-averaging factor.
+    """
+    a_sm, a_bsm = _amplitudes(pid, s_hat, wc, lam)
+    prefactor = s_hat / (48.0 * math.pi) * 0.75
+    signs = _AFB_SIGNS[:, None] if a_sm.ndim == 2 else _AFB_SIGNS
+    sm = prefactor * np.sum(signs * np.abs(a_sm) ** 2, axis=0)
+    interference = prefactor * np.sum(
+        signs * 2.0 * np.real(np.conj(a_sm) * a_bsm), axis=0)
+    bsm_squared = prefactor * np.sum(signs * np.abs(a_bsm) ** 2, axis=0)
+    return sm, interference, bsm_squared
+
+
 # --------------------------------------------------------------------------
 # Parton luminosity and hadronic convolution
 # --------------------------------------------------------------------------
@@ -247,6 +275,31 @@ def _dsigma_dm(m: np.ndarray, wc: dict, lam: float, pdf: PDFSet, s: float):
         bsm_squared += p_bsm * lumi
 
     # dsigma/dm = (2 m / s) * GeV^2->pb * sum_q sigma_q(m^2) * Phi_q(m^2/s).
+    flux = 2.0 * m / s * GEV2_TO_PB
+    return flux * sm, flux * interference, flux * bsm_squared
+
+
+def _dsigma_dm_afb_numerator(m: np.ndarray, wc: dict, lam: float, pdf: PDFSet, s: float):
+    """FB-asymmetric piece of dsigma/dm_ll (pb/GeV) at masses ``m``.
+
+    Numerator of the differential ``A_FB(m_ll) = (dsigma_F - dsigma_B) /
+    (dsigma_F + dsigma_B)``. Returns ``(sm_only_afb, interference_afb,
+    bsm_squared_afb)`` with the same shape conventions as :func:`_dsigma_dm`.
+    """
+    m = np.atleast_1d(np.asarray(m, dtype=float))
+    s_hat = m**2
+    tau = s_hat / s
+    sm = np.zeros_like(m)
+    interference = np.zeros_like(m)
+    bsm_squared = np.zeros_like(m)
+    for pid in _QUARK_FLAVOURS:
+        p_sm, p_int, p_bsm = _partonic_xs_afb(pid, s_hat, wc, lam)
+        lumi = np.array(
+            [_luminosity(pdf, pid, t, scale) for t, scale in zip(tau, m)]
+        )
+        sm += p_sm * lumi
+        interference += p_int * lumi
+        bsm_squared += p_bsm * lumi
     flux = 2.0 * m / s * GEV2_TO_PB
     return flux * sm, flux * interference, flux * bsm_squared
 
@@ -306,6 +359,110 @@ def _bin_average(lo: float, hi: float, kernel):
 # --------------------------------------------------------------------------
 # Public API
 # --------------------------------------------------------------------------
+def differential_afb(
+    wilson_coefficients: Optional[dict],
+    m_ll: Union[float, np.ndarray],
+    *,
+    sqrt_s: float = 13000.0,
+    lambda_scale: float = 1000.0,
+    order: str = "quadratic",
+    pdf: Union[str, PDFSet] = "auto",
+) -> dict:
+    """Pointwise forward-backward asymmetry ``A_FB(m_ll)``.
+
+    Companion to :func:`differential_xs` exposing the differential FB
+    asymmetry as a function of dilepton invariant mass. The chirality
+    structure of the cross section, which is integrated out in
+    ``d sigma / d m_ll`` and in ``d sigma / d pT_l``, drives ``A_FB`` and
+    distinguishes the left-handed and right-handed vertex operators
+    (``c_phi_q^(3)`` and ``c_phi_q^(1)``) and the four-fermion operators
+    of different chiralities. This is the discriminating observable for
+    the residual non-disclosure pattern reported in
+    Section "Identifiability" of the paper.
+
+    Returns a dict with ``m_ll``, ``A_FB``, ``A_FB_SM``, ``A_FB_BSM``,
+    ``sm_xs``, ``afb_numerator``.
+    """
+    if order not in ("linear", "quadratic"):
+        raise ValueError(f"order must be 'linear' or 'quadratic', got {order!r}.")
+    wc = _normalise_wc(wilson_coefficients)
+    pdf_set = get_pdf(pdf)
+    s = float(sqrt_s) ** 2
+    lam = float(lambda_scale)
+    m_arr = np.atleast_1d(np.asarray(m_ll, dtype=float))
+
+    sm_xs, int_xs, bsm_xs = _dsigma_dm(m_arr, wc, lam, pdf_set, s)
+    sm_afb, int_afb, bsm_afb = _dsigma_dm_afb_numerator(m_arr, wc, lam, pdf_set, s)
+
+    if order == "linear":
+        denom = sm_xs + int_xs
+        numer = sm_afb + int_afb
+    else:
+        denom = sm_xs + int_xs + bsm_xs
+        numer = sm_afb + int_afb + bsm_afb
+
+    denom_safe = np.where(np.abs(denom) > 1e-30, denom, 1.0)
+    a_fb_total = numer / denom_safe
+    a_fb_sm = sm_afb / np.where(np.abs(sm_xs) > 1e-30, sm_xs, 1.0)
+    return {
+        "m_ll": m_arr,
+        "A_FB": a_fb_total,
+        "A_FB_SM": a_fb_sm,
+        "sm_xs": sm_xs,
+        "afb_numerator": numer,
+        "wilson_coefficients": {key: wc[key] for key in OPERATORS},
+        "process": "pp_to_ll",
+    }
+
+
+def differential_xs_pt(
+    wilson_coefficients: Optional[dict],
+    pt_l: Union[float, np.ndarray],
+    *,
+    sqrt_s: float = 13000.0,
+    lambda_scale: float = 1000.0,
+    order: str = "quadratic",
+    pdf: Union[str, PDFSet] = "auto",
+) -> dict:
+    """Pointwise differential cross section ``d sigma / d pT_l`` (pb/GeV).
+
+    Companion to :func:`differential_xs` that exposes the lepton transverse
+    momentum spectrum at parton level. At LO the dilepton system has no
+    transverse recoil, so the kernel is the angular integral of
+    ``d sigma / d m_ll`` over ``m_ll = 2 pT / sin(theta*)`` weighted by
+    ``(1 + cos^2 theta*)``. The resulting projection has different SMEFT
+    operator weighting than ``d sigma / d m_ll`` because the angular
+    distribution depends on the chirality structure of each operator;
+    this asymmetry is the basis of multi-observable identifiability.
+
+    Returns the same dict shape as :func:`differential_xs` with the
+    ``m_ll`` key replaced by ``pt_l``.
+    """
+    if order not in ("linear", "quadratic"):
+        raise ValueError(f"order must be 'linear' or 'quadratic', got {order!r}.")
+    wc = _normalise_wc(wilson_coefficients)
+    pdf_set = get_pdf(pdf)
+    s = float(sqrt_s) ** 2
+    lam = float(lambda_scale)
+    pt_arr = np.atleast_1d(np.asarray(pt_l, dtype=float))
+    sm, interference, bsm_squared = _dsigma_dpt(pt_arr, wc, lam, pdf_set, s)
+    if order == "linear":
+        total = sm + interference
+        bsm_out: Optional[np.ndarray] = None
+    else:
+        total = sm + interference + bsm_squared
+        bsm_out = bsm_squared
+    return {
+        "pt_l": pt_arr,
+        "differential_xs": total,
+        "sm_only": sm,
+        "interference": interference,
+        "bsm_squared": bsm_out,
+        "wilson_coefficients": {key: wc[key] for key in OPERATORS},
+        "process": "pp_to_ll",
+    }
+
+
 def differential_xs(
     wilson_coefficients: Optional[dict],
     m_ll: Union[float, np.ndarray],
