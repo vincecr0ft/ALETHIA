@@ -1,0 +1,42 @@
+{
+  "n_events_probe": 4000,
+  "n_working_points_R": 8,
+  "sigma_top5_def": [
+    8.595655798244074,
+    0.48924748472950225,
+    0.06225976111987319,
+    0.013945539257313457,
+    0.0070239996449628075
+  ],
+  "sigma_top5_full": [
+    0.7743149858841077,
+    0.10091310423535606,
+    0.028288293095181345,
+    0.007388950354240969,
+    0.0032063098472863765
+  ],
+  "sigma1_over_sigma2_def": 17.56913641159849,
+  "sigma1_over_sigma2_full": 7.673086580293877,
+  "rms_residual_before": 0.05228291002159162,
+  "rms_residual_after": 0.003717945132067731,
+  "held_out_reduction": 14.062313499638586,
+  "pearson_u1_costheta": 0.8927862011527161,
+  "gates": {
+    "deficient_fires": "True",
+    "deficient_dominates_full": "True",
+    "held_out_reduction": true,
+    "u1_correlates_costheta": true
+  },
+  "all_pass": true,
+  "analytic_compare": {
+    "mg_def_sigma1": 8.595655798244074,
+    "analytic_def_sigma1": 10.885283470572285,
+    "mg_full_sigma1": 0.7743149858841077,
+    "analytic_full_sigma1": 1.0041798254430558,
+    "mg_pearson_u1_costheta": 0.8927862011527161,
+    "analytic_pearson_u1_costheta": -0.8853484729119309,
+    "mg_held_out_reduction": 14.062313499638586,
+    "analytic_held_out_reduction": 13.365674484334209
+  },
+  "wall_seconds": 195.37297717499314
+}

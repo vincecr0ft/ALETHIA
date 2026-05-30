@@ -29,6 +29,7 @@ protocol.
 """
 from __future__ import annotations
 
+import gzip
 import hashlib
 import json
 import os
@@ -38,11 +39,206 @@ import subprocess
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Union
+from typing import Iterable, Union
 
 import numpy as np
 
 from .features import N_WC, WC_NAMES
+
+
+# PDG codes for the final-state leptons in the dy_smeft process
+# (``generate p p > mu+ mu- NP<=2``). status = 1 = outgoing.
+_PDG_MU_MINUS: int = 13
+_PDG_MU_PLUS: int = -13
+
+
+def _iter_lhe_events(lhe_path: Path) -> Iterable[list[tuple]]:
+    """Yield each event in an LHE (optionally gzipped) file.
+
+    Each event is a list of particle tuples ``(pdgid, status, px, py, pz, E)``.
+    The leading event-header line and the trailing markup are skipped.
+    """
+    opener = gzip.open if str(lhe_path).endswith(".gz") else open
+    with opener(lhe_path, "rt") as f:
+        in_event = False
+        first = True
+        particles: list[tuple] = []
+        for raw in f:
+            line = raw.strip()
+            if line == "<event>":
+                in_event = True
+                first = True
+                particles = []
+                continue
+            if line == "</event>":
+                in_event = False
+                if particles:
+                    yield particles
+                particles = []
+                continue
+            if not in_event:
+                continue
+            if first:
+                # Event header: N_particles, ID, weight, scale, alpha_QED, alpha_S
+                first = False
+                continue
+            # Particle line: pdgid status mother1 mother2 col1 col2 px py pz E mass ...
+            # Skip any embedded markup such as <mgrwt>, <rwgt>, ...
+            if line.startswith("<"):
+                continue
+            toks = line.split()
+            if len(toks) < 10:
+                continue
+            try:
+                pdg = int(toks[0])
+                status = int(toks[1])
+                px = float(toks[6])
+                py = float(toks[7])
+                pz = float(toks[8])
+                E = float(toks[9])
+            except ValueError:
+                continue
+            particles.append((pdg, status, px, py, pz, E))
+
+
+def _costheta_cs(p_minus: tuple, p_plus: tuple) -> float:
+    """Collins-Soper polar angle of ``ℓ⁻`` in the dilepton rest frame.
+
+    Convention (Collins-Soper, Nucl Phys B 197, 446; matched to INV-1
+    Conventions and Pitfall 4): the CS z-axis is taken along the sign of
+    the dilepton longitudinal momentum P_z(ℓℓ). The closed-form expression
+    valid at any dilepton p_T is
+
+        cos θ*_CS = sign(P_z(ℓℓ)) ×
+                    (2 / (Q sqrt(Q² + Q_T²))) ×
+                    (P⁺(ℓ⁻) P⁻(ℓ⁺) − P⁻(ℓ⁻) P⁺(ℓ⁺))
+
+    where ``P^±(p) = (E ± p_z)/sqrt(2)`` are the lepton light-cone
+    components in the lab frame. The two arguments are the lab-frame
+    ``(px, py, pz, E)`` of ``ℓ⁻`` and ``ℓ⁺``. At LO with vanishing dilepton
+    p_T this reduces to the cosine of the polar angle of ``ℓ⁻`` in the
+    dilepton rest frame, with the forward direction set by the sign of
+    the boost.
+    """
+    px_m, py_m, pz_m, E_m = p_minus
+    px_p, py_p, pz_p, E_p = p_plus
+
+    Px = px_m + px_p
+    Py = py_m + py_p
+    Pz = pz_m + pz_p
+    E = E_m + E_p
+
+    Q2 = E * E - Px * Px - Py * Py - Pz * Pz
+    if Q2 <= 0.0:
+        return 0.0
+    Q = float(np.sqrt(Q2))
+    Q_T2 = Px * Px + Py * Py
+    denom = Q * float(np.sqrt(Q2 + Q_T2))
+    if denom == 0.0:
+        return 0.0
+
+    # Light-cone components of the leptons in the lab frame.
+    sqrt2 = float(np.sqrt(2.0))
+    Pp_m = (E_m + pz_m) / sqrt2
+    Pm_m = (E_m - pz_m) / sqrt2
+    Pp_p = (E_p + pz_p) / sqrt2
+    Pm_p = (E_p - pz_p) / sqrt2
+
+    num = 2.0 * (Pp_m * Pm_p - Pm_m * Pp_p)
+    cs = num / denom
+    if Pz < 0.0:
+        cs = -cs
+    # Numerical guard.
+    if cs > 1.0:
+        cs = 1.0
+    elif cs < -1.0:
+        cs = -1.0
+    return cs
+
+
+def _lhe_to_event_array(
+    lhe_path: Path,
+    *,
+    pdg_lepton_minus: int = _PDG_MU_MINUS,
+    pdg_lepton_plus: int = _PDG_MU_PLUS,
+) -> np.ndarray:
+    """Read an LHE file and return per-event ``(m_ll_GeV, cos θ*_CS)``.
+
+    Sibling of :func:`_bucket_lhe_by_costhetaCS` that returns the event-
+    level kinematics instead of the forward/backward bucket counts. Used
+    by :meth:`MadGraphSMEFTOracle.sample_events_mg` to feed the per-event
+    residual-SVD machinery (ManifoldInformer Task 1 steps 3-4 on the MG
+    fidelity tier).
+
+    Returns:
+        (N, 2) float64 array. Column 0: invariant mass ``m_ℓℓ`` of the
+        dimuon pair in GeV. Column 1: ``cos θ*_CS`` in [-1, +1].
+    """
+    out: list[tuple[float, float]] = []
+    for particles in _iter_lhe_events(lhe_path):
+        lep_minus = None
+        lep_plus = None
+        for pdg, status, px, py, pz, E in particles:
+            if status != 1:
+                continue
+            if pdg == pdg_lepton_minus and lep_minus is None:
+                lep_minus = (px, py, pz, E)
+            elif pdg == pdg_lepton_plus and lep_plus is None:
+                lep_plus = (px, py, pz, E)
+        if lep_minus is None or lep_plus is None:
+            continue
+        px = lep_minus[0] + lep_plus[0]
+        py = lep_minus[1] + lep_plus[1]
+        pz = lep_minus[2] + lep_plus[2]
+        E = lep_minus[3] + lep_plus[3]
+        m2 = E * E - px * px - py * py - pz * pz
+        if m2 <= 0.0:
+            continue
+        m_ll_gev = float(np.sqrt(m2))
+        cs = _costheta_cs(lep_minus, lep_plus)
+        out.append((m_ll_gev, cs))
+    if not out:
+        return np.zeros((0, 2), dtype=np.float64)
+    return np.asarray(out, dtype=np.float64)
+
+
+def _bucket_lhe_by_costhetaCS(
+    lhe_path: Path,
+    *,
+    pdg_lepton_minus: int = _PDG_MU_MINUS,
+    pdg_lepton_plus: int = _PDG_MU_PLUS,
+) -> tuple[int, int, int]:
+    """Read an LHE file, bucket events by sign(cos θ*_CS).
+
+    Returns ``(n_forward, n_backward, n_total)``. Events with exactly
+    one ``ℓ⁻`` (pdg=+13) and one ``ℓ⁺`` (pdg=-13) at status=+1 are
+    counted; events without that pair (should not happen for the
+    ``p p > mu+ mu-`` process) are silently dropped from both buckets
+    but still counted in ``n_total`` so the caller can detect a
+    malformed file.
+    """
+    n_f = 0
+    n_b = 0
+    n_tot = 0
+    for particles in _iter_lhe_events(lhe_path):
+        n_tot += 1
+        lep_minus = None
+        lep_plus = None
+        for pdg, status, px, py, pz, E in particles:
+            if status != 1:
+                continue
+            if pdg == pdg_lepton_minus and lep_minus is None:
+                lep_minus = (px, py, pz, E)
+            elif pdg == pdg_lepton_plus and lep_plus is None:
+                lep_plus = (px, py, pz, E)
+        if lep_minus is None or lep_plus is None:
+            continue
+        cs = _costheta_cs(lep_minus, lep_plus)
+        if cs >= 0.0:
+            n_f += 1
+        else:
+            n_b += 1
+    return n_f, n_b, n_tot
 
 
 # Surrogate WC name -> SMEFT block lhacode in the SMEFTsim param_card.
@@ -130,6 +326,39 @@ def _set_run_card_mmll(run_card_text: str, m_lo_gev: float, m_hi_gev: float) -> 
         elif " = mmllmax" in raw:
             out.append(f" {m_hi_gev:.4f} = mmllmax "
                        "! max invariant mass of l+l- (same flavour) lepton pair\n")
+        else:
+            out.append(raw)
+    return "".join(out)
+
+
+def _set_run_card_lepton_cuts(
+    run_card_text: str,
+    *,
+    ptl_gev: float,
+    etal_max: float,
+) -> str:
+    """Replace the ``ptl`` and ``etal`` lines in the run card.
+
+    Used by the gate-3 cross-check so the MG fiducial acceptance can be
+    widened to a near-inclusive value. The analytic ``A_FB`` reference
+    is the parton-level (no-cut) observable: leaving the default
+    ``ptl > 10 GeV, |etal| < 2.5`` cuts in place biases ``A_FB_MG``
+    downward (forward leptons cut out of the acceptance carry most of
+    the asymmetry), producing a real |Delta A_FB| ~ 30% even when the
+    underlying chiral structure agrees. ``ptl_gev = 0`` and
+    ``etal_max`` a large number (e.g. 10) restores the parton-level
+    geometry MG would otherwise compute.
+    """
+    out: list[str] = []
+    for raw in run_card_text.splitlines(keepends=True):
+        # ``ptl`` (minimum) and ``etal`` (max |y|) live on dedicated lines.
+        if " = ptl " in raw and "ptlmax" not in raw and "ptll" not in raw \
+                and "ptl1" not in raw and "ptl2" not in raw:
+            out.append(f" {ptl_gev:.4f}  = ptl       "
+                       "! minimum pt for the charged leptons \n")
+        elif " = etal " in raw and "etalmin" not in raw:
+            out.append(f" {etal_max:.4f}  = etal    "
+                       "! max rap for the charged leptons \n")
         else:
             out.append(raw)
     return "".join(out)
@@ -236,6 +465,8 @@ class MadGraphSMEFTOracle:
         reuse_cache: bool = True,
         keep_artifacts: bool = False,
         cache_path: Union[str, Path, None] = None,
+        ptl_min_gev: float | None = None,
+        etal_max: float | None = None,
     ) -> None:
         """
         Extra knobs (all opt-in defaults match prior behaviour where possible):
@@ -250,6 +481,17 @@ class MadGraphSMEFTOracle:
           banner.txt of the latest run for debugging.
         - ``cache_path``: where to persist the cache as JSONL. Defaults
           to ``<process_dir>/.alethia_cache/oracle.jsonl``.
+        - ``ptl_min_gev``: if not None, override the run_card ``ptl`` cut
+          per call. Set to 0.0 for the parton-level (no-cut) cross-check
+          against the analytic A_FB; leave as None to keep the default
+          fiducial ``ptl > 10 GeV`` already in the run_card.
+        - ``etal_max``: if not None, override the run_card ``etal`` cut
+          per call. Set to a large value (e.g. 10.0) for the parton-level
+          cross-check. The default ``|etal| < 2.5`` cuts out the forward
+          leptons that carry most of A_FB; leaving it in place biases the
+          MG A_FB downward by ~50% vs the analytic (unfolded) reference
+          and the gate-3 |Delta A_FB| <= 1% threshold is then unreachable
+          even with a correct chiral construction.
         """
         self.process_dir = Path(process_dir).resolve()
         self.clean_env = Path(clean_env).resolve()
@@ -265,6 +507,10 @@ class MadGraphSMEFTOracle:
         self.verbose = bool(verbose)
         self.reuse_cache = bool(reuse_cache)
         self.keep_artifacts = bool(keep_artifacts)
+        self.ptl_min_gev = (None if ptl_min_gev is None
+                            else float(ptl_min_gev))
+        self.etal_max = (None if etal_max is None
+                          else float(etal_max))
         self._sigma_sm_cache: dict[float, float] = {}
 
         # Defensively disable browser-opening on every init. MG resets the
@@ -376,6 +622,18 @@ class MadGraphSMEFTOracle:
         half = self.m_window_tev * 1000.0 * 0.5
         run_text = (cards / "run_card.dat").read_text()
         run_text = _set_run_card_mmll(run_text, m_gev - half, m_gev + half)
+        # Optional override of the default lepton fiducial cuts. The
+        # cross-check against the analytic parton-level A_FB needs the
+        # cuts widened so the two observables are the same physical
+        # object.
+        if self.ptl_min_gev is not None or self.etal_max is not None:
+            run_text = _set_run_card_lepton_cuts(
+                run_text,
+                ptl_gev=(self.ptl_min_gev if self.ptl_min_gev is not None
+                          else 10.0),
+                etal_max=(self.etal_max if self.etal_max is not None
+                          else 2.5),
+            )
         # Ensure nevents is at our chosen value.
         run_text = re.sub(
             r"^\s*\d+\s*=\s*nevents.*$",
@@ -387,18 +645,15 @@ class MadGraphSMEFTOracle:
         (cards / "run_card.dat").write_text(run_text)
 
     # ---- MG invocation ----
-    def _launch_and_parse(self) -> float:
-        """Run ``generate_events -f`` in the scrubbed env, parse xs, then
-        prune the run artefacts. With ``keep_artifacts=False`` (default),
-        the entire Events/run_NNN and HTML/run_NNN directories are deleted
-        once the cross section has been read; only the persistent cache
-        retains the result.
+    def _launch_generate_events(self) -> tuple[Path, str]:
+        """Run ``generate_events -f`` in the scrubbed env and locate the
+        new ``Events/run_NNN`` directory. Returns ``(run_dir, run_name)``.
+        Does NOT prune artefacts; the caller is responsible for cleanup.
         """
         events_dir = self.process_dir / "Events"
-        html_dir = self.process_dir / "HTML"
-        before = set(p.name for p in events_dir.iterdir()) if events_dir.exists() else set()
+        before = (set(p.name for p in events_dir.iterdir())
+                  if events_dir.exists() else set())
 
-        t0 = time.perf_counter()
         cmd = ["bash", "-c",
                f". {self.clean_env} && cd {self.process_dir} && "
                "./bin/generate_events -f"]
@@ -415,34 +670,54 @@ class MadGraphSMEFTOracle:
         if not new:
             raise RuntimeError("generate_events produced no new Events/run_* directory")
         latest = new[-1]
-        run_dir = events_dir / latest
-        banner = next(run_dir.glob("*_banner.txt"))
-        xs = _parse_xs_from_banner(banner)
+        return events_dir / latest, latest
 
-        # Aggressive cleanup so the process dir stays bounded under heavy use.
+    def _cleanup_artifacts(self, latest: str) -> None:
+        """Delete the just-completed run's ``Events`` and ``HTML``
+        artefacts. With ``keep_artifacts=True`` the banner of the latest
+        run is preserved; otherwise everything is removed and only the
+        on-disk cache row persists.
+        """
+        events_dir = self.process_dir / "Events"
+        html_dir = self.process_dir / "HTML"
+        run_dir = events_dir / latest
+
         if self.keep_artifacts:
-            # Keep the banner of the latest run; drop event files and HTML.
-            for f in run_dir.iterdir():
-                if "banner" not in f.name:
-                    f.unlink()
-            (html_dir / latest).exists() and shutil.rmtree(
-                html_dir / latest, ignore_errors=True)
-            # Drop older Events runs entirely.
-            for older in sorted(after - {latest})[:-1]:
-                shutil.rmtree(events_dir / older, ignore_errors=True)
+            if run_dir.exists():
+                for f in run_dir.iterdir():
+                    if "banner" not in f.name:
+                        try:
+                            f.unlink()
+                        except OSError:
+                            pass
+            if (html_dir / latest).exists():
+                shutil.rmtree(html_dir / latest, ignore_errors=True)
+            # Drop older Events / HTML runs entirely (keep only ``latest``).
+            for p in (events_dir.iterdir() if events_dir.exists() else []):
+                if p.is_dir() and p.name.startswith("run_") and p.name != latest:
+                    shutil.rmtree(p, ignore_errors=True)
             for p in (html_dir.iterdir() if html_dir.exists() else []):
                 if p.is_dir() and p.name.startswith("run_") and p.name != latest:
                     shutil.rmtree(p, ignore_errors=True)
         else:
-            # Nuke EVERY run_NNN: in Events and in HTML. The result lives
-            # in the persistent cache.
-            for p in events_dir.iterdir():
+            for p in (events_dir.iterdir() if events_dir.exists() else []):
                 if p.is_dir() and p.name.startswith("run_"):
                     shutil.rmtree(p, ignore_errors=True)
             for p in (html_dir.iterdir() if html_dir.exists() else []):
                 if p.is_dir() and p.name.startswith("run_"):
                     shutil.rmtree(p, ignore_errors=True)
 
+    def _launch_and_parse(self) -> float:
+        """Run ``generate_events -f``, parse the integrated cross section
+        from the banner, then prune artefacts. With ``keep_artifacts=False``
+        (default) the entire Events/run_NNN and HTML/run_NNN are deleted
+        once the cross section has been read.
+        """
+        t0 = time.perf_counter()
+        run_dir, latest = self._launch_generate_events()
+        banner = next(run_dir.glob("*_banner.txt"))
+        xs = _parse_xs_from_banner(banner)
+        self._cleanup_artifacts(latest)
         if self.verbose:
             print(f"  MG query: xs = {xs:.6e} pb in {time.perf_counter()-t0:.1f}s",
                   flush=True)
@@ -451,6 +726,196 @@ class MadGraphSMEFTOracle:
     def _xs_for(self, c: np.ndarray, m_tev: float) -> float:
         self._write_cards(c, m_tev)
         return self._launch_and_parse()
+
+    def _xs_and_cosCS_for(
+        self,
+        c: np.ndarray,
+        m_tev: float,
+    ) -> tuple[float, float, float, int, int]:
+        """Run MG once at ``(c, m_tev)`` and return the inclusive xs (pb),
+        the forward and backward cross sections under ``cos θ*_CS``, and
+        the event counts ``(n_forward, n_backward)``.
+
+        The forward / backward split is computed post-hoc from the
+        LHE-level lepton four-vectors, so a single ``generate_events``
+        call replaces what would otherwise be two MG runs (the previous
+        budget plan in ``mg_crosscheck_afb.py`` assumed two calls per
+        cos-θ* bin -- bucketing one LHE file is cheaper and avoids two
+        independent MC errors).
+
+        With ``event_norm = average`` (the dy_smeft default), the
+        per-event weight is the inclusive cross section, so
+
+            sigma_F = xs * n_F / (n_F + n_B),
+            sigma_B = xs * n_B / (n_F + n_B).
+
+        Sign convention (matches INV-1 Conventions and Pitfall 4):
+        the CS z-axis is taken along ``sign(P_z(ℓℓ))`` and
+        ``cos θ*_CS`` is computed for ``ℓ⁻`` (PDG ``+13``); the
+        forward bucket is ``cos θ*_CS >= 0``.
+        """
+        self._write_cards(c, m_tev)
+        t0 = time.perf_counter()
+        run_dir, latest = self._launch_generate_events()
+        try:
+            banner = next(run_dir.glob("*_banner.txt"))
+            xs = _parse_xs_from_banner(banner)
+
+            lhe_candidates = (
+                list(run_dir.glob("unweighted_events.lhe.gz"))
+                + list(run_dir.glob("unweighted_events.lhe"))
+            )
+            if not lhe_candidates:
+                raise RuntimeError(
+                    f"no unweighted_events.lhe[.gz] in {run_dir}; cannot "
+                    "compute cos-θ*_CS bins"
+                )
+            lhe_path = lhe_candidates[0]
+            n_f, n_b, n_tot = _bucket_lhe_by_costhetaCS(lhe_path)
+            n_paired = n_f + n_b
+            if n_paired == 0:
+                raise RuntimeError(
+                    f"LHE at {lhe_path} contained no μ⁺μ⁻ pairs (total events "
+                    f"= {n_tot})"
+                )
+            sigma_F = xs * n_f / n_paired
+            sigma_B = xs * n_b / n_paired
+        finally:
+            self._cleanup_artifacts(latest)
+
+        if self.verbose:
+            print(
+                f"  MG cos-θ* query: xs = {xs:.6e} pb, "
+                f"n_F={n_f}, n_B={n_b} of {n_paired} pairs "
+                f"in {time.perf_counter() - t0:.1f}s",
+                flush=True,
+            )
+        return xs, sigma_F, sigma_B, n_f, n_b
+
+    def truth_costhetaCS_bins(
+        self,
+        c: np.ndarray,
+        m: np.ndarray,
+    ) -> dict[str, np.ndarray]:
+        """Forward and backward cross sections under ``cos θ*_CS``.
+
+        One ``generate_events`` call per row of ``(c, m)``; the LHE
+        events are bucketed post-hoc into the forward
+        (``cos θ*_CS >= 0``) and backward (``cos θ*_CS < 0``) hemispheres
+        and the inclusive cross section is split by the bucket
+        fractions. This is the cheaper of the two MG-side options
+        for INV-1 Gate 3 (cf. ``mg_crosscheck_afb.py`` option (b)):
+        a single MG run per ``(c, m_ll)`` point yields both
+        ``sigma_F`` and ``sigma_B`` and therefore ``A_FB_MG = (F-B)/(F+B)``
+        with one MC error rather than two.
+
+        Sign convention (INV-1 Conventions / Pitfall 4): the CS z-axis
+        is along ``sign(P_z(ℓℓ))`` and ``cos θ*_CS`` is computed for
+        ``ℓ⁻``. Gate 3's |Δ A_FB| ≤ 1% threshold is the test that
+        catches a wrong sign.
+
+        ``c`` is ``(n, N_WC)`` in canonical surrogate order, ``m`` is
+        ``(n,)`` in TeV. Returns a dict with keys
+
+        - ``sigma_F``  shape ``(n,)`` -- forward cross section in pb
+        - ``sigma_B``  shape ``(n,)`` -- backward cross section in pb
+        - ``sigma``    shape ``(n,)`` -- inclusive xs in pb (= F+B)
+        - ``A_FB``     shape ``(n,)`` -- ``(F-B)/(F+B)``
+        - ``n_F``      shape ``(n,)`` int -- forward event count
+        - ``n_B``      shape ``(n,)`` int -- backward event count
+        """
+        c = np.atleast_2d(np.asarray(c, dtype=float))
+        m_tev = np.atleast_1d(np.asarray(m, dtype=float))
+        if c.shape[1] != N_WC:
+            raise ValueError(f"c must have {N_WC} columns, got {c.shape[1]}")
+        if c.shape[0] != m_tev.shape[0]:
+            raise ValueError(
+                f"c has {c.shape[0]} rows but m has {m_tev.shape[0]} entries"
+            )
+        n = c.shape[0]
+        sigma = np.empty(n, dtype=float)
+        sig_F = np.empty(n, dtype=float)
+        sig_B = np.empty(n, dtype=float)
+        afb = np.empty(n, dtype=float)
+        n_F_arr = np.empty(n, dtype=int)
+        n_B_arr = np.empty(n, dtype=int)
+        for i in range(n):
+            xs, sF, sB, nF, nB = self._xs_and_cosCS_for(c[i], float(m_tev[i]))
+            sigma[i] = xs
+            sig_F[i] = sF
+            sig_B[i] = sB
+            denom = sF + sB
+            afb[i] = (sF - sB) / denom if denom > 0.0 else 0.0
+            n_F_arr[i] = nF
+            n_B_arr[i] = nB
+        return {
+            "sigma": sigma,
+            "sigma_F": sig_F,
+            "sigma_B": sig_B,
+            "A_FB": afb,
+            "n_F": n_F_arr,
+            "n_B": n_B_arr,
+        }
+
+    def sample_events_mg(
+        self,
+        c: np.ndarray,
+        m_tev_center: float,
+        m_window_tev: float,
+        *,
+        nevents: int | None = None,
+    ) -> np.ndarray:
+        r"""Run one MG ``generate_events`` and return per-event kinematics.
+
+        Sibling of :meth:`truth_costhetaCS_bins` that emits the per-event
+        ``(log(m_ℓℓ / 1 TeV), cos θ*_CS)`` array — the same format the
+        ManifoldInformer per-event encoder consumes (cf.
+        ``modules/surrogate/oracle_events.py``). One MG run per call;
+        ``nevents`` events are generated inside the
+        ``[m_tev_center − m_window/2, m_tev_center + m_window/2]`` window.
+
+        Args:
+            c: (N_WC,) Wilson coefficients in canonical surrogate order.
+            m_tev_center: window centre in TeV.
+            m_window_tev: full window width in TeV. For ManifoldInformer
+                use this should be wide (e.g. 2 TeV) so the events span
+                the analysis range.
+            nevents: override the instance's ``self.nevents``.
+
+        Returns:
+            events: (N_kept, 2) array. Columns are (log(m_ℓℓ / 1 TeV),
+            cos θ*_CS). N_kept is the LHE event count actually produced
+            (typically equals ``nevents`` modulo MG bookkeeping).
+        """
+        c = np.asarray(c, dtype=float).reshape(N_WC)
+        # Set per-call window and nevents.
+        prev_window, prev_nev = self.m_window_tev, self.nevents
+        self.m_window_tev = float(m_window_tev)
+        if nevents is not None:
+            self.nevents = int(nevents)
+        try:
+            self._write_cards(c, float(m_tev_center))
+            run_dir, latest = self._launch_generate_events()
+            lhe_candidates = (
+                list(run_dir.glob("unweighted_events.lhe.gz"))
+                + list(run_dir.glob("unweighted_events.lhe"))
+            )
+            if not lhe_candidates:
+                self._cleanup_artifacts(latest)
+                raise RuntimeError(
+                    f"no unweighted_events.lhe[.gz] in {run_dir}"
+                )
+            events_GeV = _lhe_to_event_array(lhe_candidates[0])
+            self._cleanup_artifacts(latest)
+        finally:
+            self.m_window_tev = prev_window
+            self.nevents = prev_nev
+        if events_GeV.shape[0] == 0:
+            return np.zeros((0, 2), dtype=np.float64)
+        # Convert to the canonical event-feature units used by the
+        # analytic event sampler: log(m_ℓℓ / 1 TeV) and cos θ*_CS.
+        log_m_over_ref = np.log(events_GeV[:, 0] / 1000.0)             # GeV → TeV
+        return np.stack([log_m_over_ref, events_GeV[:, 1]], axis=1)
 
     def _sigma_sm_at(self, m_tev: float) -> float:
         """SM cross section over the ``[m - w/2, m + w/2]`` window.

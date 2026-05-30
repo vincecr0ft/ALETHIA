@@ -1,0 +1,160 @@
+{
+  "config": {
+    "n_c": 9,
+    "n_events_per_c": 4000,
+    "m_window_tev": 2.0,
+    "m_tev_center": 1.3,
+    "lambda_tev": 1.0,
+    "n_workers": 8,
+    "process_dirs": [
+      "/home/vince/ALETHIA/vendor/MG5_aMC/processes/dy_smeft",
+      "/home/vince/ALETHIA/vendor/MG5_aMC/processes/dy_smeft_w1",
+      "/home/vince/ALETHIA/vendor/MG5_aMC/processes/dy_smeft_w2",
+      "/home/vince/ALETHIA/vendor/MG5_aMC/processes/dy_smeft_w3",
+      "/home/vince/ALETHIA/vendor/MG5_aMC/processes/dy_smeft_w4",
+      "/home/vince/ALETHIA/vendor/MG5_aMC/processes/dy_smeft_w5",
+      "/home/vince/ALETHIA/vendor/MG5_aMC/processes/dy_smeft_w6",
+      "/home/vince/ALETHIA/vendor/MG5_aMC/processes/dy_smeft_w7"
+    ]
+  },
+  "rows": [
+    {
+      "worker_idx": 0,
+      "c_idx": 0,
+      "c": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "n_events_requested": 4000,
+      "n_events_kept": 4000,
+      "wall_seconds": 40.42257003800478,
+      "out_path": "/home/vince/ALETHIA/experiments/manifold-informer/output_mg_events/probe_sm.npz",
+      "ok": true
+    },
+    {
+      "worker_idx": 3,
+      "c_idx": 3,
+      "c": [
+        0.0,
+        0.0,
+        0.7,
+        0.0
+      ],
+      "n_events_requested": 4000,
+      "n_events_kept": 4000,
+      "wall_seconds": 40.492946422993555,
+      "out_path": "/home/vince/ALETHIA/experiments/manifold-informer/output_mg_events/c_03.npz",
+      "ok": true
+    },
+    {
+      "worker_idx": 1,
+      "c_idx": 1,
+      "c": [
+        0.0,
+        0.0,
+        0.3,
+        0.0
+      ],
+      "n_events_requested": 4000,
+      "n_events_kept": 4000,
+      "wall_seconds": 41.08125606300018,
+      "out_path": "/home/vince/ALETHIA/experiments/manifold-informer/output_mg_events/c_01.npz",
+      "ok": true
+    },
+    {
+      "worker_idx": 2,
+      "c_idx": 2,
+      "c": [
+        0.0,
+        0.0,
+        0.5,
+        0.0
+      ],
+      "n_events_requested": 4000,
+      "n_events_kept": 4000,
+      "wall_seconds": 41.35842748900177,
+      "out_path": "/home/vince/ALETHIA/experiments/manifold-informer/output_mg_events/c_02.npz",
+      "ok": true
+    },
+    {
+      "worker_idx": 6,
+      "c_idx": 6,
+      "c": [
+        0.0,
+        0.2,
+        0.4,
+        0.0
+      ],
+      "n_events_requested": 4000,
+      "n_events_kept": 4000,
+      "wall_seconds": 41.50208282099629,
+      "out_path": "/home/vince/ALETHIA/experiments/manifold-informer/output_mg_events/c_06.npz",
+      "ok": true
+    },
+    {
+      "worker_idx": 7,
+      "c_idx": 7,
+      "c": [
+        0.0,
+        0.0,
+        0.4,
+        0.2
+      ],
+      "n_events_requested": 4000,
+      "n_events_kept": 4000,
+      "wall_seconds": 41.73676849099866,
+      "out_path": "/home/vince/ALETHIA/experiments/manifold-informer/output_mg_events/c_07.npz",
+      "ok": true
+    },
+    {
+      "worker_idx": 5,
+      "c_idx": 5,
+      "c": [
+        0.4,
+        0.0,
+        0.4,
+        0.0
+      ],
+      "n_events_requested": 4000,
+      "n_events_kept": 4000,
+      "wall_seconds": 41.794208250998054,
+      "out_path": "/home/vince/ALETHIA/experiments/manifold-informer/output_mg_events/c_05.npz",
+      "ok": true
+    },
+    {
+      "worker_idx": 4,
+      "c_idx": 4,
+      "c": [
+        0.2,
+        0.0,
+        0.4,
+        0.0
+      ],
+      "n_events_requested": 4000,
+      "n_events_kept": 4000,
+      "wall_seconds": 42.07422711700201,
+      "out_path": "/home/vince/ALETHIA/experiments/manifold-informer/output_mg_events/c_04.npz",
+      "ok": true
+    },
+    {
+      "worker_idx": 0,
+      "c_idx": 8,
+      "c": [
+        0.3,
+        0.0,
+        0.3,
+        0.0
+      ],
+      "n_events_requested": 4000,
+      "n_events_kept": 4000,
+      "wall_seconds": 43.25465852500929,
+      "out_path": "/home/vince/ALETHIA/experiments/manifold-informer/output_mg_events/c_08.npz",
+      "ok": true
+    }
+  ],
+  "wall_seconds": 83.98153571599687,
+  "successes": 9,
+  "failures": 0
+}

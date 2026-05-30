@@ -1,0 +1,62 @@
+{
+  "studies": {
+    "A": {
+      "c_strong_angular": [
+        0.0,
+        0.0,
+        0.4,
+        0.0
+      ],
+      "n_events_probe": 6000,
+      "leverage_def_mean": 0.0007151722687908423,
+      "leverage_full_mean": 0.002223324630031737,
+      "rms_residual_def": 0.0505512079844107,
+      "rms_residual_full": 0.004916027819863445,
+      "coverage_def": 0.0455,
+      "coverage_full": 0.7675,
+      "fact1_leverage_blind": false,
+      "fact2_accuracy_higher": true,
+      "fact3_coverage_breaks": true,
+      "sigma_pred_used": 0.004916027819863445
+    },
+    "B": {
+      "n_train_working_points": 8,
+      "n_events_probe": 6000,
+      "sigma_top5_def": [
+        10.885283470572285,
+        0.6484337938863219,
+        0.114153327769152,
+        0.030571106916723472,
+        0.0095712625701689
+      ],
+      "sigma_top5_full": [
+        1.0041798254430558,
+        0.15573384216241903,
+        0.07957827457157915,
+        0.01310339673770839,
+        0.004307834868725567
+      ],
+      "sigma1_over_sigma2_def": 16.787039129056563,
+      "sigma1_over_sigma2_full": 6.448051441482896,
+      "rms_residual_before": 0.053877932261222436,
+      "rms_residual_after": 0.0040310672180721065,
+      "held_out_reduction": 13.365674484334209,
+      "pearson_u1_costheta": -0.8853484729119309,
+      "gate_def_fires": true,
+      "gate_def_dominates_full": true,
+      "gate_reduction": true,
+      "gate_u1_costheta_correlated": true
+    }
+  },
+  "gates_passed": {
+    "A_fact1_leverage_blind": false,
+    "A_fact2_accuracy_higher": true,
+    "A_fact3_coverage_breaks": true,
+    "B_deficient_psi_fires": true,
+    "B_deficient_dominates_full": true,
+    "B_held_out_reduction": true,
+    "B_u1_correlates_costheta": true
+  },
+  "all_pass": false,
+  "wall_seconds": 345.04564785957336
+}
