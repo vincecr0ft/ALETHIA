@@ -105,23 +105,22 @@ def kappa_drift(model, M_ctx: np.ndarray, recent_M: np.ndarray,
     recent_M: recent probe m-values.
     train_proj_var: baseline Var_train(<psi(m), v_min>) computed once.
 
-    Returns (fired, kappa, proj_ratio).
+    Returns (fired, kappa, proj_ratio, eig). The EigenState ``eig`` is
+    the full eigendecomposition of A on the current context (ascending
+    by eigenvalue); downstream code uses it to emit the
+    ``chain.drift.eigen`` Phoenix span and to drive eigen-redirected
+    acquisition. See docs/research/upgrade-architecture.md §2.1.
     """
-    # Compute kappa(A) on current context.
-    kappa = model.kappa_A(M_ctx)
-    # Eigendecompose A to get v_min.
-    Psi = model.psi_np(M_ctx)
-    d = Psi.shape[1]
-    A = Psi.T @ Psi + model.alpha * np.eye(d)
-    eigs, vecs = np.linalg.eigh(A)
-    v_min = vecs[:, 0]  # column for smallest eigenvalue
+    from .eigen import eigen_state
+    eig = eigen_state(model.psi_np(M_ctx), model.alpha)
+    v_min = eig.U[:, 0]
     # Recent projection variance.
     Psi_recent = model.psi_np(recent_M)
     proj = Psi_recent @ v_min
     recent_proj_var = float(np.var(proj))
     proj_ratio = recent_proj_var / max(train_proj_var, 1e-30)
-    fired = (kappa > kappa_threshold) or (proj_ratio > proj_ratio_threshold)
-    return bool(fired), float(kappa), float(proj_ratio)
+    fired = (eig.kappa > kappa_threshold) or (proj_ratio > proj_ratio_threshold)
+    return bool(fired), float(eig.kappa), float(proj_ratio), eig
 
 
 def aggregate_action(acc: bool, cal: bool, cov: bool,
