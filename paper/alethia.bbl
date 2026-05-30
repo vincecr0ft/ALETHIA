@@ -1,14 +1,27 @@
-\begin{thebibliography}{25}
+\begin{thebibliography}{40}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Garnelo and Czarnecki(2023)]{Garnelo:2023intention}
-M.~Garnelo and W.~M. Czarnecki.
-\newblock Exploring the {S}pace of {K}ey-{V}alue-{Q}uery {M}odels with
-  {I}ntention, 2023.
+\bibitem[Cranmer et~al.(2020)Cranmer, Brehmer, and
+  Louppe]{Cranmer:2020frontiers}
+K.~Cranmer, J.~Brehmer, and G.~Louppe.
+\newblock The frontier of simulation-based inference.
+\newblock \emph{Proc.\ Natl.\ Acad.\ Sci.}, 117:\penalty0 30055, 2020.
+
+\bibitem[Tejero-Cantero et~al.(2020)Tejero-Cantero, Boelts, Deistler,
+  Lueckmann, Durkan, Goncalves, Greenberg, and Macke]{TejeroCantero:2020sbi}
+A.~Tejero-Cantero, J.~Boelts, M.~Deistler, J.-M. Lueckmann, C.~Durkan, P.~J.
+  Goncalves, D.~S. Greenberg, and J.~H. Macke.
+\newblock sbi: a toolkit for simulation-based inference.
+\newblock \emph{J.\ Open Source Software}, 5:\penalty0 2505, 2020.
+
+\bibitem[Hermans et~al.(2020)Hermans, Begy, and Louppe]{Hermans:2020nre}
+J.~Hermans, V.~Begy, and G.~Louppe.
+\newblock Likelihood-free {MCMC} with amortized approximate likelihood ratios,
+  2020.
 
 \bibitem[Heinrich et~al.(2024)Heinrich, Golling, Kasieczka, and {et
   al.}]{Heinrich:2024mpm}
@@ -30,35 +43,97 @@ V.~Mikuni and B.~Nachman.
 \newblock {O}mni{L}earned: {A} foundation model for jet physics at the
   billion-jet scale, 2025.
 
-\bibitem[Katel and {et al.}(2025)]{Katel:2025hepjepa}
-A.~Katel and {et al.}
+\bibitem[Bardhan et~al.(2025)Bardhan, Agrawal, Tilak, Neeraj, and
+  Mitra]{Bardhan:2025hepjepa}
+J.~Bardhan, R.~Agrawal, A.~Tilak, C.~Neeraj, and S.~Mitra.
 \newblock {HEP-JEPA}: {A} foundation model for collider physics using joint
-  embedding predictive architectures, 2025.
+  embedding predictive architecture, 2025.
 
 \bibitem[{Sophon Collaboration}(2024)]{Sophon:2024}
 {Sophon Collaboration}.
 \newblock {S}ophon: {Foundation model for collider physics}, 2024.
 
-\bibitem[Brehmer et~al.(2020{\natexlab{a}})Brehmer, Cranmer, Louppe, and
-  Pavez]{Brehmer:2018kdj}
-J.~Brehmer, K.~Cranmer, G.~Louppe, and J.~Pavez.
-\newblock Mining gold from implicit models to improve likelihood-free
-  inference.
-\newblock \emph{Proc. Nat. Acad. Sci.}, 117:\penalty0 5242, 2020{\natexlab{a}}.
+\bibitem[Das~Bakshi et~al.(2025)Das~Bakshi, Hobbs, and
+  Kriesten]{DasBakshi:2025reusable}
+S.~Das~Bakshi, T.~J. Hobbs, and B.~Kriesten.
+\newblock Reusable theory representations for colliders: a demonstrator {SMEFT}
+  foundation model, 2025.
 
-\bibitem[Brehmer et~al.(2020{\natexlab{b}})Brehmer, Kling, Espejo, and
-  Cranmer]{Brehmer:2019xox}
-J.~Brehmer, F.~Kling, I.~Espejo, and K.~Cranmer.
-\newblock {M}ad{M}iner: {M}achine learning-based inference for particle
-  physics.
-\newblock \emph{Comput. Softw. Big Sci.}, 4:\penalty0 3, 2020{\natexlab{b}}.
+\bibitem[Garnelo and Czarnecki(2023)]{Garnelo:2023intention}
+M.~Garnelo and W.~M. Czarnecki.
+\newblock Exploring the {S}pace of {K}ey-{V}alue-{Q}uery {M}odels with
+  {I}ntention, 2023.
 
-\bibitem[Chen et~al.(2023)Chen, Glioti, Marzocca, Nardini, and
-  Wulzer]{Chen:2022lcp}
-S.~Chen, A.~Glioti, D.~Marzocca, G.~Nardini, and A.~Wulzer.
-\newblock Unbinned multivariate observables for global {SMEFT} analyses from
-  machine learning.
-\newblock \emph{JHEP}, 03:\penalty0 033, 2023.
+\bibitem[Rasmussen and Williams(2006)]{Rasmussen:2006gp}
+C.~E. Rasmussen and C.~K.~I. Williams.
+\newblock \emph{{G}aussian processes for machine learning}.
+\newblock MIT Press, 2006.
+
+\bibitem[Smith et~al.(2023)Smith, Bickford~Smith, and
+  Rainforth]{Smith:2023epig}
+F.~Smith, B.~Bickford~Smith, and T.~Rainforth.
+\newblock Prediction-oriented {B}ayesian active learning, 2023.
+
+\bibitem[Sherman and Morrison(1950)]{Sherman:1950}
+J.~Sherman and W.~J. Morrison.
+\newblock Adjustment of an inverse matrix corresponding to a change in one
+  element of a given matrix.
+\newblock \emph{Ann. Math. Statist.}, 21:\penalty0 124, 1950.
+
+\bibitem[Lei et~al.(2018)Lei, G'{S}ell, Rinaldo, Tibshirani, and
+  Wasserman]{Lei:2018conformal}
+J.~Lei, M.~G'{S}ell, A.~Rinaldo, R.~J. Tibshirani, and L.~Wasserman.
+\newblock Distribution-free predictive inference for regression.
+\newblock \emph{J. Amer. Statist. Assoc.}, 113:\penalty0 1094, 2018.
+
+\bibitem[Vovk et~al.(2005)Vovk, Gammerman, and Shafer]{Vovk:2005alg}
+V.~Vovk, A.~Gammerman, and G.~Shafer.
+\newblock \emph{{A}lgorithmic learning in a random world}.
+\newblock Springer, 2005.
+
+\bibitem[Araz and Spannowsky(2025)]{Araz:2025conformal}
+J.~Y. Araz and M.~Spannowsky.
+\newblock Another fit bites the dust: conformal prediction for calibrated
+  uncertainty in high-energy physics, 2025.
+
+\bibitem[Benjamini and Hochberg(1995)]{Benjamini:1995fdr}
+Y.~Benjamini and Y.~Hochberg.
+\newblock Controlling the false discovery rate: a practical and powerful
+  approach to multiple testing.
+\newblock \emph{J. Roy. Statist. Soc. B}, 57:\penalty0 289, 1995.
+
+\bibitem[Ahad et~al.(2022)Ahad, Davenport, and Xie]{Ahad:2022dascusum}
+N.~Ahad, M.~A. Davenport, and Y.~Xie.
+\newblock Data-adaptive symmetric {CUSUM} for sequential change detection,
+  2022.
+
+\bibitem[Kirsch et~al.(2019)Kirsch, van Amersfoort, and
+  Gal]{Kirsch:2019batchbald}
+A.~Kirsch, J.~van Amersfoort, and Y.~Gal.
+\newblock {BatchBALD}: efficient and diverse batch acquisition for deep
+  {B}ayesian active learning, 2019.
+
+\bibitem[Zaheer et~al.(2017)Zaheer, Kottur, Ravanbakhsh, P{\'o}czos,
+  Salakhutdinov, and Smola]{Zaheer:2017deepsets}
+M.~Zaheer, S.~Kottur, S.~Ravanbakhsh, B.~P{\'o}czos, R.~Salakhutdinov, and
+  A.~J. Smola.
+\newblock Deep sets.
+\newblock In \emph{{NeurIPS}}, 2017.
+
+\bibitem[Assran et~al.(2023)Assran, Duval, Misra, Bojanowski, Vincent, Rabbat,
+  LeCun, and Ballas]{Assran:2023ijepa}
+M.~Assran, Q.~Duval, I.~Misra, P.~Bojanowski, P.~Vincent, M.~Rabbat, Y.~LeCun,
+  and N.~Ballas.
+\newblock Self-supervised learning from images with a joint-embedding
+  predictive architecture.
+\newblock In \emph{{CVPR}}, 2023.
+
+\bibitem[Thimonier et~al.(2025)Thimonier, De~Melo~Costa, Popineau, Rimmel, and
+  Doan]{Thimonier:2025tjepa}
+H.~Thimonier, J.~De~Melo~Costa, F.~Popineau, A.~Rimmel, and B.-L. Doan.
+\newblock {T-JEPA}: augmentation-free self-supervised learning for tabular
+  data.
+\newblock In \emph{{ICLR}}, 2025.
 
 \bibitem[Grzadkowski et~al.(2010)Grzadkowski, Iskrzynski, Misiak, and
   Rosiek]{Grzadkowski:2010es}
@@ -90,57 +165,78 @@ J.~Alwall and {et al.}
   differential cross sections, and their matching to parton shower simulations.
 \newblock \emph{JHEP}, 07:\penalty0 079, 2014.
 
-\bibitem[Sherman and Morrison(1950)]{Sherman:1950}
-J.~Sherman and W.~J. Morrison.
-\newblock Adjustment of an inverse matrix corresponding to a change in one
-  element of a given matrix.
-\newblock \emph{Ann. Math. Statist.}, 21:\penalty0 124, 1950.
+\bibitem[Boughezal et~al.(2023)Boughezal, Huang, and
+  Petriello]{Boughezal:2023afb}
+R.~Boughezal, Y.~Huang, and F.~Petriello.
+\newblock Impact of high invariant-mass drell-yan forward-backward asymmetry
+  measurements on {SMEFT} fits, 2023.
 
-\bibitem[Rasmussen and Williams(2006)]{Rasmussen:2006gp}
-C.~E. Rasmussen and C.~K.~I. Williams.
-\newblock \emph{{G}aussian processes for machine learning}.
-\newblock MIT Press, 2006.
+\bibitem[Chen et~al.(2023)Chen, Glioti, Marzocca, Nardini, and
+  Wulzer]{Chen:2022lcp}
+S.~Chen, A.~Glioti, D.~Marzocca, G.~Nardini, and A.~Wulzer.
+\newblock Unbinned multivariate observables for global {SMEFT} analyses from
+  machine learning.
+\newblock \emph{JHEP}, 03:\penalty0 033, 2023.
 
-\bibitem[Smith et~al.(2023)Smith, Bickford~Smith, and
-  Rainforth]{Smith:2023epig}
-F.~Smith, B.~Bickford~Smith, and T.~Rainforth.
-\newblock Prediction-oriented {B}ayesian active learning, 2023.
+\bibitem[Brehmer et~al.(2020{\natexlab{a}})Brehmer, Cranmer, Louppe, and
+  Pavez]{Brehmer:2018kdj}
+J.~Brehmer, K.~Cranmer, G.~Louppe, and J.~Pavez.
+\newblock Mining gold from implicit models to improve likelihood-free
+  inference.
+\newblock \emph{Proc. Nat. Acad. Sci.}, 117:\penalty0 5242, 2020{\natexlab{a}}.
 
-\bibitem[Lei et~al.(2018)Lei, G'{S}ell, Rinaldo, Tibshirani, and
-  Wasserman]{Lei:2018conformal}
-J.~Lei, M.~G'{S}ell, A.~Rinaldo, R.~J. Tibshirani, and L.~Wasserman.
-\newblock Distribution-free predictive inference for regression.
-\newblock \emph{J. Amer. Statist. Assoc.}, 113:\penalty0 1094, 2018.
+\bibitem[Brehmer et~al.(2020{\natexlab{b}})Brehmer, Kling, Espejo, and
+  Cranmer]{Brehmer:2019xox}
+J.~Brehmer, F.~Kling, I.~Espejo, and K.~Cranmer.
+\newblock {M}ad{M}iner: {M}achine learning-based inference for particle
+  physics.
+\newblock \emph{Comput. Softw. Big Sci.}, 4:\penalty0 3, 2020{\natexlab{b}}.
 
-\bibitem[Vovk et~al.(2005)Vovk, Gammerman, and Shafer]{Vovk:2005alg}
-V.~Vovk, A.~Gammerman, and G.~Shafer.
-\newblock \emph{{A}lgorithmic learning in a random world}.
-\newblock Springer, 2005.
+\bibitem[Ellis et~al.(2020)Ellis, Madigan, Mimasu, Sanz, and
+  You]{Ellis:2020smeft}
+J.~Ellis, M.~Madigan, K.~Mimasu, V.~Sanz, and T.~You.
+\newblock Top, {H}iggs, diboson and electroweak fit to the {S}tandard {M}odel
+  effective field theory, 2020.
 
-\bibitem[Ahad et~al.(2022)Ahad, Davenport, and Xie]{Ahad:2022dascusum}
-N.~Ahad, M.~A. Davenport, and Y.~Xie.
-\newblock Data-adaptive symmetric {CUSUM} for sequential change detection,
-  2022.
+\bibitem[Cui et~al.(2014)Cui, Martin, Marzouk, Solonen, and
+  Spantini]{Cui:2014lis}
+T.~Cui, J.~Martin, Y.~M. Marzouk, A.~Solonen, and A.~Spantini.
+\newblock Likelihood-informed dimension reduction for nonlinear inverse
+  problems.
+\newblock \emph{Inverse Problems}, 30:\penalty0 114015, 2014.
 
-\bibitem[Benjamini and Hochberg(1995)]{Benjamini:1995fdr}
-Y.~Benjamini and Y.~Hochberg.
-\newblock Controlling the false discovery rate: a practical and powerful
-  approach to multiple testing.
-\newblock \emph{J. Roy. Statist. Soc. B}, 57:\penalty0 289, 1995.
+\bibitem[Constantine(2015)]{Constantine:2015active}
+P.~G. Constantine.
+\newblock \emph{Active Subspaces: Emerging Ideas for Dimension Reduction in
+  Parameter Studies}.
+\newblock SIAM, 2015.
 
-\bibitem[Araz and Spannowsky(2025)]{Araz:2025conformal}
-J.~Y. Araz and M.~Spannowsky.
-\newblock Another fit bites the dust: conformal prediction for calibrated
-  uncertainty in high-energy physics, 2025.
+\bibitem[Spantini et~al.(2015)Spantini, Solonen, Cui, Martin, Tenorio, and
+  Marzouk]{Spantini:2015optimal}
+A.~Spantini, A.~Solonen, T.~Cui, J.~Martin, L.~Tenorio, and Y.~M. Marzouk.
+\newblock Optimal low-rank approximations of {B}ayesian linear inverse
+  problems.
+\newblock \emph{SIAM J.\ Sci.\ Comput.}, 37:\penalty0 A2451--A2487, 2015.
+
+\bibitem[M\"uller et~al.(2022)M\"uller, Hollmann, Arango, Grabocka, and
+  Hutter]{Mueller:2022pfn}
+S.~M\"uller, N.~Hollmann, S.~P. Arango, J.~Grabocka, and F.~Hutter.
+\newblock Transformers can do {B}ayesian inference, 2022.
+
+\bibitem[Schmitt and Radev(2025)]{Schmitt:2025tabpfnsbi}
+M.~Schmitt and S.~T. Radev.
+\newblock {T}ab{PFN}-as-{SBI}: simulation-based inference with prior-fitted
+  networks, 2025.
 
 \bibitem[Qu et~al.(2022)Qu, Li, and Qian]{Qu:2022part}
 H.~Qu, C.~Li, and S.~Qian.
 \newblock Particle {T}ransformer for jet tagging.
 \newblock \emph{Proc. 39th ICML}, 2022.
 
-\bibitem[M\"uller et~al.(2022)M\"uller, Hollmann, Arango, Grabocka, and
-  Hutter]{Mueller:2022pfn}
-S.~M\"uller, N.~Hollmann, S.~P. Arango, J.~Grabocka, and F.~Hutter.
-\newblock Transformers can do {B}ayesian inference, 2022.
+\bibitem[Bardes et~al.(2022)Bardes, Ponce, and LeCun]{Bardes:2022vicreg}
+A.~Bardes, J.~Ponce, and Y.~LeCun.
+\newblock {VICReg}: variance-invariance-covariance regularization for
+  self-supervised learning.
+\newblock In \emph{{ICLR}}, 2022.
 
 \end{thebibliography}

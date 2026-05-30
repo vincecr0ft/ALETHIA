@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.8)  27 MAY 2026 10:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.8)  30 MAY 2026 11:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -769,7 +769,7 @@ File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
 zlibraryfit.code.tex
 File: tikzlibraryfit.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 41
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 40
 .
  (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -782,37 +782,37 @@ File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 (./alethia.aux)
 \openout1 = `alethia.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Info: Redefining \microtypecontext on input line 41.
-Package microtype Info: Applying patch `item' on input line 41.
-Package microtype Info: Applying patch `toc' on input line 41.
-Package microtype Info: Applying patch `eqnum' on input line 41.
-Package microtype Info: Applying patch `footnote' on input line 41.
-Package microtype Info: Applying patch `verbatim' on input line 41.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Info: Redefining \microtypecontext on input line 40.
+Package microtype Info: Applying patch `item' on input line 40.
+Package microtype Info: Applying patch `toc' on input line 40.
+Package microtype Info: Applying patch `eqnum' on input line 40.
+Package microtype Info: Applying patch `footnote' on input line 40.
+Package microtype Info: Applying patch `verbatim' on input line 40.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 41.
+LaTeX Info: Redefining \showhyphens on input line 40.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -876,7 +876,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 41.
+Package hyperref Info: Link coloring ON on input line 40.
 
 (./alethia.out) (./alethia.out)
 \@outlinefile=\write4
@@ -885,35 +885,35 @@ Package hyperref Info: Link coloring ON on input line 41.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 4
-2.
+5.
  (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 4
-2.
+5.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-42.
+45.
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-42.
+45.
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 42.
+(Font)              <10> on input line 45.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 42.
+(Font)              <7> on input line 45.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 42.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 42.
+(Font)              <5> on input line 45.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 45.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -922,7 +922,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 42.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 45.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -930,24 +930,24 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 46.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 46.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 46.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 52.
- [1
+) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/enc/
 dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/sha
-re/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-m
-athsy.enc}]
-[2{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}] [3]
+re/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/
+lm-rm.enc}]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 67.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 67.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 72.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 83.
+
+[2{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}] [3] [4] [5]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-13.
+51.
 
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -956,103 +956,142 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [4] [5]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 165.
-<figures/intention_vs_deepsets_inside_outside.png, id=221, 867.24pt x 578.16pt>
-
-File: figures/intention_vs_deepsets_inside_outside.png Graphic file (type png)
-<use figures/intention_vs_deepsets_inside_outside.png>
-Package pdftex.def Info: figures/intention_vs_deepsets_inside_outside.png  used
- on input line 172.
-(pdftex.def)             Requested size: 386.96027pt x 257.97292pt.
-<figures/intention_vs_deepsets_curves.png, id=225, 867.24pt x 578.16pt>
-File: figures/intention_vs_deepsets_curves.png Graphic file (type png)
-<use figures/intention_vs_deepsets_curves.png>
-Package pdftex.def Info: figures/intention_vs_deepsets_curves.png  used on inpu
-t line 180.
-(pdftex.def)             Requested size: 455.24411pt x 303.49443pt.
-<figures/intention_vs_deepsets_scaling.png, id=227, 867.24pt x 578.16pt>
-File: figures/intention_vs_deepsets_scaling.png Graphic file (type png)
-<use figures/intention_vs_deepsets_scaling.png>
-Package pdftex.def Info: figures/intention_vs_deepsets_scaling.png  used on inp
-ut line 190.
-(pdftex.def)             Requested size: 386.96027pt x 257.97292pt.
+<figures/oracle_distributions.png, id=319, 592.614pt x 260.6538pt>
+File: figures/oracle_distributions.png Graphic file (type png)
+<use figures/oracle_distributions.png>
+Package pdftex.def Info: figures/oracle_distributions.png  used on input line 1
+57.
+(pdftex.def)             Requested size: 455.24411pt x 200.23868pt.
  [6]
-<figures/intention_psi_basis.png, id=245, 867.24pt x 578.16pt>
-File: figures/intention_psi_basis.png Graphic file (type png)
-<use figures/intention_psi_basis.png>
-Package pdftex.def Info: figures/intention_psi_basis.png  used on input line 20
-0.
-(pdftex.def)             Requested size: 455.24411pt x 303.49443pt.
- [7 <./figures/intention_vs_deepsets_inside_outside.png>] [8 <./figures/intenti
-on_vs_deepsets_curves.png>] [9 <./figures/intention_vs_deepsets_scaling.png>]
-<figures/chain_before_after.png, id=285, 1019.60925pt x 405.31425pt>
-File: figures/chain_before_after.png Graphic file (type png)
-<use figures/chain_before_after.png>
-Package pdftex.def Info: figures/chain_before_after.png  used on input line 244
-.
-(pdftex.def)             Requested size: 455.24411pt x 180.96727pt.
-<figures/chain_trajectory.png, id=288, 1019.60925pt x 658.25925pt>
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 202.
+ [7 <./figures/oracle_distributions.png>] [8] [9] [10]
+<figures/learning_loop_snapshots.png, id=407, 622.4856pt x 405.6756pt>
+File: figures/learning_loop_snapshots.png Graphic file (type png)
+<use figures/learning_loop_snapshots.png>
+Package pdftex.def Info: figures/learning_loop_snapshots.png  used on input lin
+e 297.
+(pdftex.def)             Requested size: 455.24411pt x 296.68546pt.
+ [11]
+<figures/chain_trajectory.png, id=417, 636.9396pt x 391.2216pt>
 File: figures/chain_trajectory.png Graphic file (type png)
 <use figures/chain_trajectory.png>
-Package pdftex.def Info: figures/chain_trajectory.png  used on input line 252.
-(pdftex.def)             Requested size: 455.24411pt x 293.90375pt.
- [10 <./figures/intention_psi_basis.png>]
-<figures/chain_drift_events.png, id=299, 1019.60925pt x 585.98924pt>
+Package pdftex.def Info: figures/chain_trajectory.png  used on input line 305.
+(pdftex.def)             Requested size: 455.24411pt x 279.61984pt.
+ [12 <./figures/learning_loop_snapshots.png>]
+<figures/chain_drift_events.png, id=426, 622.4856pt x 203.3196pt>
 File: figures/chain_drift_events.png Graphic file (type png)
 <use figures/chain_drift_events.png>
-Package pdftex.def Info: figures/chain_drift_events.png  used on input line 260
+Package pdftex.def Info: figures/chain_drift_events.png  used on input line 313
 .
-(pdftex.def)             Requested size: 455.24411pt x 261.63618pt.
-<figures/chain_rmse_recovery.png, id=301, 802.79926pt x 405.31425pt>
-File: figures/chain_rmse_recovery.png Graphic file (type png)
-<use figures/chain_rmse_recovery.png>
-Package pdftex.def Info: figures/chain_rmse_recovery.png  used on input line 26
-8.
-(pdftex.def)             Requested size: 386.96027pt x 195.36499pt.
- [11 <./figures/chain_before_after.png>] [12 <./figures/chain_trajectory.png>] 
-[13 <./figures/chain_drift_events.png>] [14 <./figures/chain_rmse_recovery.png>
-] [15] (./alethia.bbl [16]) [17] (./alethia.aux)
+(pdftex.def)             Requested size: 386.96027pt x 126.39189pt.
+ [13 <./figures/chain_trajectory.png>]
+<figures/bimodal_recovery_avg.png, id=438, 562.5015pt x 290.0436pt>
+File: figures/bimodal_recovery_avg.png Graphic file (type png)
+<use figures/bimodal_recovery_avg.png>
+Package pdftex.def Info: figures/bimodal_recovery_avg.png  used on input line 3
+42.
+(pdftex.def)             Requested size: 432.48051pt x 222.9979pt.
+ [14 <./figures/chain_drift_events.png>] [15 <./figures/bimodal_recovery_avg.pn
+g>] [16]
+<figures/al_contraction_mle.png, id=476, 1309.19885pt x 333.55385pt>
+File: figures/al_contraction_mle.png Graphic file (type png)
+<use figures/al_contraction_mle.png>
+Package pdftex.def Info: figures/al_contraction_mle.png  used on input line 389
+.
+(pdftex.def)             Requested size: 455.24411pt x 115.98215pt.
+ [17 <./figures/al_contraction_mle.png>]
+Overfull \hbox (7.84428pt too wide) in paragraph at lines 407--408
+\T1/lmr/m/n/10.95 (-20) The in-fer-ence out-put of the closed-form head is the 
+im-plicit ridge weight $\OML/lmm/b/it/10.95 w[] \OT1/lmr/m/n/10.95 (-20) = \OML
+/lmm/b/it/10.95 A[] []\OT1/lmr/m/n/10.95 (-20) (\OML/lmm/b/it/10.95 M[]\OT1/lmr
+/m/n/10.95 (-20) )[]\OML/lmm/b/it/10.95 Y[] \OMS/lmsy/m/n/10.95 2
+ []
+
+[18]
+<figures/key_visualisation.png, id=502, 648.7437pt x 523.7166pt>
+File: figures/key_visualisation.png Graphic file (type png)
+<use figures/key_visualisation.png>
+Package pdftex.def Info: figures/key_visualisation.png  used on input line 411.
+
+(pdftex.def)             Requested size: 455.24411pt x 367.51811pt.
+ [19 <./figures/key_visualisation.png>] [20]
+Overfull \hbox (71.82083pt too wide) in paragraph at lines 457--469
+ [][] 
+ []
+
+[21]
+Overfull \hbox (12.31992pt too wide) in paragraph at lines 479--480
+\T1/lmtt/m/n/10.95 experiments/full-chain-run/output/sbi_posterior_summary_mass
+_only.json\T1/lmr/m/n/10.95 (-20) ; the bounded-
+ []
+
+
+Overfull \hbox (17.0856pt too wide) in paragraph at lines 492--493
+\T1/lmr/m/n/10.95 (-20) The first base-line is the fixed-basis In-ten-tion vari
+-ant with $\OML/lmm/b/it/10.95  \OT1/lmr/m/n/10.95 (-20) (\OML/lmm/m/it/10.95 m
+\OT1/lmr/m/n/10.95 (-20) ) = \OMS/lmsy/m/n/10.95 f\OT1/lmr/m/n/10.95 (-20) 1\OM
+L/lmm/m/it/10.95 ; []\OT1/lmr/m/n/10.95 (-20) (\OML/lmm/m/it/10.95 m=M[]\OT1/lm
+r/m/n/10.95 (-20) )\OML/lmm/m/it/10.95 ; [] ; [][]\OT1/lmr/m/n/10.95 (-20) (\OM
+L/lmm/m/it/10.95 m=M[]\OT1/lmr/m/n/10.95 (-20) )\OMS/lmsy/m/n/10.95 g$\T1/lmr/m
+/n/10.95 (-20) ,
+ []
+
+[22]
+<figures/intention_psi_basis_smeft.png, id=550, 622.4856pt x 261.1356pt>
+File: figures/intention_psi_basis_smeft.png Graphic file (type png)
+<use figures/intention_psi_basis_smeft.png>
+Package pdftex.def Info: figures/intention_psi_basis_smeft.png  used on input l
+ine 529.
+(pdftex.def)             Requested size: 455.24411pt x 190.97803pt.
+ [23]
+<figures/intention_vs_deepsets_scaling_smeft.png, id=560, 547.8066pt x 261.1356
+pt>
+File: figures/intention_vs_deepsets_scaling_smeft.png Graphic file (type png)
+<use figures/intention_vs_deepsets_scaling_smeft.png>
+Package pdftex.def Info: figures/intention_vs_deepsets_scaling_smeft.png  used 
+on input line 542.
+(pdftex.def)             Requested size: 386.96027pt x 184.4672pt.
+ [24] [25 <./figures/intention_psi_basis_smeft.png>] [26 <./figures/intention_v
+s_deepsets_scaling_smeft.png>] [27] [28] [29] [30] [31] (./alethia.bbl [32] [33
+]) [34] (./alethia.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `alethia.out' has not changed.
-(rerunfilecheck)             Checksum: 320047AE85466661D1185E1463E44B68;3761.
+(rerunfilecheck)             Checksum: B642D1342561505CEC0B625E683DB7D4;8814.
  ) 
 Here is how much of TeX's memory you used:
- 26882 strings out of 476106
- 492482 string characters out of 5793934
- 1944975 words of memory out of 5000000
- 48036 multiletter control sequences out of 15000+600000
- 675229 words of font info for 269 fonts, out of 8000000 for 9000
+ 27262 strings out of 476106
+ 498999 string characters out of 5793934
+ 1945975 words of memory out of 5000000
+ 48234 multiletter control sequences out of 15000+600000
+ 678738 words of font info for 322 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 84i,12n,87p,1932b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,14n,87p,2812b,837s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/ty
-pe1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx6.pfb></us
-r/share/texmf/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf/fonts/type1/pub
-lic/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/shar
-e/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm
-/lmmi7.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/
-fonts/type1/public/lm/lmmi9.pfb></usr/share/texmf/fonts/type1/public/lm/lmmib10
-.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/
-type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></us
-r/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/publ
-ic/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/tex
-mf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lms
-y10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fon
-ts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy9.pfb>
-</usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on alethia.pdf (17 pages, 1341368 bytes).
+pe1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></u
+sr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/p
+ublic/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/shar
+e/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm
+/lmmi9.pfb></usr/share/texmf/fonts/type1/public/lm/lmmib10.pfb></usr/share/texm
+f/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf/fonts/t
+ype1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/
+share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public
+/lm/lmr9.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/tex
+mf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lms
+y6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/font
+s/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy9.pfb><
+/usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on alethia.pdf (34 pages, 2010162 bytes).
 PDF statistics:
- 500 PDF objects out of 1000 (max. 8388607)
- 406 compressed objects within 5 object streams
- 86 named destinations out of 1000 (max. 500000)
- 60133 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 846 PDF objects out of 1000 (max. 8388607)
+ 717 compressed objects within 8 object streams
+ 164 named destinations out of 1000 (max. 500000)
+ 60810 words of extra memory for PDF output out of 61914 (max. 10000000)
 
