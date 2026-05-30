@@ -1,0 +1,31 @@
+warning: `VIRTUAL_ENV=/usr` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+Augmented probe (w, log(M_ctx)) -> c. sigma_y = 0.05, K = 12.
+Pre-tabulating morphing on m-grid...
+Loaded v1 psi_theta (d_psi = 16).
+Fisher eigenvalues: [17.398269, 7.939469, 0.000232, 0.000121]
+
+=== Augmented OLS probe (input = w | log(M_ctx); dim = 28) ===
+  OLS sigma_resid^2 per Warsaw direction = [0.17439 0.15849 0.0246  0.12527]
+
+=== MLP augmented probe (same input) ===
+  MLP in-sample Warsaw c-RMSE = [0.4018 0.3855 0.1696 0.2665]
+
+=== Pool inbox (N=50, N_rep=100) ===
+  MLE convergence: converged 100.00%, on box edge 27.72%, median gradient norm at solution = 1.681e-04, median cost = 4.536e+00
+  c_tilde direction summary (probe vs finite-sample MLE):
+    a   MSE_lin   MSE_mlp   MSE_MLE   MSE_lin/MLE   MSE_mlp/MLE   lin/mlp   BCRB        cov68
+    0   0.0351    0.0317    0.1076      0.33          0.29         1.11     1.331e-05   0.88
+    1   0.1648    0.1236    0.1323      1.24          0.93         1.33     1.205e-04   0.48
+    2   0.1743    0.1948    8.5571      0.02          0.02         0.89     1.018e-01   0.58
+    3   0.1858    0.2133    7.4376      0.02          0.03         0.87     1.304e-01   0.52
+
+=== Pool withheld_band (N=50, N_rep=100) ===
+  MLE convergence: converged 100.00%, on box edge 29.84%, median gradient norm at solution = 6.070e-04, median cost = 4.893e+00
+  c_tilde direction summary (probe vs finite-sample MLE):
+    a   MSE_lin   MSE_mlp   MSE_MLE   MSE_lin/MLE   MSE_mlp/MLE   lin/mlp   BCRB        cov68
+    0   0.0919    0.1244    0.4409      0.21          0.28         0.74     1.092e-05   0.82
+    1   0.2564    0.3565    0.1251      2.05          2.85         0.72     9.455e-05   0.48
+    2   0.1772    0.3274    9.8763      0.02          0.03         0.54     4.206e-02   0.70
+    3   0.2438    0.2998    9.5260      0.03          0.03         0.81     1.413e-01   0.58
+
+Saved augmented-probe BCRB summary to /home/vince/ALETHIA/experiments/full-chain-run/output/bcrb_efficiency_augmented.json.

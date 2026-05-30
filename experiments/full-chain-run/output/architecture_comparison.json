@@ -1,0 +1,195 @@
+{
+  "claim": "Claim A \u2014 the system compares different foundation-model readings of the same (M_ctx, Y_ctx) context; the four analytic properties (closed-form predictive variance, information gain, sequential update, Eckart-Young sensitivity) are not generic across them, and track M\u2013Y-alignment retention together with c-recoverability.",
+  "columns": {
+    "closed_form_predictive_variance": "yes/no by architecture definition + reason",
+    "closed_form_information_gain": "yes/no by architecture definition + reason",
+    "closed_form_sequential_update": "yes/no by architecture definition + reason (Sherman-Morrison)",
+    "eckart_young_sensitivity": "yes/no by architecture definition + reason",
+    "alignment_retained": "1 \u2212 cosine similarity under per-scenario y-shuffle (higher = uses M-Y joint assignment more)",
+    "r2_median_in / r2_p5_in / r2_median_out / r2_p5_out": "held-out R\u00b2 on 50/50 in/out scenarios (Table 4)",
+    "c_recoverability_in_linear / c_recoverability_out_linear": "joint R\u00b2 of a linear c-probe (4 Wilson directions) fitted on training-scenario representations",
+    "effective_rank": "singular values above 1% of max, from repr_analysis diagnostics",
+    "n_params": "trained parameter count (0 for fixed-\u03c8)"
+  },
+  "sources": [
+    "experiments/intention-vs-deepsets/output_smeft/summary.json",
+    "experiments/intention-vs-deepsets/output_jepa_scaling/summary.json",
+    "experiments/intention-vs-deepsets/output_representation_analysis/summary.json",
+    "experiments/intention-vs-deepsets/output_representation_analysis/splits.pt"
+  ],
+  "ordering": "rows sorted descending by alignment_retained; None last",
+  "global_caveats": [
+    "fixed-\u03c8 alignment and c-recoverability are computed fresh by this script (the model has no trainable parameters, so this is closed-form evaluation, not training)",
+    "scaled-JEPA alignment / c-recoverability / effective rank are from JEPA_summary_s in repr_analysis (same transformer architecture as the 186k/10k headline E_scale_all_jepa_tx_big but trained on 2k/6k); the 186k/10k held-out R\u00b2 and parameter count are from output_jepa_scaling",
+    "constraint-violating regressor has architecturally undefined alignment and c-recoverability (it consumes c on the forward pass and has no Y_ctx slot); these cells are N/A by design"
+  ],
+  "rows": [
+    {
+      "architecture": "Intention (closed-form, learned \u03c8_\u03b8)",
+      "row_id": "intention_learned",
+      "closed_form_predictive_variance": {
+        "yes": true,
+        "reason": "ridge solve A = \u03a8\u1d40 \u03a8 + \u03b1 I gives leverage(q) = \u03c8(q)\u1d40 A\u207b\u00b9 \u03c8(q); predictive variance is \u03c3_y\u00b2 (1 + leverage)"
+      },
+      "closed_form_information_gain": {
+        "yes": true,
+        "reason": "EPIG closed form follows from leverage via the matrix determinant lemma (paper Eq. 7 / INV-3 \u0394H_D)"
+      },
+      "closed_form_sequential_update": {
+        "yes": true,
+        "reason": "Sherman-Morrison rank-one update A_new\u207b\u00b9 = A\u207b\u00b9 \u2212 (A\u207b\u00b9\u03c8 \u03c8\u1d40 A\u207b\u00b9)/(1+lev) (paper Eq. 8)"
+      },
+      "eckart_young_sensitivity": {
+        "yes": true,
+        "reason": "Eckart-Young bounds the sensitivity of A\u207b\u00b9 via its condition number; drift detector uses \u03ba(A) directly"
+      },
+      "alignment_retained": 0.6994078934192658,
+      "y_shuffle_cosine": 0.30059210658073426,
+      "alignment_source": "experiments/intention-vs-deepsets/output_representation_analysis/summary.json (Intention_w; architecturally identical to the output_smeft row)",
+      "r2_median_in": 0.9999005794525146,
+      "r2_p5_in": 0.9996359944343567,
+      "r2_median_out": 0.9998742341995239,
+      "r2_p5_out": 0.9997163414955139,
+      "c_recoverability_in_linear": 0.7495396137237549,
+      "c_recoverability_out_linear": 0.6528698801994324,
+      "effective_rank": 11,
+      "n_params": 5328,
+      "caveats": []
+    },
+    {
+      "architecture": "Intention (closed-form, fixed \u03c8 \u2014 polynomial basis)",
+      "row_id": "intention_fixed",
+      "closed_form_predictive_variance": {
+        "yes": true,
+        "reason": "ridge solve A = \u03a8\u1d40 \u03a8 + \u03b1 I gives leverage(q) = \u03c8(q)\u1d40 A\u207b\u00b9 \u03c8(q); predictive variance is \u03c3_y\u00b2 (1 + leverage)"
+      },
+      "closed_form_information_gain": {
+        "yes": true,
+        "reason": "EPIG closed form follows from leverage via the matrix determinant lemma (paper Eq. 7 / INV-3 \u0394H_D)"
+      },
+      "closed_form_sequential_update": {
+        "yes": true,
+        "reason": "Sherman-Morrison rank-one update A_new\u207b\u00b9 = A\u207b\u00b9 \u2212 (A\u207b\u00b9\u03c8 \u03c8\u1d40 A\u207b\u00b9)/(1+lev) (paper Eq. 8)"
+      },
+      "eckart_young_sensitivity": {
+        "yes": true,
+        "reason": "Eckart-Young bounds the sensitivity of A\u207b\u00b9 via its condition number; drift detector uses \u03ba(A) directly"
+      },
+      "alignment_retained": 0.2838396686448744,
+      "y_shuffle_cosine": 0.7161603313551256,
+      "alignment_source": "computed fresh by architecture_comparison.py on output_representation_analysis/splits.pt \u2014 the model has no trainable parameters, so no checkpoint is required",
+      "r2_median_in": 0.9935893149000131,
+      "r2_p5_in": 0.9143626168802181,
+      "r2_median_out": 0.9884198225987427,
+      "r2_p5_out": 0.7555353320260262,
+      "c_recoverability_in_linear": 0.7399921157165761,
+      "c_recoverability_out_linear": 0.6612830072149187,
+      "effective_rank": null,
+      "n_params": 0,
+      "caveats": [
+        "fixed-\u03c8 effective rank not computed (the polynomial basis is 5-dimensional by construction)"
+      ]
+    },
+    {
+      "architecture": "Scaled JEPA-FM (transformer, 186k params, 10k scenarios)",
+      "row_id": "jepa_scaled",
+      "closed_form_predictive_variance": {
+        "yes": false,
+        "reason": "no design matrix \u2014 encoder + pooling aggregator has no analytic leverage / predictive variance"
+      },
+      "closed_form_information_gain": {
+        "yes": false,
+        "reason": "no analytic information-gain functional over the pooled summary"
+      },
+      "closed_form_sequential_update": {
+        "yes": false,
+        "reason": "encoder + pooler is opaque to a rank-one context update; no closed sequential refit"
+      },
+      "eckart_young_sensitivity": {
+        "yes": false,
+        "reason": "no design matrix and no analytic condition number; sensitivity is encoder-Jacobian dependent, not closed form"
+      },
+      "alignment_retained": 0.2204280734062195,
+      "y_shuffle_cosine": 0.7795719265937805,
+      "alignment_source": "experiments/intention-vs-deepsets/output_representation_analysis/summary.json (JEPA_summary_s) \u2014 same transformer architecture (d_emb=64, hidden=128, 2 layers, 4 heads) as the 186k/10k scaled-JEPA headline; the repr_analysis variant trains on 2k scenarios / 6k steps rather than 10k/10k",
+      "r2_median_in": 0.9472979307174683,
+      "r2_p5_in": 0.1770697832107544,
+      "r2_median_out": 0.9694509506225586,
+      "r2_p5_out": 0.4501093029975891,
+      "c_recoverability_in_linear": 0.6209240555763245,
+      "c_recoverability_out_linear": 0.5130915641784668,
+      "effective_rank": 21,
+      "n_params": 186241,
+      "caveats": [
+        "alignment_retained, c_recoverability, effective_rank sourced from architecturally identical JEPA_summary_s in repr_analysis (2k scenarios / 6k steps); the 186k/10k headline run (E_scale_all_jepa_tx_big) does not carry a y-shuffle or c-probe measurement of its own"
+      ]
+    },
+    {
+      "architecture": "Deep Sets (matched-budget pooling FM)",
+      "row_id": "deepsets_matched",
+      "closed_form_predictive_variance": {
+        "yes": false,
+        "reason": "no design matrix \u2014 encoder + pooling aggregator has no analytic leverage / predictive variance"
+      },
+      "closed_form_information_gain": {
+        "yes": false,
+        "reason": "no analytic information-gain functional over the pooled summary"
+      },
+      "closed_form_sequential_update": {
+        "yes": false,
+        "reason": "encoder + pooler is opaque to a rank-one context update; no closed sequential refit"
+      },
+      "eckart_young_sensitivity": {
+        "yes": false,
+        "reason": "no design matrix and no analytic condition number; sensitivity is encoder-Jacobian dependent, not closed form"
+      },
+      "alignment_retained": 0.03482865095138554,
+      "y_shuffle_cosine": 0.9651713490486145,
+      "alignment_source": "experiments/intention-vs-deepsets/output_representation_analysis/summary.json (DeepSets_z)",
+      "r2_median_in": 0.7029740810394287,
+      "r2_p5_in": -0.2701324224472046,
+      "r2_median_out": 0.5105900764465332,
+      "r2_p5_out": 0.1899397224187851,
+      "c_recoverability_in_linear": 0.3231591582298279,
+      "c_recoverability_out_linear": 0.2852323055267334,
+      "effective_rank": 6,
+      "n_params": 6545,
+      "caveats": []
+    },
+    {
+      "architecture": "Constraint-violating regressor (c on forward pass)",
+      "row_id": "regressor_cheat",
+      "closed_form_predictive_variance": {
+        "yes": false,
+        "reason": "regressor consumes c on the forward pass; not c-agnostic, no context-conditional posterior over c"
+      },
+      "closed_form_information_gain": {
+        "yes": false,
+        "reason": "no posterior over c to define information gain against; c is the input"
+      },
+      "closed_form_sequential_update": {
+        "yes": false,
+        "reason": "no inverted design matrix to update; the regressor consumes c, not a ridge solve over context"
+      },
+      "eckart_young_sensitivity": {
+        "yes": false,
+        "reason": "no design matrix; the regressor has no condition-number sensitivity tied to a closed-form posterior"
+      },
+      "alignment_retained": null,
+      "y_shuffle_cosine": null,
+      "alignment_source": "N/A \u2014 the regressor consumes c on the forward pass and has no Y_ctx slot; y-shuffle on the context is undefined",
+      "r2_median_in": 0.9604803323745728,
+      "r2_p5_in": -23.24962615966797,
+      "r2_median_out": 0.959630012512207,
+      "r2_p5_out": -0.4098990559577942,
+      "c_recoverability_in_linear": null,
+      "c_recoverability_out_linear": null,
+      "effective_rank": null,
+      "n_params": 5041,
+      "caveats": [
+        "alignment_retained = N/A: no (M_ctx, Y_ctx) context summary",
+        "c_recoverability = N/A: c is the architecture's input, not something to probe a context for"
+      ]
+    }
+  ]
+}

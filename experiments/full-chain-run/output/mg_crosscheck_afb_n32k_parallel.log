@@ -1,0 +1,16 @@
+warning: `VIRTUAL_ENV=/usr` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+INV-1 gate 3 parallel sweep: 4 workers, 4 c-points x 5 m-points, nevents = 32000
+  output -> /home/vince/ALETHIA/experiments/full-chain-run/output/mg_crosscheck_afb_summary_n8k_parallel.json
+  worker 0 (c_idx=0) done in 4.6 min
+  worker 2 (c_idx=2) done in 4.7 min
+  worker 3 (c_idx=3) done in 4.8 min
+  worker 1 (c_idx=1) done in 4.8 min
+LHAPDF 6.5.5 loading /home/vince/ALETHIA/vendor/MG5_aMC/HEPTools/lhapdf6_py3/share/LHAPDF/CT18NNLO/CT18NNLO_0000.dat
+CT18NNLO PDF set, member #0, version 1; LHAPDF ID = 14000
+
+Done. 4/4 slices.  gate_passes = False
+  max |Δ| = 1.112 %, median |Δ| = 0.217 %
+  wall time = 4.8 min
+  summary  -> /home/vince/ALETHIA/experiments/full-chain-run/output/mg_crosscheck_afb_summary_n8k_parallel.json
+Thanks for using LHAPDF 6.5.5. Please make sure to cite the paper:
+  Eur.Phys.J. C75 (2015) 3, 132  (http://arxiv.org/abs/1412.7420)

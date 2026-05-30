@@ -1,0 +1,35 @@
+warning: `VIRTUAL_ENV=/usr` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+Noise model: additive Gaussian on Y, sigma_y = 0.05.
+(run.py uses oracle noise_frac=0.0; we add this floor so BCRB is finite; the same sigma is used in F_K, probe-fit context, and MLE.)
+Pre-tabulating morphing on m-grid (one-time cost)...
+Loading checkpoint: experiments/full-chain-run/output/intention_fm_v3.pt
+Inferred d_psi from checkpoint = 32
+
+=== OLS probe ===
+  OLS sigma_resid^2 per direction = [0.15586 0.16338 0.05335 0.14481]
+  OLS coef SE (first 5 dims, dir 0): [3.5771 3.1834 3.6782 2.6399 2.5826]
+
+=== Fisher eigenbasis ===
+  Fisher eigenvalues (desc): [22.086327, 9.968566, 0.000304, 0.000125]
+  sigma_prior^2 per c_tilde direction: [0.13339, 0.15501, 0.1575, 0.17511]
+  1/sigma_prior^2 : [7.5, 6.45, 6.35, 5.71]
+
+=== Pool: inbox (N=50, N_rep=200) ===
+  Per-direction summary (c_tilde 1..4):
+    dir 0: lambda_K=1.083e+09  1/sigma_p^2=7.497  BCRB=1.387e-05  MSE=0.06436  eta=0.000  bias=-0.01135  mle_var=0.002016  cov68=0.92  verdict=data-dominated-and-inefficient
+    dir 1: lambda_K=2.601e+08  1/sigma_p^2=6.451  BCRB=0.0001548  MSE=0.148  eta=0.001  bias=+0.005048  mle_var=0.1169  cov68=0.56  verdict=data-dominated-and-inefficient
+    dir 2: lambda_K=3683  1/sigma_p^2=6.349  BCRB=0.09805  MSE=0.1789  eta=0.548  bias=+0.08072  mle_var=25.37  cov68=0.64  verdict=data-dominated-and-inefficient
+    dir 3: lambda_K=1049  1/sigma_p^2=5.711  BCRB=0.1392  MSE=0.1986  eta=0.701  bias=-0.01762  mle_var=85.59  cov68=0.56  verdict=data-dominated-and-inefficient
+
+=== Pool: withheld_band (N=50, N_rep=200) ===
+  Per-direction summary (c_tilde 1..4):
+    dir 0: lambda_K=3.762e+09  1/sigma_p^2=7.497  BCRB=1.277e-05  MSE=0.2267  eta=0.000  bias=+0.1293  mle_var=0.004075  cov68=0.86  verdict=data-dominated-and-inefficient
+    dir 1: lambda_K=6.077e+08  1/sigma_p^2=6.451  BCRB=6.701e-05  MSE=0.3297  eta=0.000  bias=+0.08055  mle_var=0.2962  cov68=0.34  verdict=data-dominated-and-inefficient
+    dir 2: lambda_K=1.419e+04  1/sigma_p^2=6.349  BCRB=0.05418  MSE=0.2466  eta=0.220  bias=-0.04668  mle_var=26.09  cov68=0.74  verdict=data-dominated-and-inefficient
+    dir 3: lambda_K=1157  1/sigma_p^2=5.711  BCRB=0.1413  MSE=0.2869  eta=0.492  bias=-0.03774  mle_var=217  cov68=0.64  verdict=data-dominated-and-inefficient
+
+Saving frozen probe artifact to /home/vince/ALETHIA/experiments/full-chain-run/output/probe_W_mass_only_v3.npz
+Saving SBI posterior summary to /home/vince/ALETHIA/experiments/full-chain-run/output/sbi_posterior_summary_mass_only_v3.json
+Saving BCRB efficiency summary to /home/vince/ALETHIA/experiments/full-chain-run/output/bcrb_efficiency_mass_only_v3.json
+
+Done.

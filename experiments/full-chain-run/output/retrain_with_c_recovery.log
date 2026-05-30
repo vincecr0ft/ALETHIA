@@ -1,0 +1,17 @@
+warning: `VIRTUAL_ENV=/usr` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+Retrain psi_theta with c-recoverability auxiliary (lambda_c = 0.1).
+Fine-tuning from v1 checkpoint: /home/vince/ALETHIA/experiments/full-chain-run/output/intention_fm.pt
+Sampling training scenario pool...
+Training for 600 steps (batch=24).
+  step    0/600  mse_y=5.967  mse_c=1.806e+04  total=1812
+  step  100/600  mse_y=11.95  mse_c=43.34  total=16.29
+  step  200/600  mse_y=7.604  mse_c=26.15  total=10.22
+  step  300/600  mse_y=16.36  mse_c=36.28  total=19.99
+  step  400/600  mse_y=7.956  mse_c=11.08  total=9.064
+  step  500/600  mse_y=2.611  mse_c=8.424  total=3.454
+  step  599/600  mse_y=1.847  mse_c=5.356  total=2.383
+Done in 397.9s.
+Saved retrained IntentionFM (psi_theta only) to /home/vince/ALETHIA/experiments/full-chain-run/output/intention_fm_v2.pt
+Saved aux probe to /home/vince/ALETHIA/experiments/full-chain-run/output/aux_probe_v2.npz
+
+In-sample Warsaw c-RMSE (aux probe, retrained psi_theta): [2.2765 3.5155 1.736  2.5287]

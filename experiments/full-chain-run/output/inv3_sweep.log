@@ -1,0 +1,114 @@
+warning: `VIRTUAL_ENV=/usr` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+# Bimodal parallel sweep: 100 chains, 16 concurrent, 2 threads each
+  random      seed= 2026  status=cached   wall=0s
+  random      seed= 2027  status=cached   wall=0s
+  random      seed= 2041  status=ok       wall=2416s
+  random      seed= 2033  status=ok       wall=2418s
+  random      seed= 2028  status=ok       wall=2419s
+  epig        seed= 2026  status=cached   wall=0s
+  epig        seed= 2027  status=cached   wall=0s
+  random      seed= 2037  status=ok       wall=2422s
+  random      seed= 2039  status=ok       wall=2427s
+  random      seed= 2034  status=ok       wall=2431s
+  random      seed= 2043  status=ok       wall=2433s
+  random      seed= 2035  status=ok       wall=2434s
+  random      seed= 2030  status=ok       wall=2445s
+  random      seed= 2031  status=ok       wall=2453s
+  random      seed= 2042  status=ok       wall=2464s
+  random      seed= 2029  status=ok       wall=2476s
+  random      seed= 2040  status=ok       wall=2483s
+  random      seed= 2032  status=ok       wall=2495s
+  random      seed= 2038  status=ok       wall=2503s
+  random      seed= 2036  status=ok       wall=2517s
+  epig        seed= 2028  status=ok       wall=2243s
+  random      seed= 2044  status=ok       wall=2262s
+  epig        seed= 2030  status=ok       wall=2255s
+  epig        seed= 2031  status=ok       wall=2252s
+  epig        seed= 2037  status=ok       wall=2211s
+  leverage    seed= 2026  status=cached   wall=0s
+  leverage    seed= 2027  status=cached   wall=0s
+  epig        seed= 2029  status=ok       wall=2268s
+  epig        seed= 2033  status=ok       wall=2261s
+  random      seed= 2045  status=ok       wall=2277s
+  epig        seed= 2038  status=ok       wall=2216s
+  epig        seed= 2040  status=ok       wall=2202s
+  epig        seed= 2036  status=ok       wall=2241s
+  epig        seed= 2039  status=ok       wall=2210s
+  epig        seed= 2034  status=ok       wall=2265s
+  epig        seed= 2035  status=ok       wall=2258s
+  epig        seed= 2041  status=ok       wall=2203s
+  epig        seed= 2032  status=ok       wall=2310s
+  epig        seed= 2043  status=ok       wall=2158s
+  epig        seed= 2042  status=ok       wall=2176s
+  leverage    seed= 2028  status=ok       wall=2158s
+  epig        seed= 2045  status=ok       wall=2175s
+  epig        seed= 2044  status=ok       wall=2177s
+  leverage    seed= 2031  status=ok       wall=2165s
+  leverage    seed= 2032  status=ok       wall=2165s
+  param_epig_d seed= 2026  status=cached   wall=0s
+  param_epig_d seed= 2027  status=cached   wall=0s
+  leverage    seed= 2033  status=ok       wall=2166s
+  leverage    seed= 2037  status=ok       wall=2163s
+  leverage    seed= 2030  status=ok       wall=2181s
+  leverage    seed= 2034  status=ok       wall=2173s
+  leverage    seed= 2029  status=ok       wall=2188s
+  leverage    seed= 2036  status=ok       wall=2172s
+  leverage    seed= 2038  status=ok       wall=2165s
+  leverage    seed= 2039  status=ok       wall=2157s
+  leverage    seed= 2035  status=ok       wall=2198s
+  leverage    seed= 2041  status=ok       wall=2145s
+  leverage    seed= 2040  status=ok       wall=2160s
+  leverage    seed= 2042  status=ok       wall=2159s
+  leverage    seed= 2044  status=ok       wall=2151s
+  param_epig_d seed= 2028  status=ok       wall=2153s
+  param_epig_d seed= 2033  status=ok       wall=2140s
+  leverage    seed= 2043  status=ok       wall=2164s
+  param_epig_d seed= 2029  status=ok       wall=2156s
+  leverage    seed= 2045  status=ok       wall=2173s
+  param_epig_a seed= 2026  status=cached   wall=0s
+  param_epig_a seed= 2027  status=cached   wall=0s
+  param_epig_d seed= 2031  status=ok       wall=2160s
+  param_epig_d seed= 2030  status=ok       wall=2161s
+  param_epig_d seed= 2034  status=ok       wall=2153s
+  param_epig_d seed= 2032  status=ok       wall=2160s
+  param_epig_d seed= 2036  status=ok       wall=2147s
+  param_epig_d seed= 2035  status=ok       wall=2168s
+  param_epig_d seed= 2037  status=ok       wall=2155s
+  param_epig_d seed= 2038  status=ok       wall=2156s
+  param_epig_d seed= 2039  status=ok       wall=2178s
+  param_epig_d seed= 2040  status=ok       wall=2173s
+  param_epig_d seed= 2045  status=ok       wall=2155s
+  param_epig_d seed= 2044  status=ok       wall=2159s
+  param_epig_d seed= 2042  status=ok       wall=2166s
+  param_epig_a seed= 2029  status=ok       wall=2153s
+  param_epig_d seed= 2041  status=ok       wall=2185s
+  param_epig_d seed= 2043  status=ok       wall=2178s
+  param_epig_a seed= 2028  status=ok       wall=2165s
+  param_epig_a seed= 2032  status=ok       wall=2163s
+  param_epig_a seed= 2030  status=ok       wall=2171s
+  param_epig_a seed= 2031  status=ok       wall=2181s
+  param_epig_a seed= 2034  status=ok       wall=2165s
+  param_epig_a seed= 2033  status=ok       wall=2172s
+  param_epig_a seed= 2035  status=ok       wall=2167s
+  param_epig_a seed= 2036  status=ok       wall=2112s
+  param_epig_a seed= 2039  status=ok       wall=2117s
+  param_epig_a seed= 2041  status=ok       wall=2117s
+  param_epig_a seed= 2037  status=ok       wall=2128s
+  param_epig_a seed= 2043  status=ok       wall=2115s
+  param_epig_a seed= 2042  status=ok       wall=2123s
+  param_epig_a seed= 2038  status=ok       wall=2137s
+  param_epig_a seed= 2044  status=ok       wall=2119s
+  param_epig_a seed= 2040  status=ok       wall=2136s
+  param_epig_a seed= 2045  status=ok       wall=2128s
+
+All done in 13326s
+
+Wrote /home/vince/ALETHIA/experiments/full-chain-run/output_bimodal_parallel_mu_afb_stressed/aggregate.json
+Wrote /home/vince/ALETHIA/docs/research/plots/bimodal_recovery_avg_mu_afb_stressed.png
+
+# Summary (mean +/- std over seeds)
+  random          after_band =    2.758 +/- 2.727   final_trace =    2.761 +/- 2.774   H_init=3.010  H_fin=2.762   err_d1=0.305  err_d2=1.138  (n=20)
+  epig            after_band =    4.017 +/- 4.310   final_trace =    4.228 +/- 4.338   H_init=2.936  H_fin=2.743   err_d1=0.305  err_d2=1.139  (n=20)
+  leverage        after_band =    4.141 +/- 4.335   final_trace =    4.360 +/- 4.368   H_init=2.939  H_fin=2.750   err_d1=0.305  err_d2=1.145  (n=20)
+  param_epig_d    after_band =    4.077 +/- 3.837   final_trace =    4.172 +/- 3.874   H_init=2.920  H_fin=2.728   err_d1=0.305  err_d2=1.142  (n=20)
+  param_epig_a    after_band =    4.118 +/- 3.997   final_trace =    4.137 +/- 4.044   H_init=2.927  H_fin=2.741   err_d1=0.305  err_d2=1.142  (n=20)

@@ -1,0 +1,25 @@
+warning: `VIRTUAL_ENV=/usr` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+Retrain psi_theta with c-recoverability auxiliary (lambda_c = 0.1).
+Sampling training scenario pool...
+Training for 1500 steps (batch=24).
+  step    0/1500  mse_y=4407  mse_c=3.536e+05  total=3.977e+04
+  step  100/1500  mse_y=707.2  mse_c=133.6  total=720.5
+  step  200/1500  mse_y=286.6  mse_c=22.47  total=288.8
+  step  300/1500  mse_y=821.3  mse_c=25.19  total=823.8
+  step  400/1500  mse_y=435.3  mse_c=15.81  total=436.9
+  step  500/1500  mse_y=146  mse_c=12.92  total=147.3
+  step  600/1500  mse_y=183.9  mse_c=9.891  total=184.9
+  step  700/1500  mse_y=85.43  mse_c=5.788  total=86.01
+  step  800/1500  mse_y=103.1  mse_c=7.062  total=103.8
+  step  900/1500  mse_y=91.09  mse_c=7.257  total=91.81
+  step 1000/1500  mse_y=77.89  mse_c=6.677  total=78.55
+  step 1100/1500  mse_y=117.7  mse_c=3.706  total=118.1
+  step 1200/1500  mse_y=392  mse_c=41.96  total=396.2
+  step 1300/1500  mse_y=83.13  mse_c=2.054  total=83.34
+  step 1400/1500  mse_y=92.99  mse_c=3.971  total=93.38
+  step 1499/1500  mse_y=89.66  mse_c=3.506  total=90.01
+Done in 984.9s.
+Saved retrained IntentionFM (psi_theta only) to /home/vince/ALETHIA/experiments/full-chain-run/output/intention_fm_v3.pt
+Saved aux probe to /home/vince/ALETHIA/experiments/full-chain-run/output/aux_probe_v3.npz
+
+In-sample Warsaw c-RMSE (aux probe, retrained psi_theta): [0.802  1.8542 2.4301 1.0098]

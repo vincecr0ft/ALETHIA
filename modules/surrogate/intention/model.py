@@ -105,3 +105,16 @@ class IntentionFM(nn.Module):
         A = Psi.T @ Psi + self.alpha * np.eye(d)
         eigs = np.linalg.eigvalsh(A)
         return float(eigs.max() / max(eigs.min(), 1e-30))
+
+    @torch.no_grad()
+    def A_eigen(self, M_ctx: np.ndarray):
+        """Full eigendecomposition of A on a given context (numpy).
+
+        Returns an `EigenState` (modules/surrogate/intention/eigen.py)
+        with the ascending eigenvalue spectrum and the eigenvector
+        matrix. This is the spine called by drift spans, eigen-
+        redirected acquisition, and the Phoenix MCP rubric — see
+        docs/research/upgrade-architecture.md §1.
+        """
+        from .eigen import eigen_state
+        return eigen_state(self.psi_np(M_ctx), self.alpha)

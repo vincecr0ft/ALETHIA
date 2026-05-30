@@ -1,0 +1,36 @@
+warning: `VIRTUAL_ENV=/usr` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+Probe-capacity diagnostic. sigma_y = 0.05.
+Pre-tabulating morphing on m-grid...
+Fisher eigenvalues: [17.398269, 7.939469, 0.000232, 0.000121]
+
+Generating 600 training (c, w) pairs (one fresh K=12 context per c)...
+
+Fitting probes on the same (w_train, c_train)...
+  linear-OLS            in-sample Warsaw c-RMSE = [0.4005 0.3882 0.1543 0.3483]
+  quadratic-vech        in-sample Warsaw c-RMSE = [0.3565 0.3491 0.1198 0.2769]
+  MLP-2x64              in-sample Warsaw c-RMSE = [0.3982 0.4414 0.2522 0.2741]
+
+=== Pool inbox (N=50, N_rep=100) ===
+  MLE variance per c_tilde dir: [0.00259, 0.08772, 36.32399, 81.41903]
+  linear-OLS            MSE per c_tilde = [0.0254, 0.1316, 0.1635, 0.1453]  bias = [-0.0105, -0.008, -0.121, -0.0074]
+  quadratic-vech        MSE per c_tilde = [0.03, 0.1739, 0.248, 0.2226]  bias = [-0.0048, -0.0012, -0.1048, 0.0012]
+  MLP-2x64              MSE per c_tilde = [0.0368, 0.0801, 0.1563, 0.2187]  bias = [0.0946, -0.0646, -0.1345, -0.1466]
+
+=== Pool withheld_band (N=50, N_rep=100) ===
+  MLE variance per c_tilde dir: [0.00508, 0.31679, 41.15851, 207.43749]
+  linear-OLS            MSE per c_tilde = [0.1144, 0.3283, 0.2399, 0.2006]  bias = [-0.1449, 0.0002, -0.0968, 0.0149]
+  quadratic-vech        MSE per c_tilde = [1.0516, 4.7466, 4.6239, 5.0103]  bias = [-0.2056, 0.0015, 0.0347, 0.3739]
+  MLP-2x64              MSE per c_tilde = [0.2325, 0.235, 0.2241, 0.5456]  bias = [0.1679, -0.031, -0.0898, -0.4856]
+
+Saved diagnostic to /home/vince/ALETHIA/experiments/full-chain-run/output/probe_capacity_diagnostic.json
+
+=== Verdict ===
+  linear-OLS            MSE / MLE-variance per c_tilde = [9.82, 1.5, 0.005, 0.002]
+  quadratic-vech        MSE / MLE-variance per c_tilde = [11.589, 1.982, 0.007, 0.003]
+  MLP-2x64              MSE / MLE-variance per c_tilde = [14.21, 0.913, 0.004, 0.003]
+  c_tilde_1: best probe = linear-OLS  (MSE / MLE-var = 9.82)
+  c_tilde_2: best probe = MLP-2x64  (MSE / MLE-var = 0.91)
+  c_tilde_3: best probe = MLP-2x64  (MSE / MLE-var = 0.00)
+  c_tilde_4: best probe = linear-OLS  (MSE / MLE-var = 0.00)
+
+If the best probe is within ~3x of MLE variance on the resolved directions (c_tilde_1, c_tilde_2), the bottleneck WAS the linear OLS probe; INV-2 should use that probe. Otherwise psi_theta is the bottleneck and INV-2's next step is to retrain psi_theta with a c-recoverability auxiliary loss.

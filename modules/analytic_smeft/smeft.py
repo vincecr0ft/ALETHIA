@@ -230,6 +230,36 @@ def _partonic_xs_afb(pid: int, s_hat: np.ndarray, wc: dict, lam: float):
     return sm, interference, bsm_squared
 
 
+def _partonic_S_D(pid: int, s_hat: np.ndarray, wc: dict, lam: float):
+    """Partonic S and D pieces (GeV^-2) for the cos-theta* differential.
+
+    The partonic dilepton angular distribution factorises as
+
+        d sigma_hat / d cos theta*  =  (3/8) [ (1 + cos^2 theta*) S
+                                              + 2 cos theta* D ],
+
+    with the partonic prefactor ``s_hat / (48 pi)`` already absorbed into
+    ``S`` and ``D`` so that integrating over ``cos theta* in [-1, 1]``
+    reproduces :func:`_partonic_xs` (gate 1).
+
+    Returns ``(S_sm, S_int, S_bsm, D_sm, D_int, D_bsm)``: the S triplet is
+    identical to :func:`_partonic_xs`, the D triplet is
+    :func:`_partonic_xs_afb` with the 3/4 angular-averaging factor stripped
+    so that ``D_parton`` is purely the LL+RR vs LR+RL chiral combination.
+    """
+    a_sm, a_bsm = _amplitudes(pid, s_hat, wc, lam)
+    prefactor = s_hat / (48.0 * math.pi)
+    signs = _AFB_SIGNS[:, None] if a_sm.ndim == 2 else _AFB_SIGNS
+    S_sm = prefactor * np.sum(np.abs(a_sm) ** 2, axis=0)
+    S_int = prefactor * np.sum(2.0 * np.real(np.conj(a_sm) * a_bsm), axis=0)
+    S_bsm = prefactor * np.sum(np.abs(a_bsm) ** 2, axis=0)
+    D_sm = prefactor * np.sum(signs * np.abs(a_sm) ** 2, axis=0)
+    D_int = prefactor * np.sum(
+        signs * 2.0 * np.real(np.conj(a_sm) * a_bsm), axis=0)
+    D_bsm = prefactor * np.sum(signs * np.abs(a_bsm) ** 2, axis=0)
+    return S_sm, S_int, S_bsm, D_sm, D_int, D_bsm
+
+
 # --------------------------------------------------------------------------
 # Parton luminosity and hadronic convolution
 # --------------------------------------------------------------------------
@@ -251,6 +281,59 @@ def _luminosity(pdf: PDFSet, pid: int, tau: float, scale: float) -> float:
         + pdf.xf(-pid, x, scale) * pdf.xf(pid, x2, scale)
     )
     return (1.0 / tau) * jac * float(np.sum(_LUM_WEIGHTS * integrand))
+
+
+def _luminosity_asym(pdf: PDFSet, pid: int, tau: float, scale: float) -> float:
+    """Asymmetric (valence-minus-sea) q-qbar parton luminosity for flavour pid.
+
+    The hadronic forward-backward dilution: the antisymmetric piece D of the
+    cos theta* distribution survives the pp -> ll convolution only because
+    valence-quark PDFs exceed sea-antiquark PDFs at large x, so on average the
+    quark moves along the dilepton boost direction. In the Collins-Soper frame
+    with z-axis along ``sign(p_z^{ll})`` this is
+
+        Phi^asym(tau)  =  sum over y of sign(y)
+                        * [f_q(x1) f_qbar(x2) - f_qbar(x1) f_q(x2)],
+
+    with ``x1,2 = sqrt(tau) e^{+/- y}``. Folding to ``y > 0`` and changing
+    variables to ``u = ln x1`` over ``[ln sqrt(tau), 0]``:
+
+        Phi^asym(tau)  =  2 * integral_{sqrt tau}^{1} dx/x
+                          * [ f_q(x) f_qbar(tau/x) - f_qbar(x) f_q(tau/x) ].
+
+    Same 64-node Gauss-Legendre quadrature as :func:`_luminosity`. Returns 0
+    outside ``0 < tau < 1``.
+
+    The convention ``sign(y) = sign(cos theta*_CS)`` is the standard CS-frame
+    assignment for which the SM A_FB at high m_ll is positive (left-handed
+    Z-coupling to up-type quarks dominates). This sign is what gate 2 of the
+    INV-1 spec verifies against the asymptotic formula.
+
+    If ``pdf.xf`` cannot be queried per-flavour (the LHAPDF backend can; the
+    :class:`AnalyticPDF` toy also can — both expose ``xf(pid, x, Q)``), the
+    quadrature integrand silently mis-dilutes, so we sanity-check the backend
+    here and raise rather than fall through.
+    """
+    if not hasattr(pdf, "xf"):
+        raise RuntimeError(
+            f"PDF backend {type(pdf).__name__} does not expose per-flavour "
+            f"xf(pid, x, Q); the asymmetric luminosity cannot be computed."
+        )
+    if tau <= 0.0 or tau >= 1.0:
+        return 0.0
+    # Fold y > 0: integrate u = ln(x) in [ln sqrt(tau), 0] = [0.5 ln tau, 0].
+    half_log_tau = 0.5 * math.log(tau)
+    u = 0.5 * (0.0 - half_log_tau) * _LUM_NODES + 0.5 * half_log_tau
+    jac = 0.5 * (0.0 - half_log_tau)
+    x = np.exp(u)
+    x2 = tau / x
+    # x f_q(x) * x f_qbar(tau/x) = tau * f_q(x) f_qbar(tau/x).
+    integrand = (
+        pdf.xf(pid, x, scale) * pdf.xf(-pid, x2, scale)
+        - pdf.xf(-pid, x, scale) * pdf.xf(pid, x2, scale)
+    )
+    # Factor of 2 from folding y > 0 only, then (1/tau) to strip xf -> f f.
+    return 2.0 * (1.0 / tau) * jac * float(np.sum(_LUM_WEIGHTS * integrand))
 
 
 def _dsigma_dm(m: np.ndarray, wc: dict, lam: float, pdf: PDFSet, s: float):
@@ -285,6 +368,14 @@ def _dsigma_dm_afb_numerator(m: np.ndarray, wc: dict, lam: float, pdf: PDFSet, s
     Numerator of the differential ``A_FB(m_ll) = (dsigma_F - dsigma_B) /
     (dsigma_F + dsigma_B)``. Returns ``(sm_only_afb, interference_afb,
     bsm_squared_afb)`` with the same shape conventions as :func:`_dsigma_dm`.
+
+    The partonic D piece (chiral asymmetry, signed by ``sign(cos theta*)``)
+    survives the hadronic pp -> ll convolution only through the
+    valence-minus-sea PDF luminosity (:func:`_luminosity_asym`). Using the
+    symmetric luminosity here was the source of the ~30% gate-3 mismatch
+    observed in the INV-1 MG cross-check (the symmetric Phi^sym was over-
+    weighting the same chiral D-parton at all rapidities, producing an
+    undiluted A_FB).
     """
     m = np.atleast_1d(np.asarray(m, dtype=float))
     s_hat = m**2
@@ -295,13 +386,61 @@ def _dsigma_dm_afb_numerator(m: np.ndarray, wc: dict, lam: float, pdf: PDFSet, s
     for pid in _QUARK_FLAVOURS:
         p_sm, p_int, p_bsm = _partonic_xs_afb(pid, s_hat, wc, lam)
         lumi = np.array(
-            [_luminosity(pdf, pid, t, scale) for t, scale in zip(tau, m)]
+            [_luminosity_asym(pdf, pid, t, scale) for t, scale in zip(tau, m)]
         )
         sm += p_sm * lumi
         interference += p_int * lumi
         bsm_squared += p_bsm * lumi
     flux = 2.0 * m / s * GEV2_TO_PB
     return flux * sm, flux * interference, flux * bsm_squared
+
+
+def _dsigma_dm_S_D_hadronic(m: np.ndarray, wc: dict, lam: float, pdf: PDFSet, s: float):
+    """Hadronic ``S_had`` and ``D_had`` pieces of ``d sigma / d m_ll``.
+
+    ``S_had`` uses the symmetrised q-qbar luminosity (:func:`_luminosity`) and
+    is the conventional rate convolution. ``D_had`` uses the asymmetric
+    (valence-minus-sea) luminosity (:func:`_luminosity_asym`), which is the
+    forward-backward dilution that survives the unknown quark direction in
+    pp. Both are returned per morphing channel
+    ``(sm_only, interference, bsm_squared)`` in pb/GeV (the ``flux`` factor
+    ``2 m / s * GeV^2 -> pb`` is already applied).
+
+    The cos-theta* bin integral assembles these as
+
+        dsigma_bin / d m_ll  =  (3/8) [ w_S * S_had  +  w_D * D_had ]
+
+    with ``w_S = integral (1 + u^2) du`` and ``w_D = integral 2 u du`` over
+    the bin ``[u_lo, u_hi]`` (see :func:`differential_xs_costheta_bin`).
+    """
+    m = np.atleast_1d(np.asarray(m, dtype=float))
+    s_hat = m**2
+    tau = s_hat / s
+    S_sm = np.zeros_like(m)
+    S_int = np.zeros_like(m)
+    S_bsm = np.zeros_like(m)
+    D_sm = np.zeros_like(m)
+    D_int = np.zeros_like(m)
+    D_bsm = np.zeros_like(m)
+    for pid in _QUARK_FLAVOURS:
+        Ssm, Sint, Sbsm, Dsm, Dint, Dbsm = _partonic_S_D(pid, s_hat, wc, lam)
+        lumi_sym = np.array(
+            [_luminosity(pdf, pid, t, scale) for t, scale in zip(tau, m)]
+        )
+        lumi_asym = np.array(
+            [_luminosity_asym(pdf, pid, t, scale) for t, scale in zip(tau, m)]
+        )
+        S_sm += Ssm * lumi_sym
+        S_int += Sint * lumi_sym
+        S_bsm += Sbsm * lumi_sym
+        D_sm += Dsm * lumi_asym
+        D_int += Dint * lumi_asym
+        D_bsm += Dbsm * lumi_asym
+    flux = 2.0 * m / s * GEV2_TO_PB
+    return (
+        flux * S_sm, flux * S_int, flux * S_bsm,
+        flux * D_sm, flux * D_int, flux * D_bsm,
+    )
 
 
 def _dsigma_dpt(pt: np.ndarray, wc: dict, lam: float, pdf: PDFSet, s: float):
@@ -410,6 +549,110 @@ def differential_afb(
         "A_FB_SM": a_fb_sm,
         "sm_xs": sm_xs,
         "afb_numerator": numer,
+        "wilson_coefficients": {key: wc[key] for key in OPERATORS},
+        "process": "pp_to_ll",
+    }
+
+
+def differential_xs_costheta_bin(
+    wilson_coefficients: Optional[dict],
+    m_ll: Union[float, np.ndarray],
+    costheta_bin: tuple,
+    *,
+    sqrt_s: float = 13000.0,
+    lambda_scale: float = 1000.0,
+    order: str = "quadratic",
+    pdf: Union[str, PDFSet] = "auto",
+) -> dict:
+    """Pointwise differential cross section ``d sigma / d m_ll`` (pb/GeV)
+    integrated over a single ``cos theta*_CS`` bin.
+
+    Splits the partonic angular distribution into a symmetric and an
+    antisymmetric piece,
+
+        d sigma_hat / d cos theta*  =  (3/8) [ (1 + cos^2 theta*) S(c, s_hat)
+                                              + 2 cos theta* D(c, s_hat) ],
+
+    with ``S(c, s_hat) = sum_channels |M_ij|^2`` (rate piece) and
+    ``D(c, s_hat) = sum_channels SIGN(ij) |M_ij|^2`` (forward-backward
+    piece, ``SIGN(LL) = SIGN(RR) = +1``, ``SIGN(LR) = SIGN(RL) = -1``).
+    The bin observable for ``cos theta*_CS in [u_lo, u_hi]`` is
+
+        d sigma_bin / d m_ll  =  (3/8) [ w_S(bin) * S_had(m_ll)
+                                       + w_D(bin) * D_had(m_ll) ],
+        w_S(bin) = (u + u^3 / 3)|_{u_lo}^{u_hi},
+        w_D(bin) = u_hi^2 - u_lo^2.
+
+    ``S_had`` uses the existing symmetrised q-qbar luminosity. ``D_had``
+    uses an asymmetric (valence-minus-sea) luminosity that implements the
+    hadronic FB dilution in the Collins-Soper frame
+    (see :func:`_luminosity_asym`).
+
+    Args:
+      wilson_coefficients: Warsaw-basis dim-6 coefficients (see ``OPERATORS``).
+        ``None`` or ``{}`` means SM only.
+      m_ll: dilepton invariant mass values in GeV. Scalar or 1-D array.
+      costheta_bin: ``(u_lo, u_hi)``, with ``-1 <= u_lo < u_hi <= 1``.
+      sqrt_s: hadronic centre-of-mass energy in GeV.
+      lambda_scale: EFT scale Lambda in GeV.
+      order: ``"linear"`` keeps O(Lambda^-2); ``"quadratic"`` adds O(Lambda^-4).
+      pdf: PDF spec; see :func:`modules.analytic_smeft.pdfs.get_pdf`.
+
+    Returns:
+      dict with ``m_ll`` (GeV), ``costheta_bin`` (``(u_lo, u_hi)``),
+      ``differential_xs`` (pb/GeV), ``sm_only``, ``interference``,
+      ``bsm_squared`` (``None`` for ``order="linear"``), ``S_had`` and
+      ``D_had`` (per-channel triples of the hadronic S and D pieces, both in
+      pb/GeV at ``order="quadratic"``, summed only over ``sm_only +
+      interference`` at ``order="linear"``), and the angular weights
+      ``w_S`` and ``w_D``. Summing the bin observable over a partition of
+      ``[-1, 1]`` recovers :func:`differential_xs` (gate 1 of INV-1).
+    """
+    if order not in ("linear", "quadratic"):
+        raise ValueError(f"order must be 'linear' or 'quadratic', got {order!r}.")
+    u_lo, u_hi = float(costheta_bin[0]), float(costheta_bin[1])
+    if not (-1.0 - 1e-12 <= u_lo < u_hi <= 1.0 + 1e-12):
+        raise ValueError(
+            f"costheta_bin must satisfy -1 <= u_lo < u_hi <= 1, "
+            f"got ({u_lo}, {u_hi})."
+        )
+    # Closed-form angular weights -- exact, no quadrature.
+    w_S = (u_hi + u_hi**3 / 3.0) - (u_lo + u_lo**3 / 3.0)
+    w_D = u_hi**2 - u_lo**2
+
+    wc = _normalise_wc(wilson_coefficients)
+    pdf_set = get_pdf(pdf)
+    s = float(sqrt_s) ** 2
+    lam = float(lambda_scale)
+    m_arr = np.atleast_1d(np.asarray(m_ll, dtype=float))
+
+    S_sm, S_int, S_bsm, D_sm, D_int, D_bsm = _dsigma_dm_S_D_hadronic(
+        m_arr, wc, lam, pdf_set, s
+    )
+    # (3/8) [(1+u^2) S + 2u D]  ->  bin: (3/8) [w_S * S + w_D * D].
+    coeff = 0.375  # 3/8.
+    sm = coeff * (w_S * S_sm + w_D * D_sm)
+    interference = coeff * (w_S * S_int + w_D * D_int)
+    bsm_squared = coeff * (w_S * S_bsm + w_D * D_bsm)
+
+    if order == "linear":
+        total = sm + interference
+        bsm_out: Optional[np.ndarray] = None
+    else:
+        total = sm + interference + bsm_squared
+        bsm_out = bsm_squared
+
+    return {
+        "m_ll": m_arr,
+        "costheta_bin": (u_lo, u_hi),
+        "differential_xs": total,
+        "sm_only": sm,
+        "interference": interference,
+        "bsm_squared": bsm_out,
+        "S_had": (S_sm, S_int, S_bsm),
+        "D_had": (D_sm, D_int, D_bsm),
+        "w_S": w_S,
+        "w_D": w_D,
         "wilson_coefficients": {key: wc[key] for key in OPERATORS},
         "process": "pp_to_ll",
     }

@@ -26,7 +26,12 @@ from typing import Union
 
 import numpy as np
 
-from modules.analytic_smeft import differential_afb, differential_xs, differential_xs_pt
+from modules.analytic_smeft import (
+    differential_afb,
+    differential_xs,
+    differential_xs_costheta_bin,
+    differential_xs_pt,
+)
 from modules.analytic_smeft.pdfs import PDFSet, get_pdf
 
 from .features import N_WC, WC_NAMES
@@ -124,6 +129,60 @@ class AnalyticSMEFTOracle:
             mu = mu + self._noise_rng.normal(0.0, self.noise_frac * np.abs(mu))
         return mu
 
+    def truth_channels(self, c: np.ndarray, m: np.ndarray) -> dict[str, np.ndarray]:
+        r"""Per-event morphing-decomposition channels of the differential
+        cross section, normalised by the SM-only piece so the output is
+        directly comparable to ``truth(c, m)``.
+
+        Returns a dict with keys:
+          - ``sm_only``        : always ``1.0`` by construction (kept for symmetry).
+          - ``interference``    : ``sigma_int(c, m) / sigma_SM(m)`` (linear in c).
+          - ``bsm_squared``     : ``sigma_bsm^2(c, m) / sigma_SM(m)`` (quadratic in c).
+          - ``mu``              : their sum ``sigma(c, m) / sigma_SM(m)``, equal
+            to ``truth(c, m)``.
+
+        Each value is shape ``(n,)``. The decomposition is the analytic
+        morphing identity ``sigma = sigma_SM + sigma_int + sigma_bsm^2``;
+        exposing the channels separately is a precondition for the
+        joint-score auxiliary loss (Brehmer-Cranmer-Louppe-Pavez
+        "Mining Gold") and for JEPA-style self-supervision on the
+        sub-channels — see docs/research/upgrade-architecture.md §7.1.
+        """
+        c = np.atleast_2d(np.asarray(c, dtype=float))
+        m_tev = np.atleast_1d(np.asarray(m, dtype=float))
+        if c.shape[1] != N_WC:
+            raise ValueError(f"c must have {N_WC} columns, got {c.shape[1]}")
+        if c.shape[0] != m_tev.shape[0]:
+            raise ValueError(
+                f"c has {c.shape[0]} rows but m has {m_tev.shape[0]} entries"
+            )
+        sm = np.empty(c.shape[0], dtype=float)
+        intr = np.empty(c.shape[0], dtype=float)
+        bsm = np.empty(c.shape[0], dtype=float)
+        for i in range(c.shape[0]):
+            wc = {WC_NAME_MAP[name]: float(c[i, j])
+                  for j, name in enumerate(WC_NAMES)}
+            res = differential_xs(
+                wc,
+                np.array([m_tev[i] * 1000.0]),
+                sqrt_s=self.sqrt_s,
+                lambda_scale=self.lam,
+                order=self.order,
+                pdf=self.pdf,
+            )
+            sm_v = float(res["sm_only"][0])
+            sm[i] = 1.0
+            intr[i] = float(res["interference"][0]) / max(sm_v, 1e-30)
+            bsm_raw = res.get("bsm_squared")
+            bsm[i] = (float(bsm_raw[0]) / max(sm_v, 1e-30)
+                      if bsm_raw is not None else 0.0)
+        return {
+            "sm_only": sm,
+            "interference": intr,
+            "bsm_squared": bsm,
+            "mu": sm + intr + bsm,
+        }
+
     def truth_pt(self, c: np.ndarray, pt: np.ndarray) -> np.ndarray:
         r"""Noiseless ``mu_pT(c, pT) = (d sigma_BSM / d pT) / (d sigma_SM / d pT)``.
 
@@ -200,6 +259,70 @@ class AnalyticSMEFTOracle:
             num_sm = float(res["A_FB_SM"][0]) * float(res["sm_xs"][0])
             mu_fb[i] = num_total / max(abs(num_sm), 1e-30) * (1.0 if num_sm > 0 else -1.0)
         return mu_fb
+
+    def truth_costheta_bin(
+        self,
+        c: np.ndarray,
+        m: np.ndarray,
+        costheta_bin: tuple,
+    ) -> np.ndarray:
+        r"""Noiseless ``mu_bin(c, m, bin)`` = bin-integrated cross-section ratio.
+
+        Mirrors :meth:`truth` but integrates the differential cross section
+        over a single ``cos theta*_CS`` bin
+        ``costheta_bin = (u_lo, u_hi) in [-1, 1]^2``:
+
+            mu_bin(c, m_ll, bin) = sigma_bin(c, m_ll, bin) /
+                                   sigma_bin(SM, m_ll, bin).
+
+        Provided for the angular extension of the rate observable (INV-1):
+        downstream INV-2 / INV-3 consume this to drive the chirality-breaking
+        c_phi_q^(1,3) and c_lq^(1,3) directions that ``truth(c, m)`` sees
+        only through the symmetric S piece. Vectorises over ``m`` in the
+        same way as :meth:`truth`.
+
+        ``c`` is ``(n, N_WC)`` in canonical surrogate order; ``m`` is ``(n,)``
+        in TeV; ``costheta_bin`` is a 2-tuple of bin edges shared across the
+        batch. Returns shape ``(n,)``.
+        """
+        c = np.atleast_2d(np.asarray(c, dtype=float))
+        m_tev = np.atleast_1d(np.asarray(m, dtype=float))
+        if c.shape[1] != N_WC:
+            raise ValueError(f"c must have {N_WC} columns, got {c.shape[1]}")
+        if c.shape[0] != m_tev.shape[0]:
+            raise ValueError(
+                f"c has {c.shape[0]} rows but m has {m_tev.shape[0]} entries"
+            )
+        u_lo, u_hi = float(costheta_bin[0]), float(costheta_bin[1])
+        mu_bin = np.empty(c.shape[0], dtype=float)
+        for i in range(c.shape[0]):
+            wc = {WC_NAME_MAP[name]: float(c[i, j])
+                  for j, name in enumerate(WC_NAMES)}
+            res = differential_xs_costheta_bin(
+                wc,
+                np.array([m_tev[i] * 1000.0]),     # TeV -> GeV
+                (u_lo, u_hi),
+                sqrt_s=self.sqrt_s,
+                lambda_scale=self.lam,
+                order=self.order,
+                pdf=self.pdf,
+            )
+            res_sm = differential_xs_costheta_bin(
+                {},
+                np.array([m_tev[i] * 1000.0]),
+                (u_lo, u_hi),
+                sqrt_s=self.sqrt_s,
+                lambda_scale=self.lam,
+                order=self.order,
+                pdf=self.pdf,
+            )
+            num = float(res["differential_xs"][0])
+            den = float(res_sm["differential_xs"][0])
+            # In a bin that straddles the SM A_FB sign, den may be very small;
+            # guard like truth_mu_fb. For the standard 4 equal-width split of
+            # [-1, 1] this does not trigger above the Z pole.
+            mu_bin[i] = num / max(abs(den), 1e-30) * (1.0 if den >= 0 else -1.0)
+        return mu_bin
 
     def truth_afb(self, c: np.ndarray, m: np.ndarray) -> np.ndarray:
         r"""Noiseless ``A_FB(c, m_ll)`` (forward-backward asymmetry).

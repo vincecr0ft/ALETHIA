@@ -167,13 +167,17 @@ def test_kappa_drift_fires_on_thin_context():
         Psi_train.T @ Psi_train + model.alpha * np.eye(model.d_psi))
     v_min = vecs[:, 0]
     train_proj_var = float(np.var(Psi_train @ v_min))
-    fired, kappa, proj_ratio = kappa_drift(
+    fired, kappa, proj_ratio, eig = kappa_drift(
         model, M_ctx, recent_M, train_proj_var,
         kappa_threshold=1e3, proj_ratio_threshold=2.5)
     assert kappa > 0
     # With only 3 context points in d_psi=16, A is rank-3 + alpha I; kappa
     # should be quite large.
     assert kappa > 100
+    # The returned EigenState carries the full spectrum of A.
+    assert eig.d == model.d_psi
+    assert eig.lam.shape == (model.d_psi,)
+    assert np.isclose(eig.kappa, kappa)
 
 
 def test_aggregator_exhaustive():

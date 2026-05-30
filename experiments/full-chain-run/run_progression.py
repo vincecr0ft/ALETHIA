@@ -356,7 +356,7 @@ def run_loop(oracle, model: IntentionFM, rng) -> dict:
 
                 with tracer.start_as_current_span(
                         "tool.drift.coverage.kappa") as ks:
-                    cov_fired, kappa, proj_ratio = kappa_drift(
+                    cov_fired, kappa, proj_ratio, _ = kappa_drift(
                         model, M_ctx, probe_m, train_proj_var,
                         kappa_threshold=KAPPA_THRESHOLD,
                         proj_ratio_threshold=PROJ_RATIO_THRESHOLD)

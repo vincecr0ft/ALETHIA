@@ -1,0 +1,80 @@
+{
+  "mode": "dry-run",
+  "budget": {
+    "n_c_points": 4,
+    "n_m_points": 5,
+    "n_costheta_bins": 2,
+    "n_mg_calls": 40,
+    "estimated_minutes_per_call": 5.0,
+    "estimated_total_hours": 3.3333333333333335
+  },
+  "lambda_tev": 2.0,
+  "sqrt_s_gev": 13000.0,
+  "pass_threshold_percent": 1.0,
+  "analytic_reference": {
+    "c_points": [
+      {
+        "cHq3": 0.0,
+        "cHq1": 0.0,
+        "clq3": 0.0,
+        "clq1": 0.0
+      },
+      {
+        "cHq3": 0.0,
+        "cHq1": 0.0,
+        "clq3": 0.25,
+        "clq1": 0.0
+      },
+      {
+        "cHq3": 0.0,
+        "cHq1": 0.0,
+        "clq3": 0.0,
+        "clq1": 0.25
+      },
+      {
+        "cHq3": 0.2,
+        "cHq1": 0.0,
+        "clq3": 0.0,
+        "clq1": 0.0
+      }
+    ],
+    "m_grid_tev": [
+      0.4,
+      0.7,
+      1.1,
+      1.6,
+      2.3
+    ],
+    "afb_analytic": [
+      [
+        0.6227519046107634,
+        0.615034866365523,
+        0.6123297069538077,
+        0.6110642005313354,
+        0.6101515118894815
+      ],
+      [
+        0.6365128965386703,
+        0.6538615165482805,
+        0.6865480905813781,
+        0.7166044442597751,
+        0.7365156682866588
+      ],
+      [
+        0.6196772373241864,
+        0.6069119417830457,
+        0.6128959729505415,
+        0.6655981773461357,
+        0.7223799947243645
+      ],
+      [
+        0.6231194934530728,
+        0.615491050723887,
+        0.612824272296773,
+        0.6115833871594483,
+        0.6106951639772045
+      ]
+    ]
+  },
+  "notes": "INV-1 gate 3 is deferred; MG oracle does not yet expose a cos-theta*-binned truth. Implementing that extension is the follow-on task. This dry-run prints the call schedule and the analytic A_FB target the future MG run must match."
+}
