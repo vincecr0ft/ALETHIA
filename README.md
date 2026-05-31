@@ -17,6 +17,57 @@ closed-form posterior update plus conformal recalibration. The whole
 loop is wrapped in a Google ADK agent emitting OpenInference traces
 into a local Phoenix container.
 
+## Status: event-level ManifoldInformer reframe in progress
+
+The closed-form-ridge story above is the current published paper
+([`paper/alethia.tex`](paper/alethia.tex)). The next phase, driven by
+[`ALETHIA_informer_workpoint_AL_handoff.md`](ALETHIA_informer_workpoint_AL_handoff.md),
+moves the FM off binned cross-section ratios and onto event-level
+point clouds — sets of per-event kinematic vectors
+`(log m_ℓℓ/M_ref, cos θ*_CS)` — with a permutation-invariant per-event
+encoder feeding the Intention closed-form ridge as the in-context
+predictor, trained JEPA-native plus RS3L re-simulation invariance. The
+active-learning loop is reframed as *curvature probing across working
+points*: Phoenix's drift detectors gain a fourth (span-completeness)
+signal that triggers ψ-extension when a coherent residual emerges
+across working points.
+
+Done so far (artefacts under [`experiments/manifold-informer/`](experiments/manifold-informer/)):
+
+- **Task 0** event-level sampler ([`modules/surrogate/oracle_events.py`](modules/surrogate/oracle_events.py))
+  validated by [`tests/test_oracle_events.py`](tests/test_oracle_events.py)
+  at KS < 0.004 and per-m-bin A_FB within 3σ.
+- **Task 1.1** Eq. (1) `∂_iσ = A_i + 2 Σ_j B_{ij} c_j` verified
+  symbolically and against finite differences at 6e-13 relative
+  ([`tests/test_morphing_derivatives.py`](tests/test_morphing_derivatives.py)).
+- **Task 1.2** working-point Fisher lift: the rate-only vertex
+  eigenvalue lifts monotonically by **85×** along `c_lq^(3) ∈ [0, 1.0]`,
+  confirming the §1.1 mechanism qualitatively
+  ([`working_point_fisher.py`](experiments/manifold-informer/working_point_fisher.py)).
+- **Task 1.3-4** residual-SVD `§1.3` fingerprint on a deficient ψ:
+  recovers `cos θ*_CS` at Pearson `|r| = 0.94` and 24× held-out
+  reduction on 32k-event MadGraph data (8-way parallel)
+  ([`mg_residual_svd_*.py`](experiments/manifold-informer/)).
+- **Task 2** toy-curvature studies: all 6 gates pass
+  ([`toy_curvature/`](experiments/manifold-informer/toy_curvature/)).
+- **Task 3** ManifoldInformer architecture
+  ([`manifold_informer.py`](experiments/manifold-informer/manifold_informer.py))
+  — event-set encoder + closed-form ridge predictor + JEPA pretext +
+  RS3L invariance + density anchor. The manifold-identity gates
+  P3 (tangent recovery `∂w_θ/∂c ≈ A_i` up to probe map) at `R² = 1.00`
+  and P4 (curvature recovery `∂²w_θ ≈ B_{ij}` up to probe map) at
+  `R² = 0.97` certify that the learned latent IS the analytic
+  morphing geometry. P2 (regime separation) at inter/intra = 5.13×.
+  P1 (corrected): the readout `c̃ ≈ W w_θ + b` is linear and the
+  linear probe MSE 0.072 sits at the parameter-matched MLP MSE 0.065
+  on held-out scenarios — the disclosure-integrity gate. The handoff's
+  original P1 ("`w_θ(c)` linear in `c̃`") was withdrawn as
+  contradictory with P4, since the morphing is quadratic in c by
+  construction.
+
+Tasks 4 (Phoenix span-completeness loop) and 5 (the vertex-lift
+headline) are the remaining work.
+
 ## What this project is
 
 The dimension-6 SMEFT cross-section for Drell-Yan is mathematically
@@ -473,6 +524,8 @@ PNGs land in `docs/research/plots/`.
 | [`scripts/surrogate_demos/`](scripts/surrogate_demos/) | Demo scripts for the legacy surrogate machinery |
 | [`experiments/intention-vs-deepsets/`](experiments/intention-vs-deepsets/) | Architecture comparison driving the rebuild |
 | [`experiments/full-chain-run/`](experiments/full-chain-run/) | End-to-end demo orchestrator + plots + writeup data |
+| [`experiments/manifold-informer/`](experiments/manifold-informer/) | Event-level ManifoldInformer reframe (Tasks 0-3) — handoff in [`ALETHIA_informer_workpoint_AL_handoff.md`](ALETHIA_informer_workpoint_AL_handoff.md) |
+| [`experiments/al-phoenix-studies/`](experiments/al-phoenix-studies/) | Stage A/B/C structural-null + EIG-spread diagnostic (handoff: [`ALETHIA_AL_separation.md`](ALETHIA_AL_separation.md)) |
 | [`tests/`](tests/) | Unit tests (analytic SMEFT, oracles, model, calibration, features, acquisition, intention) |
 | [`docs/research/`](docs/research/README.md) | Design research, four areas plus synthesis |
 | [`docs/surrogate/`](docs/surrogate/) | Reference docs for the current surrogate (regressor) |
