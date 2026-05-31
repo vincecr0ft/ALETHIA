@@ -69,7 +69,7 @@ def check_drift() -> dict:
                 STATE.model.alpha * np.eye(STATE.model.d_psi))
             v_min = vecs[:, 0]
             train_proj_var = float(np.var(Psi_train @ v_min))
-            cov_fired, _, proj_ratio = kappa_drift(
+            cov_fired, _, proj_ratio, _eig = kappa_drift(
                 STATE.model, STATE.M_ctx, STATE.M_ctx, train_proj_var,
                 kappa_threshold=1e3, proj_ratio_threshold=2.5)
             ks.set_attribute("aletheia.drift.cov.kappa", float(kappa))
