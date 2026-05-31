@@ -1,0 +1,701 @@
+{
+  "config": {
+    "n_probe": 4000,
+    "sigma_floor": 0.001,
+    "ratio_threshold": 5.0,
+    "persistence_n": 3,
+    "n_working_points": 12,
+    "seed": 7777
+  },
+  "arms": [
+    {
+      "name": "def_psi_with_extension",
+      "extended_at": 2,
+      "actions": [
+        {
+          "cycle": 0,
+          "c": [
+            0.0,
+            0.0,
+            0.3,
+            0.0
+          ],
+          "sigma1": 2.772301582745485,
+          "sigma1_over_sigma2": null,
+          "fingerprint_fired": true,
+          "persistence_count": 1,
+          "oos_flag": false,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 1,
+          "c": [
+            0.0,
+            0.0,
+            0.5,
+            0.0
+          ],
+          "sigma1": 4.476000040061192,
+          "sigma1_over_sigma2": 18.494552833973216,
+          "fingerprint_fired": true,
+          "persistence_count": 2,
+          "oos_flag": false,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 2,
+          "c": [
+            0.2,
+            0.0,
+            0.4,
+            0.0
+          ],
+          "sigma1": 5.5144116120905915,
+          "sigma1_over_sigma2": 22.778718976588188,
+          "fingerprint_fired": true,
+          "persistence_count": 0,
+          "oos_flag": true,
+          "decision": "psi_extend",
+          "D_psi": 6
+        },
+        {
+          "cycle": 3,
+          "c": [
+            0.0,
+            0.0,
+            0.4,
+            0.2
+          ],
+          "sigma1": 0.09635597050411698,
+          "sigma1_over_sigma2": null,
+          "fingerprint_fired": true,
+          "persistence_count": 1,
+          "oos_flag": false,
+          "decision": "in_span_acquire",
+          "D_psi": 6
+        },
+        {
+          "cycle": 4,
+          "c": [
+            0.4,
+            0.0,
+            0.4,
+            0.0
+          ],
+          "sigma1": 0.09768832013009306,
+          "sigma1_over_sigma2": 5.2086447247612115,
+          "fingerprint_fired": true,
+          "persistence_count": 2,
+          "oos_flag": false,
+          "decision": "in_span_acquire",
+          "D_psi": 6
+        },
+        {
+          "cycle": 5,
+          "c": [
+            0.0,
+            0.2,
+            0.4,
+            0.0
+          ],
+          "sigma1": 0.12374634565952582,
+          "sigma1_over_sigma2": 2.9887325576651627,
+          "fingerprint_fired": false,
+          "persistence_count": 0,
+          "oos_flag": false,
+          "decision": "watch",
+          "D_psi": 6
+        },
+        {
+          "cycle": 6,
+          "c": [
+            0.0,
+            0.0,
+            0.7,
+            0.0
+          ],
+          "sigma1": 0.43708265493479165,
+          "sigma1_over_sigma2": 5.868629466527128,
+          "fingerprint_fired": true,
+          "persistence_count": 1,
+          "oos_flag": false,
+          "decision": "in_span_acquire",
+          "D_psi": 6
+        },
+        {
+          "cycle": 7,
+          "c": [
+            0.3,
+            0.0,
+            0.3,
+            0.0
+          ],
+          "sigma1": 0.4628224217925094,
+          "sigma1_over_sigma2": 5.343524459219556,
+          "fingerprint_fired": true,
+          "persistence_count": 2,
+          "oos_flag": false,
+          "decision": "in_span_acquire",
+          "D_psi": 6
+        },
+        {
+          "cycle": 8,
+          "c": [
+            0.0,
+            0.0,
+            0.6,
+            0.0
+          ],
+          "sigma1": 0.5476695564357309,
+          "sigma1_over_sigma2": 6.236436099695032,
+          "fingerprint_fired": true,
+          "persistence_count": 3,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 6
+        },
+        {
+          "cycle": 9,
+          "c": [
+            0.2,
+            0.0,
+            0.6,
+            0.0
+          ],
+          "sigma1": 0.6292756899995138,
+          "sigma1_over_sigma2": 7.1488086756221385,
+          "fingerprint_fired": true,
+          "persistence_count": 4,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 6
+        },
+        {
+          "cycle": 10,
+          "c": [
+            0.0,
+            0.0,
+            0.5,
+            0.3
+          ],
+          "sigma1": 0.6294908158932145,
+          "sigma1_over_sigma2": 4.29059851176071,
+          "fingerprint_fired": false,
+          "persistence_count": 0,
+          "oos_flag": false,
+          "decision": "watch",
+          "D_psi": 6
+        },
+        {
+          "cycle": 11,
+          "c": [
+            0.3,
+            0.2,
+            0.3,
+            0.0
+          ],
+          "sigma1": 0.6659712956695134,
+          "sigma1_over_sigma2": 4.485678826508801,
+          "fingerprint_fired": false,
+          "persistence_count": 0,
+          "oos_flag": false,
+          "decision": "watch",
+          "D_psi": 6
+        }
+      ],
+      "final_D_psi": 6,
+      "sigma1_trace": [
+        2.772301582745485,
+        4.476000040061192,
+        5.5144116120905915,
+        0.09635597050411698,
+        0.09768832013009306,
+        0.12374634565952582,
+        0.43708265493479165,
+        0.4628224217925094,
+        0.5476695564357309,
+        0.6292756899995138,
+        0.6294908158932145,
+        0.6659712956695134
+      ],
+      "ratio_trace": [
+        Infinity,
+        18.494552833973216,
+        22.778718976588188,
+        Infinity,
+        5.2086447247612115,
+        2.9887325576651627,
+        5.868629466527128,
+        5.343524459219556,
+        6.236436099695032,
+        7.1488086756221385,
+        4.29059851176071,
+        4.485678826508801
+      ]
+    },
+    {
+      "name": "def_psi_no_extension",
+      "extended_at": null,
+      "actions": [
+        {
+          "cycle": 0,
+          "c": [
+            0.0,
+            0.0,
+            0.3,
+            0.0
+          ],
+          "sigma1": 2.772301582745485,
+          "sigma1_over_sigma2": null,
+          "fingerprint_fired": true,
+          "persistence_count": 1,
+          "oos_flag": false,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 1,
+          "c": [
+            0.0,
+            0.0,
+            0.5,
+            0.0
+          ],
+          "sigma1": 4.476000040061192,
+          "sigma1_over_sigma2": 18.494552833973216,
+          "fingerprint_fired": true,
+          "persistence_count": 2,
+          "oos_flag": false,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 2,
+          "c": [
+            0.2,
+            0.0,
+            0.4,
+            0.0
+          ],
+          "sigma1": 5.5144116120905915,
+          "sigma1_over_sigma2": 22.778718976588188,
+          "fingerprint_fired": true,
+          "persistence_count": 3,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 3,
+          "c": [
+            0.0,
+            0.0,
+            0.4,
+            0.2
+          ],
+          "sigma1": 5.744784893052202,
+          "sigma1_over_sigma2": 23.2153680141758,
+          "fingerprint_fired": true,
+          "persistence_count": 4,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 4,
+          "c": [
+            0.4,
+            0.0,
+            0.4,
+            0.0
+          ],
+          "sigma1": 6.5995488275065535,
+          "sigma1_over_sigma2": 26.4954795912525,
+          "fingerprint_fired": true,
+          "persistence_count": 5,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 5,
+          "c": [
+            0.0,
+            0.2,
+            0.4,
+            0.0
+          ],
+          "sigma1": 7.294075595059604,
+          "sigma1_over_sigma2": 28.250289260386047,
+          "fingerprint_fired": true,
+          "persistence_count": 6,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 6,
+          "c": [
+            0.0,
+            0.0,
+            0.7,
+            0.0
+          ],
+          "sigma1": 8.31572063361825,
+          "sigma1_over_sigma2": 17.801545025095304,
+          "fingerprint_fired": true,
+          "persistence_count": 7,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 7,
+          "c": [
+            0.3,
+            0.0,
+            0.3,
+            0.0
+          ],
+          "sigma1": 8.779644104869261,
+          "sigma1_over_sigma2": 17.266626241356484,
+          "fingerprint_fired": true,
+          "persistence_count": 8,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 8,
+          "c": [
+            0.0,
+            0.0,
+            0.6,
+            0.0
+          ],
+          "sigma1": 9.56047425666608,
+          "sigma1_over_sigma2": 17.203702512940797,
+          "fingerprint_fired": true,
+          "persistence_count": 9,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 9,
+          "c": [
+            0.2,
+            0.0,
+            0.6,
+            0.0
+          ],
+          "sigma1": 10.290781176016582,
+          "sigma1_over_sigma2": 17.359330204320752,
+          "fingerprint_fired": true,
+          "persistence_count": 10,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 10,
+          "c": [
+            0.0,
+            0.0,
+            0.5,
+            0.3
+          ],
+          "sigma1": 10.387191981004689,
+          "sigma1_over_sigma2": 17.43586339223726,
+          "fingerprint_fired": true,
+          "persistence_count": 11,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        },
+        {
+          "cycle": 11,
+          "c": [
+            0.3,
+            0.2,
+            0.3,
+            0.0
+          ],
+          "sigma1": 10.736913192895868,
+          "sigma1_over_sigma2": 16.20299986328685,
+          "fingerprint_fired": true,
+          "persistence_count": 12,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 5
+        }
+      ],
+      "final_D_psi": 5,
+      "sigma1_trace": [
+        2.772301582745485,
+        4.476000040061192,
+        5.5144116120905915,
+        5.744784893052202,
+        6.5995488275065535,
+        7.294075595059604,
+        8.31572063361825,
+        8.779644104869261,
+        9.56047425666608,
+        10.290781176016582,
+        10.387191981004689,
+        10.736913192895868
+      ],
+      "ratio_trace": [
+        Infinity,
+        18.494552833973216,
+        22.778718976588188,
+        23.2153680141758,
+        26.4954795912525,
+        28.250289260386047,
+        17.801545025095304,
+        17.266626241356484,
+        17.203702512940797,
+        17.359330204320752,
+        17.43586339223726,
+        16.20299986328685
+      ]
+    },
+    {
+      "name": "full_psi_no_extension",
+      "extended_at": null,
+      "actions": [
+        {
+          "cycle": 0,
+          "c": [
+            0.0,
+            0.0,
+            0.3,
+            0.0
+          ],
+          "sigma1": 0.2785459863999231,
+          "sigma1_over_sigma2": null,
+          "fingerprint_fired": true,
+          "persistence_count": 1,
+          "oos_flag": false,
+          "decision": "in_span_acquire",
+          "D_psi": 15
+        },
+        {
+          "cycle": 1,
+          "c": [
+            0.0,
+            0.0,
+            0.5,
+            0.0
+          ],
+          "sigma1": 0.43377711907444827,
+          "sigma1_over_sigma2": 5.834880287808449,
+          "fingerprint_fired": true,
+          "persistence_count": 2,
+          "oos_flag": false,
+          "decision": "in_span_acquire",
+          "D_psi": 15
+        },
+        {
+          "cycle": 2,
+          "c": [
+            0.2,
+            0.0,
+            0.4,
+            0.0
+          ],
+          "sigma1": 0.5352552749917174,
+          "sigma1_over_sigma2": 7.197765437070982,
+          "fingerprint_fired": true,
+          "persistence_count": 3,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 15
+        },
+        {
+          "cycle": 3,
+          "c": [
+            0.0,
+            0.0,
+            0.4,
+            0.2
+          ],
+          "sigma1": 0.5605800469010027,
+          "sigma1_over_sigma2": 7.326631319759272,
+          "fingerprint_fired": true,
+          "persistence_count": 4,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 15
+        },
+        {
+          "cycle": 4,
+          "c": [
+            0.4,
+            0.0,
+            0.4,
+            0.0
+          ],
+          "sigma1": 0.6431201704609574,
+          "sigma1_over_sigma2": 8.404792366067408,
+          "fingerprint_fired": true,
+          "persistence_count": 5,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 15
+        },
+        {
+          "cycle": 5,
+          "c": [
+            0.0,
+            0.2,
+            0.4,
+            0.0
+          ],
+          "sigma1": 0.7117967978665272,
+          "sigma1_over_sigma2": 9.284501256109072,
+          "fingerprint_fired": true,
+          "persistence_count": 6,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 15
+        },
+        {
+          "cycle": 6,
+          "c": [
+            0.0,
+            0.0,
+            0.7,
+            0.0
+          ],
+          "sigma1": 0.802830865317902,
+          "sigma1_over_sigma2": 6.636298384610345,
+          "fingerprint_fired": true,
+          "persistence_count": 7,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 15
+        },
+        {
+          "cycle": 7,
+          "c": [
+            0.3,
+            0.0,
+            0.3,
+            0.0
+          ],
+          "sigma1": 0.8478772116216131,
+          "sigma1_over_sigma2": 6.170509059180458,
+          "fingerprint_fired": true,
+          "persistence_count": 8,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 15
+        },
+        {
+          "cycle": 8,
+          "c": [
+            0.0,
+            0.0,
+            0.6,
+            0.0
+          ],
+          "sigma1": 0.9207949264339655,
+          "sigma1_over_sigma2": 6.091909621578694,
+          "fingerprint_fired": true,
+          "persistence_count": 9,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 15
+        },
+        {
+          "cycle": 9,
+          "c": [
+            0.2,
+            0.0,
+            0.6,
+            0.0
+          ],
+          "sigma1": 0.9894551250218668,
+          "sigma1_over_sigma2": 6.1542197397858525,
+          "fingerprint_fired": true,
+          "persistence_count": 10,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 15
+        },
+        {
+          "cycle": 10,
+          "c": [
+            0.0,
+            0.0,
+            0.5,
+            0.3
+          ],
+          "sigma1": 1.0013831557949116,
+          "sigma1_over_sigma2": 6.083119669437437,
+          "fingerprint_fired": true,
+          "persistence_count": 11,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 15
+        },
+        {
+          "cycle": 11,
+          "c": [
+            0.3,
+            0.2,
+            0.3,
+            0.0
+          ],
+          "sigma1": 1.0351752850850962,
+          "sigma1_over_sigma2": 5.642007571134373,
+          "fingerprint_fired": true,
+          "persistence_count": 12,
+          "oos_flag": true,
+          "decision": "in_span_acquire",
+          "D_psi": 15
+        }
+      ],
+      "final_D_psi": 15,
+      "sigma1_trace": [
+        0.2785459863999231,
+        0.43377711907444827,
+        0.5352552749917174,
+        0.5605800469010027,
+        0.6431201704609574,
+        0.7117967978665272,
+        0.802830865317902,
+        0.8478772116216131,
+        0.9207949264339655,
+        0.9894551250218668,
+        1.0013831557949116,
+        1.0351752850850962
+      ],
+      "ratio_trace": [
+        Infinity,
+        5.834880287808449,
+        7.197765437070982,
+        7.326631319759272,
+        8.404792366067408,
+        9.284501256109072,
+        6.636298384610345,
+        6.170509059180458,
+        6.091909621578694,
+        6.1542197397858525,
+        6.083119669437437,
+        5.642007571134373
+      ]
+    }
+  ],
+  "gates": {
+    "arm1_extended": true,
+    "arm1_post_extension_silent": false,
+    "arm2_no_extension_persists": true,
+    "arm3_full_psi_silent": false
+  },
+  "all_pass": false,
+  "wall_seconds": 646.2062189299904
+}
