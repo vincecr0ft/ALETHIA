@@ -1,0 +1,49 @@
+🔭 OpenTelemetry Tracing Details 🔭
+|  Phoenix Project: alethia
+|  Span Processor: SimpleSpanProcessor
+|  Collector Endpoint: http://localhost:6006/v1/traces
+|  Transport: HTTP + protobuf
+|  Transport Headers: {}
+|  
+|  Using a default SpanProcessor. `add_span_processor` will overwrite this default.
+|  
+|  ⚠️ WARNING: It is strongly advised to use a BatchSpanProcessor in production environments.
+|  
+|  `register` has set this TracerProvider as the global OpenTelemetry default.
+|  To disable this behavior, call `register` with `set_global_tracer_provider=False`.
+
+{
+  "cycles_done": 400,
+  "oracle_calls": 500,
+  "loop_wall_seconds": 24.408625602722168,
+  "pretrain_wall_seconds": 1071.1600635051727,
+  "total_wall_seconds": 1096.840487241745,
+  "final_cov_68_avg_over_regions": 0.6959553816288171,
+  "final_kappa": 309395.2595808012,
+  "final_H_T": -48.96955340192695,
+  "final_context_size": 508,
+  "before_band_rmse": 293.0370221227189,
+  "after_band_rmse": 1.563408439873103,
+  "n_drift_events": 100,
+  "n_local_retrain": 99,
+  "n_recal": 0,
+  "engineered_band": [
+    0.6,
+    1.0
+  ],
+  "engineered_dim_name": "c_lq^(3)",
+  "engineered_target_c": [
+    0.0,
+    0.0,
+    0.8,
+    0.0
+  ],
+  "d_psi": 16,
+  "pretrain_steps": 1500,
+  "oracle_budget": 500,
+  "K_epig": 5,
+  "cusum_h": 6.0,
+  "bh_alpha": 0.05,
+  "kappa_threshold": 1000.0,
+  "proj_ratio_threshold": 2.5
+}
