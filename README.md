@@ -435,6 +435,42 @@ make run MESSAGE='Find a floral dress in size M'
 Open <http://localhost:6006> and pick project **alethia** — LLM and
 tool spans appear per run.
 
+## Deploy to Cloud Run
+
+The agent ships as a public web service on Google Cloud Run. The build is
+remote (Cloud Build) — **no local Docker required**.
+
+```bash
+# one-time: gcloud CLI + an authenticated project with billing
+gcloud auth login
+
+# fill .env: GOOGLE_API_KEY, and (recommended) Phoenix Cloud endpoint + key
+PROJECT_ID=<your-gcp-project> ./deploy.sh
+```
+
+`deploy.sh` enables the required APIs, builds the image from the
+[`Dockerfile`](Dockerfile) (Python + Node, so the agent can launch the
+Phoenix MCP server), and deploys a public service. It prints the URL; the
+browser chat UI is at `<url>/dev-ui/?app=alethia`.
+
+What runs in the container:
+
+- [`main.py`](main.py) serves the ADK agent via `get_fast_api_app(web=True)`
+  — both the dev chat UI (the hackathon's "runs on web" surface) and the
+  `/run_sse` JSON API.
+- The agent loads the packaged Intention FM checkpoint
+  ([`agent/alethia/assets/intention_fm.pt`](agent/alethia/assets/)) at first
+  tool call — analytic oracle only, no MadGraph/LHAPDF in the image.
+- **Agent-level Phoenix MCP** (`ALETHIA_PHOENIX_MCP=1`, set in the image):
+  the agent gets an `McpToolset` over `@arizeai/phoenix-mcp`, so it can read
+  *its own* traces and experiments to answer "how did that recovery go?".
+  This is the Arize partner-MCP integration, wired into the agent rather than
+  only the developer CLI.
+
+Tracing target is the configured Phoenix (`PHOENIX_COLLECTOR_ENDPOINT`); for
+Cloud Run, point it at Phoenix Cloud (`app.phoenix.arize.com/s/<space>` + a
+`px_live_...` key) so traces survive container restarts.
+
 Other entry points:
 
 - `make smoke` — offline check of the tool wiring and the trace
@@ -583,7 +619,14 @@ Arize track requirements addressed by the project:
   (engineered-drift demo, 400 cycles, 110× RMSE recovery) and
   `alethia-progression` (oracle refinement demo, mid-deployment
   operator activation, 150× RMSE recovery).
-- **Phoenix MCP server configured:** [`.gemini/settings.json`](.gemini/settings.json).
+- **Phoenix MCP — agent-level (partner integration):** the deployed agent
+  carries an `McpToolset` over `@arizeai/phoenix-mcp`
+  ([`agent/alethia/agent.py`](agent/alethia/agent.py), enabled by
+  `ALETHIA_PHOENIX_MCP=1`), reading its own traces/experiments. Also
+  available to the developer CLI via [`.gemini/settings.json`](.gemini/settings.json).
+- **Hosted on Cloud Run:** [`Dockerfile`](Dockerfile) + [`main.py`](main.py)
+  + [`deploy.sh`](deploy.sh) deploy a public web service (ADK dev UI + API);
+  remote Cloud Build, no local Docker.
 - **Evaluations on traces:** three physics-aware drift evaluators
   (DAS-CUSUM on standardised residuals, BH-corrected per-region
   binomial coverage, condition-number on the FM design matrix),

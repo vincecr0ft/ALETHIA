@@ -16,6 +16,7 @@ calibration set) happens at first tool invocation.
 """
 from __future__ import annotations
 
+import os
 from collections import deque
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -25,7 +26,25 @@ import numpy as np
 import torch
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_CKPT = REPO_ROOT / "experiments/full-chain-run/output/intention_fm.pt"
+
+
+def _resolve_ckpt() -> Path:
+    """Intention FM checkpoint: env override > packaged copy > repo training run.
+
+    The packaged copy (``agent/alethia/assets/intention_fm.pt``) is what ships
+    in the Cloud Run image; the repo training-run path is used in local dev
+    where the experiment regenerates it.
+    """
+    env = (os.environ.get("ALETHIA_CKPT") or "").strip()
+    if env:
+        return Path(env)
+    packaged = Path(__file__).resolve().parent / "assets" / "intention_fm.pt"
+    if packaged.exists():
+        return packaged
+    return REPO_ROOT / "experiments/full-chain-run/output/intention_fm.pt"
+
+
+DEFAULT_CKPT = _resolve_ckpt()
 
 # Configuration. The defaults match the engineered-drift scenario from
 # the end-to-end demo at docs/research/synthesis/full-chain-run.md.

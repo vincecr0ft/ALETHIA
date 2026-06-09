@@ -1,0 +1,30 @@
+# Keep the Cloud Build upload small. The image needs only modules/, agent/
+# (which carries the packaged checkpoint under alethia/assets/), main.py,
+# requirements.txt, and the Dockerfile.
+
+.git
+.github
+.venv
+__pycache__/
+*.pyc
+*.pyo
+
+# Research tree — large arrays, plots, papers; none of it is served.
+experiments/
+paper/
+docs/
+investigations/
+*.npz
+*.png
+*.pdf
+*.gif
+*.mp4
+
+# Local-only
+.env
+.env.*
+!.env.example
+*.db
+sessions.db
+node_modules/
+.DS_Store
