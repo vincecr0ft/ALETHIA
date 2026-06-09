@@ -66,9 +66,8 @@ def main():
         ax.set_ylim(0.78, 0.86)
         ax2.set_ylim(1.13, 1.15)
     fig.suptitle(
-        "Contraction beats random by 8–47σ; MLE error gets *worse* by 7–47σ — "
-        "the AL_separation §3.4 anti-tautology in action",
-        fontsize=11)
+        r"Contraction vs MLE error on $\tilde c_2$, four representative cells (15 seeds each)",
+        fontsize=10)
     fig.savefig(OUT / "contraction_vs_mle.png", dpi=130, bbox_inches="tight")
     print(f"wrote {OUT / 'contraction_vs_mle.png'}")
 

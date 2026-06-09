@@ -56,6 +56,9 @@ else:
 
 # ----- Configuration -----
 SEED = int(os.environ.get("SEED", "2026"))
+# EFT scale Lambda in GeV (default 1 TeV). T1.5 reruns the engineered-drift
+# recovery at LAMBDA_GEV=2000 so s_hat/Lambda^2 < 1 across the mass grid.
+LAMBDA_GEV = float(os.environ.get("LAMBDA_GEV", "1000.0"))
 N_WC = 4
 WITHHOLD_DIM = 2               # clq3
 WITHHOLD_BAND = (0.6, 1.0)
@@ -68,7 +71,7 @@ WITHHOLD_DIM_2 = 0             # cHq3
 WITHHOLD_BAND_2 = (0.4, 0.8)
 TARGET_C_2 = -0.5              # c_Hq^(3) value at the bimodal target
 C_TRAIN_BOX = 0.7
-M_RANGE = (0.3, 2.3)
+M_RANGE = (0.3, float(os.environ.get("M_MAX_TEV", "2.3")))
 M_REF_TEV = 1.0
 
 K_CTX = 12
@@ -164,6 +167,8 @@ OUT_BASENAME = (
     "output" + _seed_suffix if not _suffix
     else f"output_{_suffix}{_seed_suffix}"
 )
+# Explicit override (used by T1.5 to land the EFT-valid rerun in its own dir).
+OUT_BASENAME = os.environ.get("OUT_BASENAME", OUT_BASENAME)
 OUT = HERE / OUT_BASENAME
 OUT.mkdir(parents=True, exist_ok=True)
 logging.basicConfig(
@@ -930,7 +935,8 @@ def run_loop(oracle, model: IntentionFM, rng) -> dict:
 
 def main():
     rng = np.random.default_rng(SEED)
-    oracle = AnalyticSMEFTOracle(pdf="analytic", noise_frac=0.0)
+    oracle = AnalyticSMEFTOracle(
+        pdf="analytic", noise_frac=0.0, lambda_scale_gev=LAMBDA_GEV)
     t_total = time.time()
 
     model, pretrain_wall, pretrain_losses = pretrain_intention(oracle, rng)
@@ -1001,6 +1007,8 @@ def main():
         cusum_h=CUSUM_H, bh_alpha=BH_ALPHA,
         kappa_threshold=KAPPA_THRESHOLD,
         proj_ratio_threshold=PROJ_RATIO_THRESHOLD,
+        lambda_gev=LAMBDA_GEV,
+        m_range_tev=list(M_RANGE),
     )
     with open(OUT / "summary.json", "w") as f:
         json.dump(summary, f, indent=2, default=str)

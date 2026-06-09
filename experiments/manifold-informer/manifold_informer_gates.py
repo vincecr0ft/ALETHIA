@@ -147,13 +147,13 @@ def gate_P2(model, oracle, rng) -> dict:
     # Plot.
     fig, ax = plt.subplots(figsize=(5, 5), constrained_layout=True)
     colours = {"SM_like": "C0", "four_ferm": "C3", "vertex": "C2"}
+    pretty = {"SM_like": "SM-like", "four_ferm": "four-fermion",
+              "vertex": "vertex"}
     for name in regimes:
         mask = np.array(labels) == name
         ax.scatter(Z[mask, 0], Z[mask, 1], c=colours[name], alpha=0.7,
-                    label=name, s=40, edgecolors="k", lw=0.4)
-    ax.set_xlabel("PC1"); ax.set_ylabel("PC2")
-    ax.set_title(f"P2 — PCA(w_θ) by regime\n"
-                  f"sep ratio = {separation_ratio:.2f}")
+                    label=pretty[name], s=40, edgecolors="k", lw=0.4)
+    ax.set_xlabel(r"PC1 of $w_\theta$"); ax.set_ylabel(r"PC2 of $w_\theta$")
     ax.legend(fontsize=9); ax.grid(alpha=0.3)
     fig.savefig(OUT_DIR / "P2_regime_separation.png", dpi=140,
                 bbox_inches="tight")
@@ -290,7 +290,9 @@ def gate_P3_P4(model, oracle, rng) -> dict:
             "P4_r2": p4_r2, "P4_pass": bool(p4_pass),
             "tangents_pred": tangents_pred.tolist(),
             "A_scalar": A_scalar.tolist(),
-            "B_ref_scalar": B_ref_scalar.tolist()}
+            "A_pred": A_pred.tolist(),
+            "B_ref_flat": B_ref_flat.tolist(),
+            "B_pred": B_pred.tolist()}
 
 
 # ---------------------------------------------------------------------------

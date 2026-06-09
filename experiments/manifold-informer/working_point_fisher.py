@@ -184,6 +184,30 @@ def sm_mu_at(oracle, m_grid: np.ndarray) -> np.ndarray:
     return oracle.truth(np.zeros((K, N_WC)), m_grid)
 
 
+def curvature_acquisition_score(oracle, c_cand: np.ndarray,
+                                 m_grid: np.ndarray,
+                                 v_target: np.ndarray) -> float:
+    """§1.4 working-point curvature acquisition score.
+
+    The expected Fisher energy that simulating events at the candidate
+    working point ``c_cand`` adds to the currently under-resolved direction
+    ``v_target`` (the next singular direction of the residual operator R,
+    here the c=0 prior-floored vertex eigenvector). The score is the
+    Rayleigh quotient of the working-point Fisher along that direction,
+
+        score(c_cand) = v_target^T F(c_cand) v_target ,   ||v_target|| = 1,
+
+    which is the curvature the candidate contributes to the floored
+    direction. A greedy rule that ranks a candidate pool by this score
+    selects the off-SM working points that lift the prior-floored
+    direction, with no manual sweep.
+    """
+    F = working_point_fisher(oracle, np.asarray(c_cand, dtype=float), m_grid)
+    v = np.asarray(v_target, dtype=float)
+    v = v / (np.linalg.norm(v) + 1e-30)
+    return float(v @ F @ v)
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -348,6 +372,61 @@ def main():
     print(f"  Joint           : λ_tracked at c=1.0 = {joint_tracked[-1]:.3e} "
           f"({joint_tracked[-1] / bcrb_thresh:.1e} × threshold)")
 
+    # --- §1.4 curvature acquisition: autonomous selection of lifting points ---
+    # The acquisition score on a candidate working point is the Fisher energy
+    # it adds to the currently under-resolved direction v0_min (the c=0 vertex
+    # direction). A greedy rule ranking a candidate pool by this score should
+    # select the off-SM four-fermion working points that lift the prior-floored
+    # direction, with no manual sweep. This is the executable AL2 selection rule.
+    print("\n## §1.4 Working-point curvature acquisition (autonomous selection)")
+    rng = np.random.default_rng(2026)
+    N_CAND = 200
+    C_pool = rng.uniform(-1.0, 1.0, size=(N_CAND, N_WC))      # EFT-valid box
+    acq_scores = np.array([
+        curvature_acquisition_score(oracle, c, m_grid, v0_min) for c in C_pool])
+    order = np.argsort(acq_scores)[::-1]
+    topk = order[:10]
+    rand_sel = rng.choice(N_CAND, size=10, replace=False)
+    score_sel_energy = float(np.mean(acq_scores[topk]))
+    rand_sel_energy = float(np.mean(acq_scores[rand_sel]))
+    sel_gain = float(score_sel_energy / max(rand_sel_energy, 1e-30))
+    # Does the rule autonomously pick the four-fermion (lifting) axis?
+    ff_mag = np.sqrt(C_pool[:, CLQ3_DIM] ** 2 + C_pool[:, CLQ1_DIM] ** 2)
+    pearson_score_ff = float(np.corrcoef(acq_scores, ff_mag)[0, 1])
+    clq3_top = float(np.mean(np.abs(C_pool[topk, CLQ3_DIM])))
+    clq3_rand = float(np.mean(np.abs(C_pool[rand_sel, CLQ3_DIM])))
+    clq3_pool = float(np.mean(np.abs(C_pool[:, CLQ3_DIM])))
+    # Achieved lift: tracked vertex eigenvalue at the top-scored working point
+    # vs the median-scored one, vs c=0.
+    def tracked_eig_at(c_wp):
+        F = working_point_fisher(oracle, c_wp, m_grid)
+        lam, V = fisher_eigen(F)
+        return float(lam[int(np.argmax(np.abs(V.T @ v0_min)))])
+    eig_top = tracked_eig_at(C_pool[topk[0]])
+    eig_median = tracked_eig_at(C_pool[order[N_CAND // 2]])
+    eig_c0 = float(tracked_eigvals[0])
+    print(f"  candidate pool: {N_CAND} working points, |c_i|<=1")
+    print(f"  top-10 mean Fisher energy on v0_min : {score_sel_energy:.4e}")
+    print(f"  random-10 mean Fisher energy on v0_min: {rand_sel_energy:.4e}")
+    print(f"  selection gain (score/random): {sel_gain:.1f}x")
+    print(f"  Pearson(score, four-fermion magnitude) = {pearson_score_ff:.3f}")
+    print(f"  mean |c_lq3|: selected={clq3_top:.3f} random={clq3_rand:.3f} pool={clq3_pool:.3f}")
+    print(f"  tracked vertex eig: c=0 {eig_c0:.3e} | median-score {eig_median:.3e} | "
+          f"top-score {eig_top:.3e}  (top/c0 = {eig_top/max(eig_c0,1e-30):.1f}x)")
+    acq = {
+        "n_candidates": N_CAND,
+        "selection_gain_score_over_random": sel_gain,
+        "score_sel_mean_energy": score_sel_energy,
+        "random_sel_mean_energy": rand_sel_energy,
+        "pearson_score_fourfermion_magnitude": pearson_score_ff,
+        "mean_abs_clq3_selected": clq3_top,
+        "mean_abs_clq3_random": clq3_rand,
+        "mean_abs_clq3_pool": clq3_pool,
+        "tracked_vertex_eig_c0": eig_c0,
+        "tracked_vertex_eig_median_score": eig_median,
+        "tracked_vertex_eig_top_score": eig_top,
+    }
+
     # --- save ---
     np.savez(
         OUT_DIR / "fisher_sweep.npz",
@@ -377,6 +456,7 @@ def main():
         "joint_tracked_eigvals": joint_tracked.tolist(),
         "joint_final_lift": joint_final_lift,
         "bcrb_threshold_sigma_prior_0.4": bcrb_thresh,
+        "curvature_acquisition": acq,
     }
     with open(OUT_DIR / "summary.json", "w") as f:
         json.dump(summary, f, indent=2)

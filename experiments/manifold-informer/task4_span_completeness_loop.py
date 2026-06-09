@@ -67,7 +67,7 @@ from modules.surrogate.features import N_WC
 # ---------------------------------------------------------------------------
 N_PROBE_EVENTS = 4000
 SIGMA_FLOOR = 1e-3
-RATIO_THRESHOLD = 5.0
+RATIO_THRESHOLD = 10.0
 PERSISTENCE_N = 3            # require fingerprint fires in N consecutive cycles
 SEED = 7777
 
